@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://nodes/Werewolf.tscn" type="PackedScene" id=1]
+
+[node name="Main" type="Node2D"]
+
+[node name="Werewolf" parent="." instance=ExtResource( 1 )]
+position = Vector2( 437.958, 252.958 )
