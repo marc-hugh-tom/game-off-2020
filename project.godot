@@ -16,7 +16,7 @@ _global_script_class_icons={
 [application]
 
 config/name="game-off-2020"
-run/main_scene="res://nodes/Main.tscn"
+run/main_scene="res://nodes/PlayState.tscn"
 config/icon="res://icon.png"
 
 [input]

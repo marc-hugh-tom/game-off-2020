@@ -11,7 +11,7 @@ func _ready():
 
 func _input(event):
 	if event is InputEventMouseMotion:
-		facing = event.position
+		facing = event.position / get_global_scale()
 	if event.is_action_pressed("attack"):
 		attack()
 
@@ -37,3 +37,6 @@ func _physics_process(delta):
 func attack():
 	$Body.play("attack")
 	$Body.connect("animation_finished", $Body, "play", ["default"], CONNECT_ONESHOT)
+
+func set_speed(new_speed):
+	speed = new_speed
