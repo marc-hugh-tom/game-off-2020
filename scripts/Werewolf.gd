@@ -10,8 +10,6 @@ func _ready():
 	pass # Replace with function body.
 
 func _input(event):
-	if event is InputEventMouseMotion:
-		facing = event.position / get_global_scale()
 	if event.is_action_pressed("attack"):
 		attack()
 
@@ -40,3 +38,6 @@ func attack():
 
 func set_speed(new_speed):
 	speed = new_speed
+
+func set_facing(new_facing):
+	facing = new_facing

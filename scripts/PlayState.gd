@@ -10,8 +10,14 @@ func _ready():
 	pass # Replace with function body.
 
 func _process(delta):
+	center_screen()
 	update_map_scale()
 	update_player_speed()
+
+func center_screen():
+	var viewport_rect = get_viewport_rect()
+	$Map.set_position(-($Map/Werewolf.get_position()*$Map.get_scale()) +
+		viewport_rect.size/2)
 
 func update_map_scale():
 	var fraction = $HUD/Clock.get_day_night_fraction()
