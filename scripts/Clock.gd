@@ -1,6 +1,6 @@
 extends Node2D
 
-var game_seconds_in_an_hour = 1.0
+var game_seconds_in_an_hour = 6.0
 var dawn = 6.0
 var dusk = 18.0
 
