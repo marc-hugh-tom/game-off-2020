@@ -21,7 +21,7 @@ class Triangle:
 		self._b = b
 		self._c = c
 		self._area = self._calculate_area()
-	
+
 	# https://www.mathopenref.com/coordtrianglearea.html
 	func _calculate_area():
 		var a = self._a

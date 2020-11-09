@@ -14,7 +14,7 @@ export(float) var max_desire = 10.0
 # a value to add to the desire when entering behaviour
 export(float) var behaviour_begin_increment = 0.0
 
-# godot is not happy with eport the tween enum directly
+# godot is not happy with exporting the tween enum directly
 # so we have to redeclare it here
 # https://github.com/godotengine/godot/issues/19704
 # tweening cheat sheet
@@ -27,7 +27,7 @@ enum Ease {
 }
 export(Ease) var ease_type = Ease.EASE_IN_OUT
 
-# godot is not happy with eport the tween enum directly
+# godot is not happy with exporting the tween enum directly
 # so we have to redeclare it here
 # https://github.com/godotengine/godot/issues/19704
 # tweening cheat sheet
