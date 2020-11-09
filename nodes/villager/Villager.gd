@@ -36,11 +36,10 @@ func get_speed():
 	return 100
 
 func _next_state():
-	# iterate over the children states & check their desire
-	# the state with the highest desire should be carried out
-	
 	# TODO: some sort of debouncing here?
 
+	# get the children and sort by desire descending
+	# the first child should have the highest desire
 	var children = get_children()
 	children.sort_custom(DesireSorter, "sort")
 	_enter_state(children[0])
@@ -73,6 +72,7 @@ func _create_debug_labels():
 	
 func _create_next_state_timer():
 	# create a timer that calls next state once per second
+	# this is how a villager will decide to do a different behaviour
 	# todo: consider making the timeout configuarable for different
 	# villager behaviours
 	var timer = Timer.new()

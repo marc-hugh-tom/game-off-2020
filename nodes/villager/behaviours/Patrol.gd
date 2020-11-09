@@ -64,6 +64,11 @@ func on_enter():
 	.on_enter()
 	new_move_target()
 	
+func new_move_target():
+	var new = new_target()	
+	move_target = new
+	previous_slide_vec = Vector2(0, 0)
+
 func new_target():
 	var t =_random_triangle()
 	
@@ -90,11 +95,6 @@ func _random_triangle():
 		if r <= 0.0:
 			return triangle
 	return triangles[-1]
-
-func new_move_target():
-	var new = new_target()	
-	move_target = new
-	previous_slide_vec = Vector2(0, 0)
 
 func physics_process(delta):
 	var direction: Vector2 = move_target - villager.position
