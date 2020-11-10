@@ -3,8 +3,8 @@
 [ext_resource path="res://nodes/Werewolf.tscn" type="PackedScene" id=1]
 [ext_resource path="res://assets/sprites/building.png" type="Texture" id=2]
 [ext_resource path="res://nodes/villager/Villager.tscn" type="PackedScene" id=3]
-[ext_resource path="res://nodes/villager/behaviours/Idle.tscn" type="PackedScene" id=4]
-[ext_resource path="res://nodes/villager/behaviours/Patrol.tscn" type="PackedScene" id=6]
+[ext_resource path="res://nodes/villager/actions/Idle.tscn" type="PackedScene" id=4]
+[ext_resource path="res://nodes/villager/actions/Patrol.tscn" type="PackedScene" id=6]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 127.826, 96.2069 )
@@ -37,14 +37,8 @@ position = Vector2( 503.012, 264.272 )
 position = Vector2( 279.243, 353.413 )
 
 [node name="Idle" parent="Villager" instance=ExtResource( 4 )]
-max_desire = 5.0
 
 [node name="Patrol" parent="Villager" instance=ExtResource( 6 )]
-behaviour_begin_increment = 40.0
-tween_out_duration = 10.0
+max_desire = 20.0
+tween_out_duration = 20.0
 polygon_path = NodePath("../../PatrolArea1")
-
-[node name="Patrol2" parent="Villager" instance=ExtResource( 6 )]
-behaviour_begin_increment = 50.0
-tween_out_duration = 10.0
-polygon_path = NodePath("../../PatrolArea2")

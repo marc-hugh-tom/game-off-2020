@@ -1,4 +1,4 @@
-extends "res://nodes/villager/Behaviour.gd"
+extends "res://nodes/villager/actions/Action.gd"
 
 var target = null
 

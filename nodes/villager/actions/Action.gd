@@ -2,7 +2,7 @@ extends Node
 
 var villager: Villager
 
-# what the initial desire of this behaviour should be
+# what the initial desire of this action should be
 export(float) var starting_desire = 0.0
 
 # how low the desire can go
@@ -11,8 +11,8 @@ export(float) var min_desire = 0.0
 # how high the desire can go
 export(float) var max_desire = 10.0
 
-# a value to add to the desire when entering behaviour
-export(float) var behaviour_begin_increment = 0.0
+# a value to add to the desire when entering action
+export(float) var action_begin_increment = 0.0
 
 # godot is not happy with exporting the tween enum directly
 # so we have to redeclare it here
@@ -55,7 +55,7 @@ var desire = starting_desire
 var tween = Tween.new()
 
 func get_label():
-	return "base behaviour"
+	return "base action"
 
 func _ready():
 	add_child(tween)
@@ -64,7 +64,7 @@ func _ready():
 func on_enter():
 	#print("on_enter interpolating %s from %f to %f" % \
 	#	[self.get_label(), desire, min_desire])
-	desire += behaviour_begin_increment
+	desire += action_begin_increment
 	
 	tween.remove(self, "desire")
 	tween.interpolate_property(self, "desire",
