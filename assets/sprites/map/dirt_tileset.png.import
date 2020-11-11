@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/paths.png-603e582fde577dfbe20707e867b6dee5.stex"
+path="res://.import/dirt_tileset.png-9e3973b55a6a93f26ee900e16b071597.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprites/map/paths.png"
-dest_files=[ "res://.import/paths.png-603e582fde577dfbe20707e867b6dee5.stex" ]
+source_file="res://assets/sprites/map/dirt_tileset.png"
+dest_files=[ "res://.import/dirt_tileset.png-9e3973b55a6a93f26ee900e16b071597.stex" ]
 
 [params]
 

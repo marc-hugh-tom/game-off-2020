@@ -1,7 +1,7 @@
 extends Node2D
 
-var map_scale_noon = 2
-var map_scale_midnight = 0.5
+var map_scale_noon = 3
+var map_scale_midnight = 1
 
 var player_speed_noon = 100
 var player_speed_midnight = 400
