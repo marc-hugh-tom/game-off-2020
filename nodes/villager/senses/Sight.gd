@@ -6,16 +6,12 @@ export(float) var sight_distance = 250.0
 
 onready var werewolf = get_node(werewolf_path)
 
-var ray = RayCast2D.new()
+onready var ray = get_node("Ray")
 
 func _get_configuration_warning():
 	if get_node(werewolf_path) == null:
 		return "could not find werewolf node, make sure werewolf_path is set"
 	return ""
-
-func _ready():
-	add_child(ray)
-	ray.enabled = true
 
 func _process(delta):
 	if werewolf == null or villager == null:

@@ -29,8 +29,8 @@ func should_deactivate():
 	if villager == null:
 		return false
 
-	var fatigue = villager.get_emotion_intensity(Villager.Emotion.FEAR)
-	return fatigue <= 0.0
+	var fear = villager.get_emotion_intensity(Villager.Emotion.FEAR)
+	return fear <= 0.0
 
 func get_priority():
 	return 100
