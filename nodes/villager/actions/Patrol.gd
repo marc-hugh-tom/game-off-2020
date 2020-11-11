@@ -104,7 +104,7 @@ func _random_triangle():
 
 func physics_process(delta):
 	var direction: Vector2 = move_target - villager.position
-	var velocity: Vector2 = direction.normalized() * villager.get_speed()
+	var velocity: Vector2 = direction.normalized() * get_speed()
 	var slide_vec: Vector2 = villager.move_and_slide(velocity)
 	
 	if _compare(slide_vec.angle_to(previous_slide_vec), PI):
@@ -130,3 +130,68 @@ func should_deactivate():
 
 func process(delta):
 	villager.amend_emotion(Villager.Emotion.FATIGUE, delta)
+
+func get_speed():
+	if is_inside_patrol_area():
+		return villager.get_walk_speed()
+	else:
+		return villager.get_run_speed()
+
+func is_inside_patrol_area():
+	# https://www.geeksforgeeks.org/how-to-check-if-a-given-point-lies-inside-a-polygon/
+	# villager should run back to the patrol area if they are outside of it
+	# they may be outside if they have run away from the werewolf
+	var points = polygon.polygon
+	var num_points = len(points)
+	var count = 0
+	var extreme = Vector2(999999, villager.position.y)
+	var p = villager.position
+	for i in range(num_points):
+		var next = (i + 1) % num_points
+		if do_intersect(points[i], points[next], p, extreme):
+			if orientation(points[i], p, points[next]) == 0:
+				return on_segment(points[i], p, points[next])
+			count += 1
+
+	return count % 2 == 1
+
+func do_intersect(p1, q1, p2, q2):
+	# Find the four orientations needed for general and
+	# special cases
+	var o1 = orientation(p1, q1, p2)
+	var o2 = orientation(p1, q1, q2)
+	var o3 = orientation(p2, q2, p1)
+	var o4 = orientation(p2, q2, q1)
+
+	# General case
+	if o1 != o2 && o3 != o4:
+		return true
+
+	# p1, q1 and p2 are colinear and p2 lies on segment p1q1
+	if (o1 == 0 && on_segment(p1, p2, q1)): return true
+
+	# p1, q1 and p2 are colinear and q2 lies on segment p1q1
+	if (o2 == 0 && on_segment(p1, q2, q1)): return true
+
+	# p2, q2 and p1 are colinear and p1 lies on segment p2q2
+	if (o3 == 0 && on_segment(p2, p1, q2)): return true
+
+	# p2, q2 and q1 are colinear and q1 lies on segment p2q2
+	if (o4 == 0 && on_segment(p2, q1, q2)): return true
+
+	return false
+
+func orientation(p, q, r):
+	var val = (q.y - p.y) * (r.x - q.x) - \
+			  (q.x - p.x) * (r.y - q.y)
+
+	if val == 0:
+		return 0
+	elif val > 0:
+		return 1
+	else:
+		return 2
+
+func on_segment(p, q, r):
+	return (q.x <= max(p.x, r.x) && q.x >= min(p.x, r.x) && \
+			q.y <= max(p.y, r.y) && q.y >= min(p.y, r.y))

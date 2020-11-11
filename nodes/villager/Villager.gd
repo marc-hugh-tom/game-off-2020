@@ -10,6 +10,9 @@ class_name Villager
 
 onready var idle = get_node("Idle")
 
+export(float) var walk_speed = 50.0
+export(float) var run_speed = 150.0
+
 # https://dfaction.net/godot-editor-tips-custom-configuration-warnings/
 func _get_configuration_warning() -> String:
 	if get_node("Idle") == null:
@@ -56,9 +59,11 @@ func clamp_emotion(emotion):
 	# what should be max here?
 	emotion_intensity[emotion] = clamp(intensity, 0, 10)
 
-func get_speed():
-	# TODO: consider parameterising this
-	return 100
+func get_walk_speed():
+	return walk_speed
+
+func get_run_speed():
+	return run_speed
 
 func priority_sort(a, b):
 	return a.get_priority() > b.get_priority()
