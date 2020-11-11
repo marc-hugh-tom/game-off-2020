@@ -1,7 +1,20 @@
+tool
+
 # lots of inspiration from https://gdscript.com/godot-state-machine
 extends KinematicBody2D
 
+var ActionBase = preload("res://nodes/villager/actions/ActionBase.gd")
+var SenseBase = preload("res://nodes/villager/senses/SenseBase.gd")
+
 class_name Villager
+
+onready var idle = get_node("Idle")
+
+# https://dfaction.net/godot-editor-tips-custom-configuration-warnings/
+func _get_configuration_warning() -> String:
+	if get_node("Idle") == null:
+		return "Villager must have an idle action"
+	return ""
 
 # debug mode
 # TODO: move somewhere global
@@ -10,74 +23,127 @@ var DEBUG = true
 # the current action in the villager's FSM
 var current_action
 
-# holds a dict of Node -> label for debugging the villager's
-# action & desires
+# holds a dict of Emotion -> label for debugging the villager's emotions
+var emotion_labels = {}
+
+# holds a dict of Node -> label for debugging the villager's emotions
 var action_labels = {}
 
-class DesireSorter:
-	static func sort(a, b):
-		# Bubble non-action children to the back of the list
-		if !is_action(a):
-			return false
-		if !is_action(b):
-			return true
-		
-		# Child behaviour with the highest desire should be at the beggining
-		# of the list
-		if a.get_desire() > b.get_desire():
-			return true
-		return false
-		
-	static func is_action(node):
-		return node.has_method("get_desire")
+# emotions used to alter behaviours
+enum Emotion {
+	FEAR = 0
+	FATIGUE = 1
+}
+
+# a map of emotion to intensity
+var emotion_intensity = {
+	Emotion.FEAR: 0,
+	Emotion.FATIGUE: 0,
+}
+
+func get_emotion_intensity(emotion):
+	return emotion_intensity[emotion]
+
+func amend_emotion(emotion, val):
+	set_emotion(emotion, emotion_intensity[emotion] + val)
+
+func set_emotion(emotion, val):
+	emotion_intensity[emotion] = val
+	clamp_emotion(emotion)
+
+func clamp_emotion(emotion):
+	var intensity = emotion_intensity[emotion]
+	# what should be max here?
+	emotion_intensity[emotion] = clamp(intensity, 0, 10)
 
 func get_speed():
 	# TODO: consider parameterising this
 	return 100
 
-func _next_action():
-	# TODO: some sort of debouncing here?
+func priority_sort(a, b):
+	return a.get_priority() > b.get_priority()
 
-	# get the children and sort by desire descending
-	# the first child should have the highest desire
-	var children = _get_action_children()
-	children.sort_custom(DesireSorter, "sort")
-	_enter_action(children[0])
+func _update_actions():
+	for action in _get_should_deactivate_action_children():
+		_exit_action(action)
+
+	var children = _get_should_activate_action_children()
+	children.sort_custom(self, "priority_sort")
+	if len(children) > 0:
+		_enter_action(children[0])
+	elif current_action == null:
+		_enter_action(idle)
 
 func _get_action_children():
-	var children = get_children()
 	var actions = []
-	for child in children:
-		if child.has_method("get_desire"):
+	for child in get_children():
+		if child is ActionBase:
 			actions.append(child)
 	return actions
 
+func _get_sense_children():
+	var senses = []
+	for child in get_children():
+		if child is SenseBase:
+			senses.append(child)
+	return senses
+
+func _get_should_activate_action_children():
+	var actions = _get_action_children()
+	var ret = []
+	for action in actions:
+		if action.should_activate():
+			ret.append(action) 
+	return ret
+
+func _get_should_deactivate_action_children():
+	var actions = _get_action_children()
+	var ret = []
+	for action in actions:
+		if action.should_deactivate():
+			ret.append(action) 
+	return ret
+
 func _ready():
+	for action in _get_action_children():
+		action.villager = self
+	for sense in _get_sense_children():
+		sense.villager = self
+	
 	_create_debug_labels()
-	_next_action()
+	_update_actions()
 	_create_next_action_timer()
 	
 func _create_debug_labels():
 	if DEBUG:
-		var actions = _get_action_children()
-		for i in range(len(actions)):
-			var child = actions[i]
+		var spacing = 20
+		var i = 0
+		for emotion in Emotion:
 			var label = Label.new()
-			label.text = "%s %f" % \
-				[child.get_label(), child.get_desire()]
-			label.set_position(Vector2(0, -20 * i))
+			label.set_position(Vector2(0, -spacing + (-spacing * i)))
 			label.add_color_override("font_color", Color.red)
 			add_child(label)
-			action_labels[child] = label
-	
+			emotion_labels[emotion] = label
+			i += 1
+			
+		for action in _get_action_children():
+			var label = Label.new()
+			label.set_position(
+				Vector2(0, (-spacing * (Emotion.size())) + (-20 * i))
+			)
+			label.add_color_override("font_color", Color.red)
+			add_child(label)
+			action_labels[action] = label
+			i += 1
+
 func _create_next_action_timer():
 	# create a timer that calls next action once per second
 	# this is how a villager will decide to do a different action
 	# todo: consider making the timeout configuarable for different
 	# villager actions
 	var timer = Timer.new()
-	timer.connect("timeout", self, "_next_action")
-	timer.set_wait_time(1.0)
+	timer.connect("timeout", self, "_update_actions")
+	timer.set_wait_time(0.1)
 	timer.set_one_shot(false)
 	add_child(timer)
 	timer.start()
@@ -86,21 +152,35 @@ func _enter_action(next_action):
 	var is_new_action = next_action != current_action
 	if is_new_action:
 		if current_action != null:
-			current_action.on_exit()
-		
-		next_action.villager = self
+			_exit_action(current_action)
 		current_action = next_action
 		current_action.on_enter()
 
+func _exit_action(action):
+	action.on_exit()
+	if current_action == action:
+		current_action = null
+
 func _physics_process(delta):
-	if current_action.has_method("physics_process"):
+	if current_action != null and current_action.has_method("physics_process"):
 		current_action.physics_process(delta)
 
+func _process(delta):
+	if current_action != null and current_action.has_method("process"):
+		current_action.process(delta)
+	_update_debug_labels()
+
+func _update_debug_labels():
 	if DEBUG:
-		for child in _get_action_children():
-			var format = "    %s %f"
-			if child == current_action:
-				format = "*** %s %f"
-				
-			action_labels[child].text = format % \
-				[child.get_label(), child.get_desire()]
+		for emotion in Emotion:
+			var intensity = emotion_intensity[Emotion[emotion]]
+			if emotion_labels.has(emotion):
+				emotion_labels[emotion].text = "%s %f" % [emotion, intensity]
+
+		for action in _get_action_children():
+			var format = " %s"
+			if action == current_action:
+				format = "*%s"
+
+			if action_labels.has(action):
+				action_labels[action].text = format % action.get_label()

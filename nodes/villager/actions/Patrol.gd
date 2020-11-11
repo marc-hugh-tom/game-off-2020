@@ -1,3 +1,4 @@
+tool
 extends "res://nodes/villager/actions/Action.gd"
 
 var target = null
@@ -7,6 +8,11 @@ onready var polygon: Polygon2D = get_node(polygon_path)
 
 var move_target: Vector2 = Vector2(0, 0)
 var previous_slide_vec: Vector2 = Vector2(0, 0)
+
+func _get_configuration_warning():
+	if get_node(polygon_path) == null:
+		return "could not find patrol node, make sure patrol_node is set"
+	return ""
 
 # Holds the triangles for the polygon above, used to calculate
 # a destination for the villager to move to when patrolling
@@ -109,3 +115,14 @@ func physics_process(delta):
 # https://godotengine.org/qa/16522/problem-comparing-floats
 func _compare(a, b, epsilon = 0.01):
 	return abs(a - b) <= epsilon
+
+func should_activate():
+	var fatigue = villager.get_emotion_intensity(Villager.Emotion.FATIGUE)
+	return fatigue < 1.0
+
+func should_deactivate():
+	var fatigue = villager.get_emotion_intensity(Villager.Emotion.FATIGUE)
+	return fatigue > 9.0
+
+func process(delta):
+	villager.amend_emotion(Villager.Emotion.FATIGUE, delta)
