@@ -18,7 +18,7 @@ func _ready():
 	ray.enabled = true
 
 func _process(delta):
-	if werewolf == null:
+	if werewolf == null or villager == null:
 		return
 	
 	ray.cast_to = werewolf.position - self.get_parent().position

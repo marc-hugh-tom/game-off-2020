@@ -32,6 +32,18 @@ polygon = PoolVector2Array( 339, 389, 231, 424, 161, 333, 286, 298, 346, 326 )
 visible = false
 polygon = PoolVector2Array( 216, 490, 156, 520, 254, 580, 324, 518 )
 
+[node name="PatrolArea3" type="Polygon2D" parent="."]
+visible = false
+polygon = PoolVector2Array( 892, 115, 980, 139, 937, 195, 846, 259, 800, 180 )
+
+[node name="PatrolArea4" type="Polygon2D" parent="."]
+visible = false
+polygon = PoolVector2Array( 726, 527, 875, 573, 971, 491, 729, 468 )
+
+[node name="PatrolArea5" type="Polygon2D" parent="."]
+visible = false
+polygon = PoolVector2Array( 784, 174, 1013, 292, 1011, 414, 801, 468, 935, 352, 788, 225 )
+
 [node name="Werewolf" parent="." instance=ExtResource( 1 )]
 position = Vector2( 503.012, 264.272 )
 
@@ -61,4 +73,46 @@ polygon_path = NodePath("../../PatrolArea2")
 werewolf_path = NodePath("../../Werewolf")
 
 [node name="Sight" parent="Villager2" instance=ExtResource( 7 )]
+werewolf_path = NodePath("../../Werewolf")
+
+[node name="Villager3" parent="." instance=ExtResource( 3 )]
+position = Vector2( 895, 172 )
+
+[node name="Idle" parent="Villager3" instance=ExtResource( 4 )]
+
+[node name="Patrol" parent="Villager3" instance=ExtResource( 6 )]
+polygon_path = NodePath("../../PatrolArea3")
+
+[node name="Flee" parent="Villager3" instance=ExtResource( 5 )]
+werewolf_path = NodePath("../../Werewolf")
+
+[node name="Sight" parent="Villager3" instance=ExtResource( 7 )]
+werewolf_path = NodePath("../../Werewolf")
+
+[node name="Villager4" parent="." instance=ExtResource( 3 )]
+position = Vector2( 869, 518 )
+
+[node name="Idle" parent="Villager4" instance=ExtResource( 4 )]
+
+[node name="Patrol" parent="Villager4" instance=ExtResource( 6 )]
+polygon_path = NodePath("../../PatrolArea4")
+
+[node name="Flee" parent="Villager4" instance=ExtResource( 5 )]
+werewolf_path = NodePath("../../Werewolf")
+
+[node name="Sight" parent="Villager4" instance=ExtResource( 7 )]
+werewolf_path = NodePath("../../Werewolf")
+
+[node name="Villager5" parent="." instance=ExtResource( 3 )]
+position = Vector2( 956, 332 )
+
+[node name="Idle" parent="Villager5" instance=ExtResource( 4 )]
+
+[node name="Patrol" parent="Villager5" instance=ExtResource( 6 )]
+polygon_path = NodePath("../../PatrolArea5")
+
+[node name="Flee" parent="Villager5" instance=ExtResource( 5 )]
+werewolf_path = NodePath("../../Werewolf")
+
+[node name="Sight" parent="Villager5" instance=ExtResource( 7 )]
 werewolf_path = NodePath("../../Werewolf")

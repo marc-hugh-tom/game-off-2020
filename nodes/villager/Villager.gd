@@ -21,7 +21,7 @@ func _get_configuration_warning() -> String:
 
 # debug mode
 # TODO: move somewhere global
-var DEBUG = true
+var DEBUG = false
 
 # the current action in the villager's FSM
 var current_action
