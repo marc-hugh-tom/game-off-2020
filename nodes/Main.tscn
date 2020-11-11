@@ -25,9 +25,11 @@ texture = ExtResource( 2 )
 shape = SubResource( 1 )
 
 [node name="PatrolArea1" type="Polygon2D" parent="."]
+visible = false
 polygon = PoolVector2Array( 339, 389, 231, 424, 161, 333, 286, 298, 346, 326 )
 
 [node name="PatrolArea2" type="Polygon2D" parent="."]
+visible = false
 polygon = PoolVector2Array( 216, 490, 156, 520, 254, 580, 324, 518 )
 
 [node name="Werewolf" parent="." instance=ExtResource( 1 )]
