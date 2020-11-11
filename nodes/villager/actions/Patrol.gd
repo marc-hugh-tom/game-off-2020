@@ -117,10 +117,14 @@ func _compare(a, b, epsilon = 0.01):
 	return abs(a - b) <= epsilon
 
 func should_activate():
+	if villager == null:
+		return false
 	var fatigue = villager.get_emotion_intensity(Villager.Emotion.FATIGUE)
 	return fatigue < 1.0
 
 func should_deactivate():
+	if villager == null:
+		return false
 	var fatigue = villager.get_emotion_intensity(Villager.Emotion.FATIGUE)
 	return fatigue > 9.0
 

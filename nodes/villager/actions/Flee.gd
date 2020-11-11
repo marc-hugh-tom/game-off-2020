@@ -19,10 +19,16 @@ func process(delta):
 	villager.move_and_slide(away_from_werewolf)
 	
 func should_activate():
+	if villager == null:
+		return false
+
 	var fear = villager.get_emotion_intensity(Villager.Emotion.FEAR)
 	return fear > 0.0
 
 func should_deactivate():
+	if villager == null:
+		return false
+
 	var fatigue = villager.get_emotion_intensity(Villager.Emotion.FEAR)
 	return fatigue <= 0.0
 

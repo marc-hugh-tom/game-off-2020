@@ -92,7 +92,7 @@ func _get_should_activate_action_children():
 	var actions = _get_action_children()
 	var ret = []
 	for action in actions:
-		if action.should_activate():
+		if action.has_method("should_deactivate") and action.should_activate():
 			ret.append(action) 
 	return ret
 
@@ -100,7 +100,7 @@ func _get_should_deactivate_action_children():
 	var actions = _get_action_children()
 	var ret = []
 	for action in actions:
-		if action.should_deactivate():
+		if action.has_method("should_deactivate") and action.should_deactivate():
 			ret.append(action) 
 	return ret
 
