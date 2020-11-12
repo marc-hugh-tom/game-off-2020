@@ -8,6 +8,7 @@ onready var polygon: Polygon2D = get_node(polygon_path)
 
 var move_target: Vector2 = Vector2(0, 0)
 var previous_slide_vec: Vector2 = Vector2(0, 0)
+var speed = 0
 
 func _get_configuration_warning():
 	if get_node(polygon_path) == null:
@@ -71,9 +72,9 @@ func on_enter():
 	new_move_target()
 	
 func new_move_target():
-	var new = new_target()	
-	move_target = new
+	move_target = new_target()	
 	previous_slide_vec = Vector2(0, 0)
+	speed = get_new_speed()
 
 func new_target():
 	var t =_random_triangle()
@@ -104,7 +105,7 @@ func _random_triangle():
 
 func physics_process(delta):
 	var direction: Vector2 = move_target - villager.position
-	var velocity: Vector2 = direction.normalized() * get_speed()
+	var velocity: Vector2 = direction.normalized() * speed
 	var slide_vec: Vector2 = villager.move_and_slide(velocity)
 	
 	if _compare(slide_vec.angle_to(previous_slide_vec), PI):
@@ -131,16 +132,16 @@ func should_deactivate():
 func process(delta):
 	villager.amend_emotion(Villager.Emotion.FATIGUE, delta)
 
-func get_speed():
+func get_new_speed():
+	# villager should run back to the patrol area if they are outside of it
+	# they may be outside if they have run away from the werewolf
 	if is_inside_patrol_area():
 		return villager.get_walk_speed()
 	else:
 		return villager.get_run_speed()
 
+# https://www.geeksforgeeks.org/how-to-check-if-a-given-point-lies-inside-a-polygon/
 func is_inside_patrol_area():
-	# https://www.geeksforgeeks.org/how-to-check-if-a-given-point-lies-inside-a-polygon/
-	# villager should run back to the patrol area if they are outside of it
-	# they may be outside if they have run away from the werewolf
 	var points = polygon.polygon
 	var num_points = len(points)
 	var count = 0

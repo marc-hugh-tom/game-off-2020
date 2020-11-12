@@ -81,18 +81,17 @@ func _update_actions():
 		_enter_action(idle)
 
 func _get_action_children():
-	var actions = []
-	for child in get_children():
-		if child is ActionBase:
-			actions.append(child)
-	return actions
+	return _get_children(ActionBase)
 
 func _get_sense_children():
-	var senses = []
+	return _get_children(SenseBase)
+
+func _get_children(type):
+	var ret = []
 	for child in get_children():
-		if child is SenseBase:
-			senses.append(child)
-	return senses
+		if child is type:
+			ret.append(child)
+	return ret
 
 func _get_should_activate_action_children():
 	var actions = _get_action_children()
