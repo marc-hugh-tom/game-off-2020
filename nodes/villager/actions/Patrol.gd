@@ -51,8 +51,10 @@ func _ready():
 		return
 	
 	# do some processing on our polygon to make new_target less
-	# CPU intense later
-	var triangle_indexes = Geometry.triangulate_delaunay_2d(polygon.polygon)
+	# CPU intense later, must use triangulate_polygon instead of
+	# triangulate_delaunay_2d as there are issues with some polygons that
+	# have concave sections
+	var triangle_indexes = Geometry.triangulate_polygon(polygon.polygon)
 	var num_triangles = len(triangle_indexes) / 3
 	for i in range(0, num_triangles):
 		var start_index = i * 3
