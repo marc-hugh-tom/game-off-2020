@@ -79,6 +79,12 @@ func new_move_target():
 	speed = get_new_speed()
 
 func new_target():
+	# known issues here with concave polygons, this algorithm can pick
+	# a target that, when moving in a straight line, will exit the patrol
+	# area
+	# TODO: investigate Navigation2D instead and navigation poly being
+	# a child of patrol
+
 	var t =_random_triangle()
 	
 	# https://stackoverflow.com/questions/19654251/random-point-inside-triangle-inside-java
