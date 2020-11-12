@@ -1,5 +1,3 @@
-tool
-
 # lots of inspiration from https://gdscript.com/godot-state-machine
 extends KinematicBody2D
 
@@ -12,12 +10,6 @@ onready var idle = get_node("Idle")
 
 export(float) var walk_speed = 50.0
 export(float) var run_speed = 150.0
-
-# https://dfaction.net/godot-editor-tips-custom-configuration-warnings/
-func _get_configuration_warning() -> String:
-	if get_node("Idle") == null:
-		return "Villager must have an idle action"
-	return ""
 
 # debug mode
 # TODO: move somewhere global
@@ -33,16 +25,25 @@ var emotion_labels = {}
 var action_labels = {}
 
 # emotions used to alter behaviours
-enum Emotion {
-	FEAR = 0
-	FATIGUE = 1
+# use const object here instead of enum so the export renders nice
+# emotion strings instead of numbers
+# i.e. { "FEAR": 0.0 } instead of { 1: 0.0 }
+const Emotion = {
+	FEAR = "FEAR",
+	FATIGUE = "FATIGUE",
 }
 
-# a map of emotion to intensity
-var emotion_intensity = {
+# a map of emotion to intensity, exported to configure different initial
+# emotions
+export(Dictionary) var exported_emotion_intensity = {
 	Emotion.FEAR: 0,
-	Emotion.FATIGUE: 0,
+	Emotion.FATIGUE: 0
 }
+
+# if we won't duplicate the exported dictionary, then it seems as though
+# an exported dict is shared between all instances, so any updates to it
+# will update ALL other villager's instances as well, what the fuck?
+onready var emotion_intensity = exported_emotion_intensity.duplicate()
 
 func get_emotion_intensity(emotion):
 	return emotion_intensity[emotion]
@@ -97,7 +98,7 @@ func _get_should_activate_action_children():
 	var actions = _get_action_children()
 	var ret = []
 	for action in actions:
-		if action.has_method("should_deactivate") and action.should_activate():
+		if action.has_method("should_activate") and action.should_activate():
 			ret.append(action) 
 	return ret
 

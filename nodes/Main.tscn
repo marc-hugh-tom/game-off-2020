@@ -1,9 +1,8 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://nodes/Werewolf.tscn" type="PackedScene" id=1]
 [ext_resource path="res://assets/sprites/building.png" type="Texture" id=2]
 [ext_resource path="res://nodes/villager/Villager.tscn" type="PackedScene" id=3]
-[ext_resource path="res://nodes/villager/actions/Idle.tscn" type="PackedScene" id=4]
 [ext_resource path="res://nodes/villager/actions/Flee.tscn" type="PackedScene" id=5]
 [ext_resource path="res://nodes/villager/actions/Patrol.tscn" type="PackedScene" id=6]
 [ext_resource path="res://nodes/villager/senses/Sight.tscn" type="PackedScene" id=7]
@@ -50,8 +49,6 @@ position = Vector2( 503.012, 264.272 )
 [node name="Villager" parent="." instance=ExtResource( 3 )]
 position = Vector2( 279.243, 353.413 )
 
-[node name="Idle" parent="Villager" instance=ExtResource( 4 )]
-
 [node name="Patrol" parent="Villager" instance=ExtResource( 6 )]
 polygon_path = NodePath("../../PatrolArea1")
 
@@ -60,11 +57,10 @@ werewolf_path = NodePath("../../Werewolf")
 
 [node name="Sight" parent="Villager" instance=ExtResource( 7 )]
 werewolf_path = NodePath("../../Werewolf")
+sight_distance = 250.0
 
 [node name="Villager2" parent="." instance=ExtResource( 3 )]
 position = Vector2( 234, 547 )
-
-[node name="Idle" parent="Villager2" instance=ExtResource( 4 )]
 
 [node name="Patrol" parent="Villager2" instance=ExtResource( 6 )]
 polygon_path = NodePath("../../PatrolArea2")
@@ -74,11 +70,10 @@ werewolf_path = NodePath("../../Werewolf")
 
 [node name="Sight" parent="Villager2" instance=ExtResource( 7 )]
 werewolf_path = NodePath("../../Werewolf")
+sight_distance = 250.0
 
 [node name="Villager3" parent="." instance=ExtResource( 3 )]
 position = Vector2( 895, 172 )
-
-[node name="Idle" parent="Villager3" instance=ExtResource( 4 )]
 
 [node name="Patrol" parent="Villager3" instance=ExtResource( 6 )]
 polygon_path = NodePath("../../PatrolArea3")
@@ -88,11 +83,10 @@ werewolf_path = NodePath("../../Werewolf")
 
 [node name="Sight" parent="Villager3" instance=ExtResource( 7 )]
 werewolf_path = NodePath("../../Werewolf")
+sight_distance = 250.0
 
 [node name="Villager4" parent="." instance=ExtResource( 3 )]
 position = Vector2( 869, 518 )
-
-[node name="Idle" parent="Villager4" instance=ExtResource( 4 )]
 
 [node name="Patrol" parent="Villager4" instance=ExtResource( 6 )]
 polygon_path = NodePath("../../PatrolArea4")
@@ -102,11 +96,10 @@ werewolf_path = NodePath("../../Werewolf")
 
 [node name="Sight" parent="Villager4" instance=ExtResource( 7 )]
 werewolf_path = NodePath("../../Werewolf")
+sight_distance = 250.0
 
 [node name="Villager5" parent="." instance=ExtResource( 3 )]
 position = Vector2( 956, 332 )
-
-[node name="Idle" parent="Villager5" instance=ExtResource( 4 )]
 
 [node name="Patrol" parent="Villager5" instance=ExtResource( 6 )]
 polygon_path = NodePath("../../PatrolArea5")
@@ -116,3 +109,4 @@ werewolf_path = NodePath("../../Werewolf")
 
 [node name="Sight" parent="Villager5" instance=ExtResource( 7 )]
 werewolf_path = NodePath("../../Werewolf")
+sight_distance = 250.0
