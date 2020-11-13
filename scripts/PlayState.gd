@@ -6,6 +6,10 @@ var map_scale_midnight = 1
 var player_speed_noon = 100
 var player_speed_midnight = 400
 
+# Controls how tightly the camera follows the player
+var camera_margin_noon = 0
+var camera_margin_midnight = 0.3
+
 var previous_fraction = null
 
 var lamp_energy = 1.0
@@ -14,16 +18,11 @@ func _ready():
 	pass # Replace with function body.
 
 func _process(delta):
-	center_screen()
 	update_map_scale()
 	update_player_speed()
+	update_camera_margin()
 	update_global_lighting()
 	update_lamp_lights()
-
-func center_screen():
-	var viewport_rect = get_viewport_rect()
-	$Map.set_position(-($Map/Werewolf.get_position()*$Map.get_scale()) +
-		viewport_rect.size/2)
 
 func update_map_scale():
 	var fraction = get_day_night_fraction_easing()
@@ -38,6 +37,13 @@ func update_player_speed():
 	var b = abs(a - player_speed_midnight)
 	var player_speed = a + b * fraction * -1
 	$Map/Werewolf.set_speed(player_speed)
+
+func update_camera_margin():
+	var fraction = get_day_night_fraction_easing()
+	var a = (camera_margin_noon + camera_margin_midnight) / 2
+	var b = abs(a - camera_margin_midnight)
+	var camera_scale = a + b * fraction * -1
+	$Map/Werewolf.set_camera_scale(camera_scale)
 
 func update_global_lighting():
 	var fraction = get_day_night_fraction_easing()

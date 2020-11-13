@@ -3,7 +3,6 @@ extends KinematicBody2D
 var speed = 250
 
 var walk_dir = Vector2(0.0, 0.0)
-var facing = Vector2(0.0, 0.0)
 var velocity = Vector2(0.0, 0.0)
 
 func _ready():
@@ -28,7 +27,8 @@ func _physics_process(delta):
 	else:
 		if not $Feet.get_animation() == "walk":
 			$Feet.play("walk")
-	rotation = position.angle_to_point(facing) - PI/2
+	rotation = get_global_mouse_position().angle_to_point(
+		get_global_position()) + PI/2
 	velocity = walk_dir.normalized() * speed
 	move_and_slide(velocity)
 
@@ -39,5 +39,6 @@ func attack():
 func set_speed(new_speed):
 	speed = new_speed
 
-func set_facing(new_facing):
-	facing = new_facing
+func set_camera_scale(new_scale):
+	for margin in [MARGIN_BOTTOM, MARGIN_LEFT, MARGIN_RIGHT, MARGIN_TOP]:
+		$Camera2D.set_drag_margin(margin, new_scale)
