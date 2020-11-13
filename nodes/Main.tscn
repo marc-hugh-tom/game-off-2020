@@ -3,14 +3,28 @@
 [ext_resource path="res://nodes/Werewolf.tscn" type="PackedScene" id=1]
 [ext_resource path="res://assets/sprites/building.png" type="Texture" id=2]
 [ext_resource path="res://nodes/villager/Villager.tscn" type="PackedScene" id=3]
-[ext_resource path="res://nodes/villager/actions/Flee.tscn" type="PackedScene" id=5]
 [ext_resource path="res://nodes/villager/actions/Patrol.tscn" type="PackedScene" id=6]
-[ext_resource path="res://nodes/villager/senses/Sight.tscn" type="PackedScene" id=7]
+
+[sub_resource type="NavigationPolygon" id=3]
+vertices = PoolVector2Array( -0.129547, 1.04167, 1024.92, 1.04167, 409.387, 55.6999, 151.232, 57.3817, -0.970444, 599.76, 152.073, 250.788, 1023.24, 595.555, 409.387, 249.947 )
+polygons = [ PoolIntArray( 0, 1, 2, 3 ), PoolIntArray( 4, 0, 3, 5 ), PoolIntArray( 6, 4, 5, 7 ), PoolIntArray( 1, 6, 7, 2 ) ]
+outlines = [ PoolVector2Array( -0.129547, 1.04167, 1024.92, 1.04167, 1023.24, 595.555, -0.970444, 599.76 ), PoolVector2Array( 409.387, 249.947, 152.073, 250.788, 151.232, 57.3817, 409.387, 55.6999 ) ]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 127.826, 96.2069 )
 
+[sub_resource type="Curve2D" id=2]
+_data = {
+"points": PoolVector2Array( 7.13978, -20.6859, -7.13978, 20.6859, 445.027, 258.638, 31.4645, -2.24746, -31.4645, 2.24746, 401.577, 292.35, 0, 0, 0, 0, 350.524, 292.833, 18.7288, 13.4848, -18.7288, -13.4848, 142.369, 282.611, 4.49492, 26.9695, -4.49492, -26.9695, 113.152, 230.92, -9.739, 18.7288, 9.739, -18.7288, 113.152, 65.3567, -19.478, 8.98984, 19.478, -8.98984, 152.108, 31.6448, -26.2204, -5.99323, 26.2204, 5.99323, 398.58, 27.899, -2.99661, -20.2271, 2.99661, 20.2271, 450.271, 54.8686, 12.1852, -43.0079, -12.1852, 43.0079, 445.027, 258.638 )
+}
+
 [node name="Main" type="Node2D"]
+
+[node name="Navigation2D" type="Navigation2D" parent="."]
+visible = false
+
+[node name="NavigationPolygonInstance" type="NavigationPolygonInstance" parent="Navigation2D"]
+navpoly = SubResource( 3 )
 
 [node name="House" type="StaticBody2D" parent="."]
 position = Vector2( 280, 152 )
@@ -23,90 +37,20 @@ texture = ExtResource( 2 )
 [node name="CollisionShape2D" type="CollisionShape2D" parent="House"]
 shape = SubResource( 1 )
 
-[node name="PatrolArea1" type="Polygon2D" parent="."]
-visible = false
-polygon = PoolVector2Array( 339, 389, 231, 424, 161, 333, 286, 298, 346, 326 )
-
-[node name="PatrolArea2" type="Polygon2D" parent="."]
-visible = false
-polygon = PoolVector2Array( 216, 490, 156, 520, 254, 580, 324, 518 )
-
-[node name="PatrolArea3" type="Polygon2D" parent="."]
-visible = false
-polygon = PoolVector2Array( 892, 115, 980, 139, 937, 195, 846, 259, 800, 180 )
-
-[node name="PatrolArea4" type="Polygon2D" parent="."]
-visible = false
-polygon = PoolVector2Array( 726, 527, 875, 573, 971, 491, 729, 468 )
-
-[node name="PatrolArea5" type="Polygon2D" parent="."]
-visible = false
-polygon = PoolVector2Array( 784, 174, 1013, 292, 1011, 414, 801, 468, 935, 352, 788, 225 )
-
 [node name="Werewolf" parent="." instance=ExtResource( 1 )]
-position = Vector2( 503.012, 264.272 )
+position = Vector2( 885.281, 393.583 )
 
 [node name="Villager" parent="." instance=ExtResource( 3 )]
-position = Vector2( 279.243, 353.413 )
+position = Vector2( 379.31, 421.526 )
+werewolf_path = NodePath("../Werewolf")
+exported_emotion_intensity = {
+"FATIGUE": 0,
+"FEAR": 0
+}
 
 [node name="Patrol" parent="Villager" instance=ExtResource( 6 )]
-polygon_path = NodePath("../../PatrolArea1")
+level_navigation_path = NodePath("../../Navigation2D")
 
-[node name="Flee" parent="Villager" instance=ExtResource( 5 )]
-werewolf_path = NodePath("../../Werewolf")
-
-[node name="Sight" parent="Villager" instance=ExtResource( 7 )]
-werewolf_path = NodePath("../../Werewolf")
-sight_distance = 250.0
-
-[node name="Villager2" parent="." instance=ExtResource( 3 )]
-position = Vector2( 234, 547 )
-
-[node name="Patrol" parent="Villager2" instance=ExtResource( 6 )]
-polygon_path = NodePath("../../PatrolArea2")
-
-[node name="Flee" parent="Villager2" instance=ExtResource( 5 )]
-werewolf_path = NodePath("../../Werewolf")
-
-[node name="Sight" parent="Villager2" instance=ExtResource( 7 )]
-werewolf_path = NodePath("../../Werewolf")
-sight_distance = 250.0
-
-[node name="Villager3" parent="." instance=ExtResource( 3 )]
-position = Vector2( 895, 172 )
-
-[node name="Patrol" parent="Villager3" instance=ExtResource( 6 )]
-polygon_path = NodePath("../../PatrolArea3")
-
-[node name="Flee" parent="Villager3" instance=ExtResource( 5 )]
-werewolf_path = NodePath("../../Werewolf")
-
-[node name="Sight" parent="Villager3" instance=ExtResource( 7 )]
-werewolf_path = NodePath("../../Werewolf")
-sight_distance = 250.0
-
-[node name="Villager4" parent="." instance=ExtResource( 3 )]
-position = Vector2( 869, 518 )
-
-[node name="Patrol" parent="Villager4" instance=ExtResource( 6 )]
-polygon_path = NodePath("../../PatrolArea4")
-
-[node name="Flee" parent="Villager4" instance=ExtResource( 5 )]
-werewolf_path = NodePath("../../Werewolf")
-
-[node name="Sight" parent="Villager4" instance=ExtResource( 7 )]
-werewolf_path = NodePath("../../Werewolf")
-sight_distance = 250.0
-
-[node name="Villager5" parent="." instance=ExtResource( 3 )]
-position = Vector2( 956, 332 )
-
-[node name="Patrol" parent="Villager5" instance=ExtResource( 6 )]
-polygon_path = NodePath("../../PatrolArea5")
-
-[node name="Flee" parent="Villager5" instance=ExtResource( 5 )]
-werewolf_path = NodePath("../../Werewolf")
-
-[node name="Sight" parent="Villager5" instance=ExtResource( 7 )]
-werewolf_path = NodePath("../../Werewolf")
-sight_distance = 250.0
+[node name="Path2D" type="Path2D" parent="Villager/Patrol"]
+position = Vector2( -388.559, -424.048 )
+curve = SubResource( 2 )

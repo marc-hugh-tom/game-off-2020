@@ -1,5 +1,19 @@
 # lots of inspiration from https://gdscript.com/godot-state-machine
+tool
 extends KinematicBody2D
+
+export(NodePath) var werewolf_path
+
+onready var werewolf = get_node(werewolf_path)
+
+func _get_configuration_warning():
+	# if we're viewing the villager scene then don't bother showing this warning
+	if get_parent() is Viewport:
+		return ""
+
+	if werewolf_path == null or get_node(werewolf_path) == null:
+		return "could not find werewolf node, make sure werewolf_path is set"
+	return ""
 
 var ActionBase = preload("res://nodes/villager/actions/ActionBase.gd")
 var SenseBase = preload("res://nodes/villager/senses/SenseBase.gd")
@@ -13,7 +27,7 @@ export(float) var run_speed = 150.0
 
 # debug mode
 # TODO: move somewhere global
-var DEBUG = false
+var DEBUG = true
 
 # the current action in the villager's FSM
 var current_action
@@ -177,6 +191,9 @@ func _process(delta):
 
 func _update_debug_labels():
 	if DEBUG:
+		if emotion_intensity == null:
+			return
+
 		for emotion in Emotion:
 			var intensity = emotion_intensity[Emotion[emotion]]
 			if emotion_labels.has(emotion):
