@@ -6,9 +6,6 @@ var map_scale_midnight = 1
 var player_speed_noon = 100
 var player_speed_midnight = 400
 
-var colormodulate_noon = 1.0
-var colormodulate_midnight = 0.20
-
 var previous_fraction = null
 
 func _ready():
@@ -42,10 +39,9 @@ func update_player_speed():
 
 func update_global_lighting():
 	var fraction = get_day_night_fraction_easing()
-	var a = (colormodulate_noon + colormodulate_midnight) / 2
-	var b = abs(a - colormodulate_midnight)
-	var darkness = a + b * fraction
-	$Map/CanvasModulate.set_color(Color(darkness, darkness, darkness))
+	# Shader expects t=1 for midnight and t=0 for noon
+	fraction = ((fraction * -1) + 1) / 2
+	$Map.get_material().set_shader_param("t", fraction)
 
 func update_lamp_lights():
 	var fraction = get_day_night_fraction_easing()

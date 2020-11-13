@@ -44,16 +44,19 @@ height = 30.0058
 polygon = PoolVector2Array( -16, -16, -20, -6, -20, 4, -12, 8, 12, 8, 20, 4, 20, -6, 16, -16, 12, -16, 12, -6, 0, -4, -12, -6, -12, -16 )
 
 [node name="Werewolf" type="KinematicBody2D"]
+use_parent_material = true
 script = ExtResource( 1 )
 
 [node name="Feet" type="AnimatedSprite" parent="."]
 light_mask = 2
+use_parent_material = true
 position = Vector2( 0, -8 )
 frames = SubResource( 1 )
 playing = true
 
 [node name="Body" type="AnimatedSprite" parent="."]
 light_mask = 2
+use_parent_material = true
 position = Vector2( 0, -8 )
 frames = SubResource( 2 )
 

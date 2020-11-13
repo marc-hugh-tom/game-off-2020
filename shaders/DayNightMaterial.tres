@@ -1,0 +1,11 @@
+[gd_resource type="ShaderMaterial" load_steps=4 format=2]
+
+[ext_resource path="res://shaders/Palette.shader" type="Shader" id=1]
+[ext_resource path="res://assets/base_palette.png" type="Texture" id=2]
+[ext_resource path="res://assets/night_palette.png" type="Texture" id=3]
+
+[resource]
+shader = ExtResource( 1 )
+shader_param/t = 0.0
+shader_param/day_palette = ExtResource( 2 )
+shader_param/night_palette = ExtResource( 3 )
