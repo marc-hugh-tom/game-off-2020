@@ -8,6 +8,8 @@ var player_speed_midnight = 400
 
 var previous_fraction = null
 
+var lamp_energy = 1.0
+
 func _ready():
 	pass # Replace with function body.
 
@@ -49,7 +51,7 @@ func update_lamp_lights():
 		not sign(previous_fraction) == sign(fraction)):
 		if fraction < 0.0:
 			for lamp in $Map/LampLights.get_children():
-				lamp.set_energy(1.0)
+				lamp.set_energy(lamp_energy)
 		else:
 			for lamp in $Map/LampLights.get_children():
 				lamp.set_energy(0.0)

@@ -6,8 +6,8 @@
 [ext_resource path="res://nodes/Clock.tscn" type="PackedScene" id=4]
 [ext_resource path="res://scripts/Map.gd" type="Script" id=5]
 [ext_resource path="res://nodes/TileSet.tres" type="TileSet" id=6]
-[ext_resource path="res://assets/sprites/map/light_mask.png" type="Texture" id=7]
 [ext_resource path="res://shaders/DayNightMaterial.tres" type="Material" id=8]
+[ext_resource path="res://nodes/Lamp.tscn" type="PackedScene" id=9]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 127.826, 96.2069 )
@@ -50,22 +50,11 @@ position = Vector2( 382.012, 299.272 )
 
 [node name="LampLights" type="Node2D" parent="Map"]
 
-[node name="1" type="Light2D" parent="Map/LampLights"]
-position = Vector2( 165.308, 256.482 )
-texture = ExtResource( 7 )
-energy = 5.0
-range_item_cull_mask = 3
-shadow_enabled = true
-shadow_filter = 1
+[node name="1" parent="Map/LampLights" instance=ExtResource( 9 )]
+position = Vector2( 201.846, 256.482 )
 
-[node name="2" type="Light2D" parent="Map/LampLights"]
-position = Vector2( 397.57, 255.147 )
-texture = ExtResource( 7 )
-color = Color( 0.992157, 0.992157, 0.992157, 1 )
-energy = 5.0
-range_item_cull_mask = 3
-shadow_enabled = true
-shadow_filter = 1
+[node name="2" parent="Map/LampLights" instance=ExtResource( 9 )]
+position = Vector2( 361.856, 256.482 )
 
 [node name="HUD" type="CanvasLayer" parent="."]
 
