@@ -48,8 +48,13 @@ func _physics_process(delta):
 func attack():
 	attacking = true
 	$AnimationPlayer.play("attack")
-	$AnimationPlayer.connect("animation_finished", self, "end_attack", [], CONNECT_ONESHOT)
-	
+	$AnimationPlayer.connect("animation_finished", self, "animation_finished",
+		[], CONNECT_ONESHOT)
+
+func animation_finished(animation_name):
+	if animation_name == "attack":
+		end_attack()
+
 func end_attack():
 	attacking = false
 	$AnimationPlayer.play("idle")
