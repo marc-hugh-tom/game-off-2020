@@ -22,8 +22,8 @@ class Alert:
 	var pause_time = 1.0
 	var route: PoolVector2Array
 
-	func _init(route: PoolVector2Array):
-		self.route = route
+	func _init(in_route: PoolVector2Array):
+		self.route = in_route
 
 	func physics_process(delta, villager):
 		villager.set_rotation_with_delta(self.route[1], delta)
@@ -41,8 +41,8 @@ class MoveToNoise:
 	var route: PoolVector2Array
 	var target: Vector2
 	
-	func _init(route: PoolVector2Array):
-		self.route = route
+	func _init(in_route: PoolVector2Array):
+		self.route = in_route
 
 	func physics_process(delta: float, villager: Villager):
 		if route.size() <= 0:
@@ -70,8 +70,8 @@ class DoInvestigation:
 	var initial_rotation
 	var running_delta = 0.0
 	
-	func _init(target, villager):
-		self.target = target
+	func _init(in_target, villager):
+		self.target = in_target
 		self.initial_rotation = villager.rotation
 
 	func physics_process(delta, villager):

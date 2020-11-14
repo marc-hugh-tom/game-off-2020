@@ -26,9 +26,9 @@ class MoveAlongPath:
 	var curve: Curve2D
 	var offset: float
 	
-	func _init(curve: Curve2D, villager: Villager):
-		self.curve = curve
-		self.offset = curve.get_closest_offset(villager.position)
+	func _init(in_curve: Curve2D, villager: Villager):
+		self.curve = in_curve
+		self.offset = in_curve.get_closest_offset(villager.position)
 
 	func physics_process(delta, villager):
 		# move along the curve

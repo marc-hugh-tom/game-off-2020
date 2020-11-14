@@ -28,6 +28,11 @@ config/icon="res://icon.png"
 
 AudioManager="*res://scripts/audio_manager.gd"
 
+[debug]
+
+gdscript/warnings/unused_argument=false
+gdscript/warnings/return_value_discarded=false
+
 [input]
 
 up={
