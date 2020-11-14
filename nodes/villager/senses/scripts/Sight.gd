@@ -22,7 +22,6 @@ func on_vision_exited(other):
 
 func _process(delta):
 	if not Engine.editor_hint:
-		print(has_line_of_site_werewolf())
 		if werewolf_in_vision_cone and has_line_of_site_werewolf():
 			villager.set_emotion(Villager.Emotion.FEAR, 10)
 		else:
