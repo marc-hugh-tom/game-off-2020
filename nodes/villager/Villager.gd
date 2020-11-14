@@ -17,10 +17,10 @@ func _get_configuration_warning():
 	if get_parent() is Viewport:
 		return ""
 		
-	var navigation = get_node(level_navigation_path)
-	if navigation == null:
+	var n = get_node(level_navigation_path)
+	if n == null:
 		return "cannot find navigation node from path"
-	if not navigation is Navigation2D:
+	if not n is Navigation2D:
 		return "navigation node is not a Navigation2D"
 
 	if werewolf_path == null or get_node(werewolf_path) == null:
@@ -83,9 +83,9 @@ func get_emotion_intensity(emotion):
 	return emotion_intensity[emotion]
 
 func amend_emotion(emotion, val, metadata = null):
-	set_emotion(emotion, emotion_intensity[emotion] + val)
+	set_emotion(emotion, emotion_intensity[emotion] + val, metadata)
 
-func set_emotion(emotion, val, metadata = null):	
+func set_emotion(emotion, val, metadata = null):
 	emotion_intensity[emotion] = val
 	clamp_emotion(emotion)
 	
@@ -240,3 +240,21 @@ func _update_debug_labels():
 
 			if action_labels.has(action):
 				action_labels[action].text = format % action.get_label()
+
+func set_rotation_with_delta(target, delta):
+	# some rotation fiddling here to get it to behave itself, here be dragons
+	# angle_to will always return a value between 0 and 2PI, but this causes
+	# issues when rotation from an angle counter-clockwise from Vector2(0, 1)
+	# and an angle clockwise from Vector2(0, 1). The villager will rotate the
+	# long way round instead of the short way round
+	var target_rotation = PI + Vector2(0, 1).angle_to(target - position)
+	var rotation_diff = rotation - target_rotation
+	if rotation_diff > PI:
+		target_rotation += 2 * PI
+	if rotation_diff < -PI:
+		target_rotation -= 2 * PI
+	rotation = lerp(rotation, target_rotation, 10.0 * delta)
+	if rotation > 2 * PI:
+		rotation -= 2 * PI
+	if rotation < -2 * PI:
+		rotation += 2 * PI

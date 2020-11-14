@@ -1,6 +1,6 @@
 extends "res://nodes/villager/actions/scripts/Action.gd"
 
-# Investigate is a mini state machine that flows from "Alert" to "MoveToPoint"
+# Investigate is a mini state machine that flows from "Alert" to "MoveToNoise"
 # to "DoInvestigation"
 # Each state should have a physics_process function that takes a delta and
 # the villager and return the next state
@@ -26,16 +26,18 @@ class Alert:
 		self.route = route
 
 	func physics_process(delta, villager):
+		villager.set_rotation_with_delta(self.route[1], delta)
+		
 		self.pause_time -= delta
 		if pause_time <= 0:
-			return MoveToPath.new(self.route)
+			return MoveToNoise.new(self.route)
 		return self
 
 	func get_label():
 		return "alerted!"
 
 # Villager is moving towards the noise
-class MoveToPath:
+class MoveToNoise:
 	var route: PoolVector2Array
 	var target: Vector2
 	
@@ -46,10 +48,11 @@ class MoveToPath:
 		if route.size() <= 0:
 			# we have reached the end of our path, we should now switch
 			# to investigating whatever we found
-			return DoInvestigation.new(target)
+			return DoInvestigation.new(target, villager)
 
 		target = route[0]
 		var direction = (target - villager.position).normalized()
+		villager.set_rotation_with_delta(target, delta)
 		villager.move_and_slide(direction * villager.get_run_speed())
 		var distance_to = villager.position.distance_squared_to(target)
 		if distance_to < 20.0:
@@ -62,11 +65,14 @@ class MoveToPath:
 # Villager has reached the noise, do some investigation and reduce the curiosity
 # emotion
 class DoInvestigation:
-	var pause_time = 1.0
+	var pause_time = 2.0
 	var target
+	var initial_rotation
+	var running_delta = 0.0
 	
-	func _init(target):
+	func _init(target, villager):
 		self.target = target
+		self.initial_rotation = villager.rotation
 
 	func physics_process(delta, villager):
 		var route = villager.emotion_metadata.get(Villager.Emotion.CURIOSITY)
@@ -78,6 +84,10 @@ class DoInvestigation:
 		if pause_time <= 0:
 			villager.set_emotion(Villager.Emotion.CURIOSITY, 0.0)
 			return Null.new()
+
+		# look left and right a little before moving on
+		villager.rotation = self.initial_rotation + (PI / 4 * sin(PI * running_delta))
+		running_delta += delta
 
 		villager.amend_emotion(Villager.Emotion.FATIGUE, 3 * -delta)
 		return self

@@ -8,9 +8,9 @@ class Sound:
 	var path: String
 	var volume: float
 	
-	func _init(path: String, volume: float):
-		self.path = path
-		self.volume = volume
+	func _init(in_path: String, in_volume: float):
+		self.path = in_path
+		self.volume = in_volume
 
 var sound_library = {
 	SoundType.WOOF: Sound.new("res://assets/sounds/woof.wav", 0),
@@ -34,7 +34,7 @@ func _ready():
 func play_sound(sound, node):
 	if sound in stream_library:
 		stream_library[sound].play()
-		
+
 		if node != null:
 			for listener in listeners:
 				listener.on_sound(sound, node)

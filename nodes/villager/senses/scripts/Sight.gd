@@ -3,7 +3,7 @@ extends "res://nodes/villager/senses/scripts/Sense.gd"
 
 export(float) var sight_distance = 250.0
 
-onready var ray = get_node("Ray")
+onready var ray: RayCast2D = get_node("Ray")
 
 func _process(delta):
 	if villager == null:
@@ -14,6 +14,7 @@ func _process(delta):
 		return
 
 	ray.cast_to = werewolf.position - self.get_parent().position
+	ray.rotation = -get_parent().rotation
 
 	var can_see_werewolf = ray.is_colliding() and \
 		ray.get_collider() == werewolf and \

@@ -36,6 +36,8 @@ class MoveAlongPath:
 		# add the villager's speed to this variable to control how quickly it
 		# moves, very handy!
 		var next_pos = self.curve.interpolate_baked(self.offset, false)
+		
+		villager.set_rotation_with_delta(next_pos, delta)
 		villager.position = next_pos
 		self.offset += delta * villager.get_walk_speed()
 		if self.offset >= self.curve.get_baked_length():
@@ -63,6 +65,7 @@ class MoveToPath:
 
 		var target = route[0]
 		var direction = (target - villager.position).normalized()
+		villager.set_rotation_with_delta(target, delta)
 		villager.move_and_slide(direction * villager.get_run_speed())
 		if villager.position.distance_squared_to(target) < 10.0:
 			route.remove(0)
