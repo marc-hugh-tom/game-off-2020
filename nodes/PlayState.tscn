@@ -8,16 +8,12 @@
 [ext_resource path="res://nodes/villager/actions/Patrol.tscn" type="PackedScene" id=7]
 [ext_resource path="res://shaders/DayNightMaterial.tres" type="Material" id=8]
 [ext_resource path="res://nodes/Lamp.tscn" type="PackedScene" id=9]
+[ext_resource path="res://nodes/villager/actions/Investigate.tscn" type="PackedScene" id=10]
 
 [sub_resource type="Curve2D" id=1]
 _data = {
 "points": PoolVector2Array( 0, 0, 0, 0, 983.927, 32.0334, 0, 0, 0, 0, 993.463, 225.915, 0, 0, 0, 0, 699.991, 214.261, 0, 0, 0, 0, 712.705, 37.3307, 0, 0, 0, 0, 983.927, 32.0334 )
 }
-
-[sub_resource type="NavigationPolygon" id=2]
-vertices = PoolVector2Array( 969.095, 53.2227, 727.537, 54.2822, 519, 29, -71.2977, -71.794, 1108.94, -68.6156, 1104.71, 663.473, 969.095, 166.585, 936.252, 518.327, 934.133, 440.986, -107.319, 669.83, 697.872, 520.446, 153, 26, 154, 132, 729.656, 168.704, 694.694, 438.867, 326, 263, 517, 132, 328, 152, 157, 155, 153, 261 )
-polygons = [ PoolIntArray( 0, 1, 2, 3, 4 ), PoolIntArray( 4, 5, 6, 0 ), PoolIntArray( 6, 5, 7, 8 ), PoolIntArray( 7, 5, 9, 10 ), PoolIntArray( 3, 2, 11 ), PoolIntArray( 9, 3, 11, 12 ), PoolIntArray( 13, 6, 8, 14, 15 ), PoolIntArray( 16, 2, 1, 13 ), PoolIntArray( 17, 16, 13, 15 ), PoolIntArray( 12, 16, 17, 18 ), PoolIntArray( 9, 12, 18, 19 ), PoolIntArray( 10, 9, 19, 15, 14 ) ]
-outlines = [ PoolVector2Array( 1104.71, 663.473, -107.319, 669.83, -71.2977, -71.794, 1108.94, -68.6156 ), PoolVector2Array( 694.694, 438.867, 934.133, 440.986, 936.252, 518.327, 697.872, 520.446 ), PoolVector2Array( 729.656, 168.704, 969.095, 166.585, 969.095, 53.2227, 727.537, 54.2822 ), PoolVector2Array( 517, 132, 154, 132, 153, 26, 519, 29 ), PoolVector2Array( 328, 152, 157, 155, 153, 261, 326, 263 ) ]
 
 [node name="PlayState" type="Node2D"]
 script = ExtResource( 3 )
@@ -25,7 +21,10 @@ script = ExtResource( 3 )
 [node name="Map" type="Node2D" parent="."]
 material = ExtResource( 8 )
 
-[node name="TileMap" type="TileMap" parent="Map"]
+[node name="Navigation2D" type="Navigation2D" parent="Map"]
+use_parent_material = true
+
+[node name="TileMap" type="TileMap" parent="Map/Navigation2D"]
 use_parent_material = true
 tile_set = ExtResource( 6 )
 cell_size = Vector2( 32, 32 )
@@ -65,11 +64,8 @@ exported_emotion_intensity = {
 position = Vector2( -704.781, -29.665 )
 curve = SubResource( 1 )
 
-[node name="Navigation2D" type="Navigation2D" parent="Map"]
-
-[node name="NavigationPolygonInstance" type="NavigationPolygonInstance" parent="Map/Navigation2D"]
-visible = false
-navpoly = SubResource( 2 )
+[node name="Investigate" parent="Map/Villager" instance=ExtResource( 10 )]
+position = Vector2( -704.781, -29.665 )
 
 [node name="HUD" type="CanvasLayer" parent="."]
 
