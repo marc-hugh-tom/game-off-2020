@@ -20,15 +20,20 @@ func _input(event):
 
 func _physics_process(delta):
 	walk_dir = Vector2(0.0, 0.0)
+	
 	if Input.is_action_pressed("up"):
 		walk_dir.y = -1.0
+	
 	if Input.is_action_pressed("down"):
 		walk_dir.y = 1.0
+	
 	if Input.is_action_pressed("right"):
 		walk_dir.x = 1.0
+	
 	if Input.is_action_pressed("left"):
 		walk_dir.x = -1.0
-	elif walk_dir.length_squared() == 0:
+	
+	if walk_dir.length_squared() == 0:
 		$Feet.play("idle")
 		if not attacking:
 			$Body.play("idle")
@@ -36,6 +41,7 @@ func _physics_process(delta):
 		$Feet.play("walk")
 		if not attacking:
 			$Body.play("walk")
+	
 	rotation = get_global_mouse_position().angle_to_point(
 		get_global_position()) + PI/2
 	velocity = walk_dir.normalized() * speed
