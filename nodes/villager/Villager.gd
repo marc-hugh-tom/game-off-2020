@@ -126,8 +126,6 @@ func _update_actions():
 func _enter_action(next_action):
 	var is_new_action = next_action != current_action
 	if is_new_action:
-		print("enter action " + next_action.get_label())
-		
 		if current_action != null:
 			_exit_action(current_action)
 		current_action = next_action
