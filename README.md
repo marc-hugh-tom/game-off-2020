@@ -24,6 +24,8 @@ Saving: assets/sprites/map/grass_tileset.png
 Saving: assets/sprites/map/dirt_tileset.png
 ```
 The script will output the modified sprites in `assets`, as well as a file `assets/base_palette.png`.
-Then, take a screenshot of the game and open up GIMP.
-Copy the base palette into the image, and dick around with the hue, saturation, and colour temperature.
-Copy the resulting palette as `assets/night_palette.png`.
+Run `cp assets/base_palette.png assets/night_palette.png` to create the night palette.
+Run the game and take a screenshot.
+Open up GIMP and paste the screenshot in.
+Copy the night palette into the image, and dick around with the hue, saturation, and colour temperature.
+Overwrite `assets/night_palette.png` with the altered palette, making sure that the resulting palette is the same size as `assets/base_palette.png`.
