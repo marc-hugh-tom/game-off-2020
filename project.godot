@@ -21,7 +21,7 @@ _global_script_class_icons={
 [application]
 
 config/name="game-off-2020"
-run/main_scene="res://nodes/Main.tscn"
+run/main_scene="res://nodes/PlayState.tscn"
 config/icon="res://icon.png"
 
 [input]
@@ -55,6 +55,7 @@ attack={
 [rendering]
 
 quality/driver/driver_name="GLES2"
+quality/2d/use_pixel_snap=true
 vram_compression/import_etc=true
 vram_compression/import_etc2=false
 environment/default_environment="res://default_env.tres"

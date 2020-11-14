@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=2]
+[gd_scene load_steps=14 format=2]
 
 [ext_resource path="res://scripts/Werewolf.gd" type="Script" id=1]
 [ext_resource path="res://assets/sprites/werewolf/feet_0.png" type="Texture" id=2]
@@ -37,24 +37,40 @@ animations = [ {
 } ]
 
 [sub_resource type="CapsuleShape2D" id=3]
-radius = 12.7657
-height = 59.0714
+radius = 6.77359
+height = 30.0058
+
+[sub_resource type="OccluderPolygon2D" id=4]
+polygon = PoolVector2Array( -16, -16, -20, -6, -20, 4, -12, 8, 12, 8, 20, 4, 20, -6, 16, -16, 12, -16, 12, -6, 0, -4, -12, -6, -12, -16 )
 
 [node name="Werewolf" type="KinematicBody2D"]
+use_parent_material = true
 script = ExtResource( 1 )
 
 [node name="Feet" type="AnimatedSprite" parent="."]
-position = Vector2( 0, -16 )
-scale = Vector2( 2, 2 )
+light_mask = 2
+use_parent_material = true
+position = Vector2( 0, -8 )
 frames = SubResource( 1 )
 playing = true
 
 [node name="Body" type="AnimatedSprite" parent="."]
-position = Vector2( 0, -16 )
-scale = Vector2( 2, 2 )
+light_mask = 2
+use_parent_material = true
+position = Vector2( 0, -8 )
 frames = SubResource( 2 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2( 0, 3.36739 )
+position = Vector2( 0, 1.97685 )
 rotation = 1.5708
 shape = SubResource( 3 )
+
+[node name="LightOccluder2D" type="LightOccluder2D" parent="."]
+occluder = SubResource( 4 )
+
+[node name="Camera2D" type="Camera2D" parent="."]
+current = true
+drag_margin_h_enabled = true
+drag_margin_v_enabled = true
+smoothing_enabled = true
+smoothing_speed = 10.0
