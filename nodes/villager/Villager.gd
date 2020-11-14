@@ -156,7 +156,7 @@ func _create_debug_labels():
 			i += 1
 
 func _create_next_action_timer():
-	# create a timer that calls next action once per second
+	# create a timer that calls next action
 	# this is how a villager will decide to do a different action
 	# todo: consider making the timeout configuarable for different
 	# villager actions
