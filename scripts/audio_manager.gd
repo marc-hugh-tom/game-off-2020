@@ -3,6 +3,7 @@ extends Node2D
 enum SoundType {
 	WOOF
 	ARGH
+	SCREAM
 }
 
 class Sound:
@@ -16,6 +17,7 @@ class Sound:
 var sound_library = {
 	SoundType.WOOF: Sound.new("res://assets/sounds/woof.wav", 0),
 	SoundType.ARGH: Sound.new("res://assets/sounds/argh.wav", 0),
+	SoundType.SCREAM: Sound.new("res://assets/sounds/scream.ogg", 0),
 }
 
 var stream_library = {}
