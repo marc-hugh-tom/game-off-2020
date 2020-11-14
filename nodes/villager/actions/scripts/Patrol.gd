@@ -8,6 +8,8 @@ func _get_configuration_warning():
 
 onready var path: Path2D = get_child(0)
 
+var last_patrol_offset = null
+
 # Patrol is a mini state machine that flows from "MoveToPath" to "MoveAlongPath"
 # Each state should have a physics_process function that takes a delta and
 # the villager and return the next state
@@ -36,7 +38,7 @@ class MoveAlongPath:
 		# add the villager's speed to this variable to control how quickly it
 		# moves, very handy!
 		var next_pos = self.curve.interpolate_baked(self.offset, false)
-		
+
 		villager.set_rotation_with_delta(next_pos, delta)
 		villager.position = next_pos
 		self.offset += delta * villager.get_walk_speed()
@@ -78,12 +80,21 @@ func get_label():
 	return "patrol (" + current_state.get_label() + ")"
 
 func on_enter():
-	current_state = MoveToPath.new(path, villager, villager.navigation)
+	var closest_point = path.get_curve().get_closest_point(villager.position)
+	if closest_point.distance_squared_to(villager.position) < 10.0:
+		current_state = MoveAlongPath.new(path.get_curve(), villager)
+		if last_patrol_offset != null:
+			current_state.offset = last_patrol_offset
+	else:
+		current_state = MoveToPath.new(path, villager, villager.navigation)
 
 func physics_process(delta):
 	current_state = current_state.physics_process(delta, villager)
 	
 func on_exit():
+	if current_state is MoveAlongPath:
+		last_patrol_offset = current_state.offset
+	
 	current_state = Null.new()
 
 func should_activate():
