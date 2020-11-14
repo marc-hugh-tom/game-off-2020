@@ -15,10 +15,12 @@ func _ready():
 	area.connect("body_exited", self, "on_vision_exited")
 
 func on_vision_entered(other):
-	werewolf_in_vision_cone = other == villager.werewolf
+	if other == villager.werewolf:
+		werewolf_in_vision_cone = true
 	
 func on_vision_exited(other):
-	werewolf_in_vision_cone = !(other == villager.werewolf)
+	if other == villager.werewolf:
+		werewolf_in_vision_cone = false
 
 func _process(delta):
 	if not Engine.editor_hint:
