@@ -23,10 +23,13 @@ func _physics_process(delta):
 	if Input.is_action_pressed("left"):
 		walk_dir.x = -1.0
 	if walk_dir.length_squared() == 0:
-		$Feet.play("default")
+		$Feet.play("idle")
+		$Body.play("idle")
 	else:
 		if not $Feet.get_animation() == "walk":
 			$Feet.play("walk")
+		if not $Body.get_animation() == "walk":
+			$Body.play("walk")
 	rotation = get_global_mouse_position().angle_to_point(
 		get_global_position()) + PI/2
 	velocity = walk_dir.normalized() * speed
@@ -34,7 +37,7 @@ func _physics_process(delta):
 
 func attack():
 	$Body.play("attack")
-	$Body.connect("animation_finished", $Body, "play", ["default"], CONNECT_ONESHOT)
+	$Body.connect("animation_finished", $Body, "play", ["idle"], CONNECT_ONESHOT)
 
 func set_speed(new_speed):
 	speed = new_speed

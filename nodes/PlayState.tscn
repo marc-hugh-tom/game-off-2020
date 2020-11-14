@@ -69,6 +69,8 @@ position = Vector2( 361.856, 256.482 )
 [node name="Villager" parent="Map" instance=ExtResource( 5 )]
 position = Vector2( 704.781, 29.665 )
 werewolf_path = NodePath("../Werewolf")
+walk_speed = 50.0
+run_speed = 150.0
 exported_emotion_intensity = {
 "FATIGUE": 0,
 "FEAR": 0
