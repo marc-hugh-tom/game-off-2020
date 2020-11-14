@@ -76,7 +76,7 @@ var emotion_metadata = {
 
 # if we won't duplicate the exported dictionary, then it seems as though
 # an exported dict is shared between all instances, so any updates to it
-# will update ALL other villager's instances as well, what the fuck?
+# will update ALL other villager's instances as well, whaaaat?
 onready var emotion_intensity = exported_emotion_intensity.duplicate()
 
 func get_emotion_intensity(emotion):
