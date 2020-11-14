@@ -11,6 +11,9 @@ func _ready():
 func _input(event):
 	if event.is_action_pressed("attack"):
 		attack()
+	
+	if event.is_action_pressed("bark"):
+		bark()
 
 func _physics_process(delta):
 	walk_dir = Vector2(0.0, 0.0)
@@ -35,6 +38,9 @@ func _physics_process(delta):
 func attack():
 	$Body.play("attack")
 	$Body.connect("animation_finished", $Body, "play", ["default"], CONNECT_ONESHOT)
+
+func bark():
+	AudioManager.play_sound(AudioManager.SoundType.WOOF)
 
 func set_speed(new_speed):
 	speed = new_speed
