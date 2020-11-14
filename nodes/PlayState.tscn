@@ -51,8 +51,6 @@ position = Vector2( 450, 124 )
 position = Vector2( 704.781, 29.665 )
 level_navigation_path = NodePath("../Navigation2D")
 werewolf_path = NodePath("../Werewolf")
-walk_speed = 50.0
-run_speed = 150.0
 exported_emotion_intensity = {
 "CURIOSITY": 0.0,
 "FATIGUE": 0,

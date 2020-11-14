@@ -1,10 +1,12 @@
 extends "res://nodes/villager/actions/scripts/Action.gd"
 
+const FLEE_SOUNDS = [AudioManager.SoundType.ARGH, AudioManager.SoundType.SCREAM]
+
 func get_label():
 	return "flee"
 
 func on_enter():
-	AudioManager.play_sound(AudioManager.SoundType.ARGH)
+	AudioManager.play_sound(FLEE_SOUNDS[randi() % FLEE_SOUNDS.size()])
 	villager.set_emotion(Villager.Emotion.CURIOSITY, 0.0)
 
 func on_exit():
