@@ -9,7 +9,7 @@
 [ext_resource path="res://nodes/villager/actions/Investigate.tscn" type="PackedScene" id=7]
 
 [sub_resource type="CircleShape2D" id=1]
-radius = 16.0
+radius = 8.0
 
 [node name="Villager" type="KinematicBody2D"]
 script = ExtResource( 1 )

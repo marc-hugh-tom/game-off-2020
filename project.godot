@@ -27,7 +27,6 @@ config/icon="res://icon.png"
 [autoload]
 
 AudioManager="*res://scripts/audio_manager.gd"
-GroupManager="*res://scripts/group_manager.gd"
 
 [input]
 
