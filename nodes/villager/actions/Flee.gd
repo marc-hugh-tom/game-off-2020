@@ -1,7 +1,5 @@
 extends "res://nodes/villager/actions/Action.gd"
 
-export(NodePath) var werewolf_path
-
 func get_label():
 	return "flee"
 

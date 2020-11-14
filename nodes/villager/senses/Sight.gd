@@ -1,7 +1,6 @@
 tool
 extends "res://nodes/villager/senses/Sense.gd"
 
-export(NodePath) var werewolf_path
 export(float) var sight_distance = 250.0
 
 onready var ray = get_node("Ray")
