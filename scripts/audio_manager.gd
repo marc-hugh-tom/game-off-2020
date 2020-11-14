@@ -2,6 +2,7 @@ extends Node2D
 
 enum SoundType {
 	WOOF
+	ARGH
 }
 
 class Sound:
@@ -14,6 +15,7 @@ class Sound:
 
 var sound_library = {
 	SoundType.WOOF: Sound.new("res://assets/sounds/woof.wav", 0),
+	SoundType.ARGH: Sound.new("res://assets/sounds/argh.wav", 0),
 }
 
 var stream_library = {}
@@ -31,7 +33,7 @@ func _ready():
 		add_child(sound_node)
 		stream_library[sound_enum] = sound_node
 
-func play_sound(sound, node):
+func play_sound(sound, node = null):
 	if sound in stream_library:
 		stream_library[sound].play()
 
