@@ -1,5 +1,7 @@
 extends KinematicBody2D
 
+var Noise = preload("res://nodes/Noise.tscn")
+
 var speed = 250
 
 var walk_dir = Vector2(0.0, 0.0)
@@ -40,7 +42,9 @@ func attack():
 	$Body.connect("animation_finished", $Body, "play", ["default"], CONNECT_ONESHOT)
 
 func bark():
-	AudioManager.play_sound(AudioManager.SoundType.WOOF)
+	var noise = Noise.instance()
+	noise.position = position
+	get_parent().add_child(noise)
 
 func set_speed(new_speed):
 	speed = new_speed

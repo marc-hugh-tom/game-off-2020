@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=2]
+[gd_scene load_steps=15 format=2]
 
 [ext_resource path="res://nodes/Werewolf.tscn" type="PackedScene" id=1]
 [ext_resource path="res://assets/sprites/building.png" type="Texture" id=2]
@@ -9,6 +9,7 @@
 [ext_resource path="res://nodes/villager/actions/Patrol.tscn" type="PackedScene" id=7]
 [ext_resource path="res://shaders/DayNightMaterial.tres" type="Material" id=8]
 [ext_resource path="res://nodes/Lamp.tscn" type="PackedScene" id=9]
+[ext_resource path="res://nodes/villager/actions/Investigate.tscn" type="PackedScene" id=10]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 127.826, 96.2069 )
@@ -22,9 +23,9 @@ _data = {
 }
 
 [sub_resource type="NavigationPolygon" id=4]
-vertices = PoolVector2Array( 1108.94, -68.6156, 1104.71, 663.473, 969.095, 166.585, 969.095, 53.2227, 936.252, 518.327, 934.133, 440.986, -107.319, 669.83, 697.872, 520.446, -71.2977, -71.794, 727.537, 54.2822, 424.531, 56.4011, 149.071, 53.2227, 150.13, 265.115, 421.353, 261.937, 694.694, 438.867, 729.656, 168.704 )
-polygons = [ PoolIntArray( 0, 1, 2, 3 ), PoolIntArray( 2, 1, 4, 5 ), PoolIntArray( 4, 1, 6, 7 ), PoolIntArray( 8, 0, 3, 9 ), PoolIntArray( 8, 9, 10, 11 ), PoolIntArray( 6, 8, 11, 12 ), PoolIntArray( 7, 6, 12, 13, 14 ), PoolIntArray( 15, 2, 5, 14, 13 ), PoolIntArray( 15, 13, 10, 9 ) ]
-outlines = [ PoolVector2Array( 1104.71, 663.473, -107.319, 669.83, -71.2977, -71.794, 1108.94, -68.6156 ), PoolVector2Array( 694.694, 438.867, 934.133, 440.986, 936.252, 518.327, 697.872, 520.446 ), PoolVector2Array( 729.656, 168.704, 969.095, 166.585, 969.095, 53.2227, 727.537, 54.2822 ), PoolVector2Array( 421.353, 261.937, 150.13, 265.115, 149.071, 53.2227, 424.531, 56.4011 ) ]
+vertices = PoolVector2Array( 969.095, 53.2227, 727.537, 54.2822, 425, 41, -71.2977, -71.794, 1108.94, -68.6156, 1104.71, 663.473, 969.095, 166.585, 936.252, 518.327, 934.133, 440.986, -107.319, 669.83, 697.872, 520.446, 138, 41, 136, 262, 421.353, 261.937, 694.694, 438.867, 729.656, 168.704 )
+polygons = [ PoolIntArray( 0, 1, 2, 3, 4 ), PoolIntArray( 4, 5, 6, 0 ), PoolIntArray( 6, 5, 7, 8 ), PoolIntArray( 7, 5, 9, 10 ), PoolIntArray( 3, 2, 11 ), PoolIntArray( 9, 3, 11, 12 ), PoolIntArray( 10, 9, 12, 13, 14 ), PoolIntArray( 15, 6, 8, 14, 13 ), PoolIntArray( 15, 13, 2, 1 ) ]
+outlines = [ PoolVector2Array( 1104.71, 663.473, -107.319, 669.83, -71.2977, -71.794, 1108.94, -68.6156 ), PoolVector2Array( 694.694, 438.867, 934.133, 440.986, 936.252, 518.327, 697.872, 520.446 ), PoolVector2Array( 729.656, 168.704, 969.095, 166.585, 969.095, 53.2227, 727.537, 54.2822 ), PoolVector2Array( 421.353, 261.937, 136, 262, 138, 41, 425, 41 ) ]
 
 [node name="PlayState" type="Node2D"]
 script = ExtResource( 3 )
@@ -68,18 +69,22 @@ position = Vector2( 361.856, 256.482 )
 
 [node name="Villager" parent="Map" instance=ExtResource( 5 )]
 position = Vector2( 704.781, 29.665 )
+level_navigation_path = NodePath("../Navigation2D")
 werewolf_path = NodePath("../Werewolf")
 exported_emotion_intensity = {
+"CURIOSITY": 0.0,
 "FATIGUE": 0,
 "FEAR": 0
 }
 
 [node name="Patrol" parent="Map/Villager" instance=ExtResource( 7 )]
-level_navigation_path = NodePath("../../Navigation2D")
 
 [node name="Path2D" type="Path2D" parent="Map/Villager/Patrol"]
 position = Vector2( -704.781, -29.665 )
 curve = SubResource( 3 )
+
+[node name="Investigate" parent="Map/Villager" instance=ExtResource( 10 )]
+position = Vector2( -704.781, -29.665 )
 
 [node name="Navigation2D" type="Navigation2D" parent="Map"]
 

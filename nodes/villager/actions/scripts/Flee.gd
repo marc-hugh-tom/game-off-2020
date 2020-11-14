@@ -1,4 +1,4 @@
-extends "res://nodes/villager/actions/Action.gd"
+extends "res://nodes/villager/actions/scripts/Action.gd"
 
 func get_label():
 	return "flee"

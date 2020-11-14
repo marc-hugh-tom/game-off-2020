@@ -18,6 +18,8 @@ var sound_library = {
 
 var stream_library = {}
 
+var listeners = []
+
 func _ready():
 	for sound in SoundType:
 		var sound_node = AudioStreamPlayer.new()
@@ -29,6 +31,13 @@ func _ready():
 		add_child(sound_node)
 		stream_library[sound_enum] = sound_node
 
-func play_sound(sound):
+func play_sound(sound, node):
 	if sound in stream_library:
 		stream_library[sound].play()
+		
+		if node != null:
+			for listener in listeners:
+				listener.on_sound(sound, node)
+
+func add_listener(listener):
+	listeners.append(listener)

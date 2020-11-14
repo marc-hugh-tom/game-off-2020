@@ -1,23 +1,12 @@
 tool
-extends "res://nodes/villager/actions/Action.gd"
-
-# The villager needs to be able to navigate to its patrol path either
-# - on start up, or
-# - after it has fled from the werewolf
-export(NodePath) var level_navigation_path
+extends "res://nodes/villager/actions/scripts/Action.gd"
 
 func _get_configuration_warning():
 	if not get_child(0) is Path2D:
 		return "first child must be a Path2D"
-	var navigation = get_node(level_navigation_path)
-	if navigation == null:
-		return "cannot find navigation node from path"
-	if not navigation is Navigation2D:
-		return "navigation node is not a Navigation2D"
 	return ""
 
 onready var path: Path2D = get_child(0)
-onready var navigation: Navigation2D = get_node(level_navigation_path)
 
 # Patrol is a mini state machine that flows from "MoveToPath" to "MoveAlongPath"
 # Each state should have a physics_process function that takes a delta and
@@ -77,11 +66,14 @@ func get_label():
 	return "patrol"
 
 func on_enter():
-	current_state = MoveToPath.new(path, villager, navigation)
-	
+	current_state = MoveToPath.new(path, villager, villager.navigation)
+
 func physics_process(delta):
 	current_state = current_state.physics_process(delta, villager)
 	
+func on_exit():
+	current_state = Null.new()
+
 func should_activate():
 	if villager == null:
 		return false
