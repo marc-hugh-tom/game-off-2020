@@ -83,7 +83,8 @@ func on_enter():
 	var closest_point = path.get_curve().get_closest_point(villager.position)
 	if closest_point.distance_squared_to(villager.position) < 10.0:
 		current_state = MoveAlongPath.new(path.get_curve(), villager)
-		if last_patrol_offset != null:
+		var closest_offset = path.get_curve().get_closest_offset(villager.position)
+		if last_patrol_offset != null and abs(closest_offset - last_patrol_offset) < 10.0:
 			current_state.offset = last_patrol_offset
 	else:
 		current_state = MoveToPath.new(path, villager, villager.navigation)
