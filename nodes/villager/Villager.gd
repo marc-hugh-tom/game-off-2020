@@ -12,6 +12,8 @@ export(NodePath) var werewolf_path
 onready var werewolf = get_node(werewolf_path)
 onready var navigation: Navigation2D = get_node(level_navigation_path)
 
+var TWO_PI = 2 * PI
+	
 func _get_configuration_warning():
 	# if we're viewing the villager scene then don't bother showing this warning
 	if get_parent() is Viewport:
@@ -250,11 +252,11 @@ func set_rotation_with_delta(target, delta):
 	var target_rotation = PI + Vector2(0, 1).angle_to(target - position)
 	var rotation_diff = rotation - target_rotation
 	if rotation_diff > PI:
-		target_rotation += 2 * PI
+		target_rotation += TWO_PI
 	if rotation_diff < -PI:
-		target_rotation -= 2 * PI
+		target_rotation -= TWO_PI
 	rotation = lerp(rotation, target_rotation, 10.0 * delta)
-	if rotation > 2 * PI:
-		rotation -= 2 * PI
-	if rotation < -2 * PI:
-		rotation += 2 * PI
+	if rotation > TWO_PI:
+		rotation -= TWO_PI
+	if rotation < -TWO_PI:
+		rotation += TWO_PI

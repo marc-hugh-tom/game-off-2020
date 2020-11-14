@@ -46,7 +46,7 @@ animations = [ {
 } ]
 
 [sub_resource type="OccluderPolygon2D" id=2]
-polygon = PoolVector2Array( -16, -16, -20, -6, -20, 4, -12, 8, 12, 8, 20, 4, 20, -6, 16, -16, 12, -16, 12, -6, 0, -4, -12, -6, -12, -16 )
+polygon = PoolVector2Array( -11.1547, -0.836151, -11.7846, 7.9833, -4.54008, 14.9129, 2.07451, 14.7554, 11.8389, 11.1331, 15.6187, 1.5262, 10.579, -0.836151, 8.68909, -4.14344, 7.27168, -10.9155, -2.65019, -10.758, -6.27247, -6.03333, -9.10729, -6.03333 )
 
 [sub_resource type="SpriteFrames" id=3]
 animations = [ {
@@ -171,7 +171,6 @@ animation = "idle"
 playing = true
 
 [node name="LightOccluder2D" type="LightOccluder2D" parent="."]
-visible = false
 occluder = SubResource( 2 )
 
 [node name="Body" type="AnimatedSprite" parent="."]
@@ -183,7 +182,6 @@ frames = SubResource( 3 )
 animation = "attack"
 
 [node name="Camera2D" type="Camera2D" parent="."]
-visible = false
 current = true
 drag_margin_h_enabled = true
 drag_margin_v_enabled = true
@@ -192,7 +190,6 @@ smoothing_speed = 10.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 rotation = 1.5708
-scale = Vector2( 1.1875, 1.07143 )
 shape = SubResource( 4 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]

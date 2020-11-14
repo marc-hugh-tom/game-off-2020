@@ -38,14 +38,14 @@ position = Vector2( 131.703, 142.127 )
 [node name="1" parent="Map/LampLights" instance=ExtResource( 9 )]
 position = Vector2( 194, 252 )
 
-[node name="2" parent="Map/LampLights" instance=ExtResource( 9 )]
-position = Vector2( 222, 252 )
+[node name="2" parent="Map/LampLights/1" instance=ExtResource( 9 )]
+position = Vector2( 28, 0 )
 
 [node name="3" parent="Map/LampLights" instance=ExtResource( 9 )]
 position = Vector2( 478, 124 )
 
-[node name="4" parent="Map/LampLights" instance=ExtResource( 9 )]
-position = Vector2( 450, 124 )
+[node name="4" parent="Map/LampLights/3" instance=ExtResource( 9 )]
+position = Vector2( -28, 0 )
 
 [node name="Villager" parent="Map" instance=ExtResource( 5 )]
 position = Vector2( 704.781, 29.665 )
