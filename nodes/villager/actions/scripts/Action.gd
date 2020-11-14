@@ -1,5 +1,7 @@
 extends "res://nodes/villager/actions/scripts/ActionBase.gd"
 
+var is_active = false
+
 var villager: Villager setget set_villager, get_villager
 
 func set_villager(v: Villager):

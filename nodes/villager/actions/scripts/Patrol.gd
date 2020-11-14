@@ -18,6 +18,9 @@ class Null:
 	func physics_process(delta, villager):
 		return self
 
+	func get_label():
+		return ""
+
 # Villager is patrolling along the path provided as the first child of the node
 class MoveAlongPath:
 	var curve: Curve2D
@@ -38,6 +41,9 @@ class MoveAlongPath:
 		if self.offset >= self.curve.get_baked_length():
 			self.offset = 0
 		return self
+
+	func get_label():
+		return "patrolling path"
 
 # Villager is not on the path and needs to move towards it
 class MoveToPath:
@@ -61,9 +67,12 @@ class MoveToPath:
 		if villager.position.distance_squared_to(target) < 10.0:
 			route.remove(0)
 		return self
+		
+	func get_label():
+		return "moving to path"
 
 func get_label():
-	return "patrol"
+	return "patrol (" + current_state.get_label() + ")"
 
 func on_enter():
 	current_state = MoveToPath.new(path, villager, villager.navigation)

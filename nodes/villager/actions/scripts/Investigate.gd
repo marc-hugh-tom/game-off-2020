@@ -51,7 +51,8 @@ class MoveToPath:
 		target = route[0]
 		var direction = (target - villager.position).normalized()
 		villager.move_and_slide(direction * villager.get_run_speed())
-		if villager.position.distance_squared_to(target) < 10.0:
+		var distance_to = villager.position.distance_squared_to(target)
+		if distance_to < 20.0:
 			route.remove(0)
 		return self
 
@@ -68,17 +69,19 @@ class DoInvestigation:
 		self.target = target
 
 	func physics_process(delta, villager):
-		villager.amend_emotion(Villager.Emotion.FATIGUE, 3 * -delta)
+		var route = villager.emotion_metadata.get(Villager.Emotion.CURIOSITY)
+		if route[-1] != self.target:
+			var new_route = villager.navigation.get_simple_path(villager.position, route[-1])
+			return Alert.new(new_route)
+
 		self.pause_time -= delta
 		if pause_time <= 0:
-			var route = villager.emotion_metadata.get(Villager.Emotion.CURIOSITY)
-			if route[-1] != self.target:
-				var new_route = villager.navigation.get_simple_path(villager.position, route[-1])
-				return Alert.new(new_route)
-			else:
-				villager.set_emotion(Villager.Emotion.CURIOSITY, 0.0)
+			villager.set_emotion(Villager.Emotion.CURIOSITY, 0.0)
+			return Null.new()
+
+		villager.amend_emotion(Villager.Emotion.FATIGUE, 3 * -delta)
 		return self
-		
+
 	func get_label():
 		return "do investigation"
 
@@ -99,15 +102,15 @@ func should_activate():
 	if villager == null:
 		return false
 
-	var fear = villager.get_emotion_intensity(Villager.Emotion.CURIOSITY)
-	return fear > 0.0
+	var curiosity = villager.get_emotion_intensity(Villager.Emotion.CURIOSITY)
+	return curiosity > 0.0
 
 func should_deactivate():
 	if villager == null:
 		return false
 
-	var fear = villager.get_emotion_intensity(Villager.Emotion.CURIOSITY)
-	return fear <= 0.0
+	var curiosity = villager.get_emotion_intensity(Villager.Emotion.CURIOSITY)
+	return curiosity <= 0.0
 
 func get_priority():
 	return 1

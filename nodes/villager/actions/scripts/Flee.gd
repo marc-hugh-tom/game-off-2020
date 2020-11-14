@@ -6,6 +6,9 @@ func get_label():
 func on_enter():
 	villager.set_emotion(Villager.Emotion.CURIOSITY, 0.0)
 
+func on_exit():
+	villager.set_emotion(Villager.Emotion.CURIOSITY, 0.0)
+
 func process(delta):
 	var werewolf = villager.werewolf
 	var towards_werewolf = (werewolf.position - self.get_parent().position).normalized()

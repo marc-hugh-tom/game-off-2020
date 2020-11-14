@@ -85,7 +85,7 @@ func get_emotion_intensity(emotion):
 func amend_emotion(emotion, val, metadata = null):
 	set_emotion(emotion, emotion_intensity[emotion] + val)
 
-func set_emotion(emotion, val, metadata = null):
+func set_emotion(emotion, val, metadata = null):	
 	emotion_intensity[emotion] = val
 	clamp_emotion(emotion)
 	
@@ -111,11 +111,34 @@ func _update_actions():
 		_exit_action(action)
 
 	var children = _get_should_activate_action_children()
-	children.sort_custom(self, "priority_sort")
 	if len(children) > 0:
-		_enter_action(children[0])
+		children.sort_custom(self, "priority_sort")
+		var new_action = children[0]
+		
+		var higher_priority = new_action.get_priority() > current_action.get_priority()
+		var is_idling = current_action == idle
+		
+		if higher_priority or is_idling:
+			_enter_action(new_action)
 	elif current_action == null:
 		_enter_action(idle)
+
+func _enter_action(next_action):
+	var is_new_action = next_action != current_action
+	if is_new_action:
+		print("enter action " + next_action.get_label())
+		
+		if current_action != null:
+			_exit_action(current_action)
+		current_action = next_action
+		current_action.on_enter()
+		current_action.is_active = true
+
+func _exit_action(action):
+	action.on_exit()
+	action.is_active = false
+	if current_action == action:
+		current_action = idle
 
 func _get_action_children():
 	return _get_children(ActionBase)
@@ -134,7 +157,7 @@ func _get_should_activate_action_children():
 	var actions = _get_action_children()
 	var ret = []
 	for action in actions:
-		if action.has_method("should_activate") and action.should_activate():
+		if not action.is_active and action.should_activate():
 			ret.append(action) 
 	return ret
 
@@ -142,7 +165,7 @@ func _get_should_deactivate_action_children():
 	var actions = _get_action_children()
 	var ret = []
 	for action in actions:
-		if action.has_method("should_deactivate") and action.should_deactivate():
+		if action.is_active and action.should_deactivate():
 			ret.append(action) 
 	return ret
 
@@ -153,6 +176,7 @@ func _ready():
 		for sense in _get_sense_children():
 			sense.villager = self
 		
+		_enter_action(idle)
 		_create_debug_labels()
 		_update_actions()
 		_create_next_action_timer()
@@ -189,19 +213,6 @@ func _create_next_action_timer():
 	timer.set_one_shot(false)
 	add_child(timer)
 	timer.start()
-
-func _enter_action(next_action):
-	var is_new_action = next_action != current_action
-	if is_new_action:
-		if current_action != null:
-			_exit_action(current_action)
-		current_action = next_action
-		current_action.on_enter()
-
-func _exit_action(action):
-	action.on_exit()
-	if current_action == action:
-		current_action = null
 
 func _physics_process(delta):
 	if not Engine.editor_hint:
