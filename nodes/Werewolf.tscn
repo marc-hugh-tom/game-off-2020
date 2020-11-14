@@ -1,47 +1,74 @@
-[gd_scene load_steps=14 format=2]
+[gd_scene load_steps=36 format=2]
 
 [ext_resource path="res://scripts/Werewolf.gd" type="Script" id=1]
-[ext_resource path="res://assets/sprites/werewolf/feet_0.png" type="Texture" id=2]
-[ext_resource path="res://assets/sprites/werewolf/feet_3.png" type="Texture" id=3]
-[ext_resource path="res://assets/sprites/werewolf/feet_4.png" type="Texture" id=4]
-[ext_resource path="res://assets/sprites/werewolf/feet_2.png" type="Texture" id=5]
-[ext_resource path="res://assets/sprites/werewolf/body_0.png" type="Texture" id=6]
-[ext_resource path="res://assets/sprites/werewolf/feet_1.png" type="Texture" id=7]
-[ext_resource path="res://assets/sprites/werewolf/body_2.png" type="Texture" id=8]
-[ext_resource path="res://assets/sprites/werewolf/body_1.png" type="Texture" id=9]
+[ext_resource path="res://assets/sprites/werewolf/feet_02.png" type="Texture" id=2]
+[ext_resource path="res://assets/sprites/werewolf/feet_06.png" type="Texture" id=3]
+[ext_resource path="res://assets/sprites/werewolf/feet_05.png" type="Texture" id=4]
+[ext_resource path="res://assets/sprites/werewolf/feet_03.png" type="Texture" id=5]
+[ext_resource path="res://assets/sprites/werewolf/walk_08.png" type="Texture" id=6]
+[ext_resource path="res://assets/sprites/werewolf/feet_04.png" type="Texture" id=7]
+[ext_resource path="res://assets/sprites/werewolf/attack_06.png" type="Texture" id=8]
+[ext_resource path="res://assets/sprites/werewolf/attack_02.png" type="Texture" id=9]
+[ext_resource path="res://assets/sprites/werewolf/feet_01.png" type="Texture" id=10]
+[ext_resource path="res://assets/sprites/werewolf/feet_07.png" type="Texture" id=11]
+[ext_resource path="res://assets/sprites/werewolf/idle_04.png" type="Texture" id=12]
+[ext_resource path="res://assets/sprites/werewolf/idle_03.png" type="Texture" id=13]
+[ext_resource path="res://assets/sprites/werewolf/idle_01.png" type="Texture" id=14]
+[ext_resource path="res://assets/sprites/werewolf/walk_03.png" type="Texture" id=15]
+[ext_resource path="res://assets/sprites/werewolf/idle_02.png" type="Texture" id=16]
+[ext_resource path="res://assets/sprites/werewolf/idle_05.png" type="Texture" id=17]
+[ext_resource path="res://assets/sprites/werewolf/walk_01.png" type="Texture" id=18]
+[ext_resource path="res://assets/sprites/werewolf/walk_05.png" type="Texture" id=19]
+[ext_resource path="res://assets/sprites/werewolf/walk_02.png" type="Texture" id=20]
+[ext_resource path="res://assets/sprites/werewolf/idle_06.png" type="Texture" id=21]
+[ext_resource path="res://assets/sprites/werewolf/idle_07.png" type="Texture" id=22]
+[ext_resource path="res://assets/sprites/werewolf/walk_06.png" type="Texture" id=23]
+[ext_resource path="res://assets/sprites/werewolf/walk_07.png" type="Texture" id=24]
+[ext_resource path="res://assets/sprites/werewolf/walk_04.png" type="Texture" id=25]
+[ext_resource path="res://assets/sprites/werewolf/idle_08.png" type="Texture" id=26]
+[ext_resource path="res://assets/sprites/werewolf/attack_01.png" type="Texture" id=27]
+[ext_resource path="res://assets/sprites/werewolf/attack_07.png" type="Texture" id=28]
+[ext_resource path="res://assets/sprites/werewolf/attack_04.png" type="Texture" id=29]
+[ext_resource path="res://assets/sprites/werewolf/attack_03.png" type="Texture" id=30]
+[ext_resource path="res://assets/sprites/werewolf/attack_05.png" type="Texture" id=31]
 
 [sub_resource type="SpriteFrames" id=1]
 animations = [ {
-"frames": [ ExtResource( 2 ) ],
-"loop": true,
-"name": "default",
+"frames": [ ExtResource( 5 ) ],
+"loop": false,
+"name": "idle",
 "speed": 5.0
 }, {
-"frames": [ ExtResource( 2 ), ExtResource( 7 ), ExtResource( 5 ), ExtResource( 7 ), ExtResource( 2 ), ExtResource( 3 ), ExtResource( 4 ), ExtResource( 3 ) ],
+"frames": [ ExtResource( 10 ), ExtResource( 2 ), ExtResource( 5 ), ExtResource( 7 ), ExtResource( 4 ), ExtResource( 3 ), ExtResource( 11 ) ],
 "loop": true,
 "name": "walk",
-"speed": 10.0
+"speed": 8.0
 } ]
 
-[sub_resource type="SpriteFrames" id=2]
+[sub_resource type="CapsuleShape2D" id=2]
+radius = 22.5872
+height = 5.46669
+
+[sub_resource type="OccluderPolygon2D" id=3]
+polygon = PoolVector2Array( -16, -16, -20, -6, -20, 4, -12, 8, 12, 8, 20, 4, 20, -6, 16, -16, 12, -16, 12, -6, 0, -4, -12, -6, -12, -16 )
+
+[sub_resource type="SpriteFrames" id=4]
 animations = [ {
-"frames": [ ExtResource( 6 ) ],
+"frames": [ ExtResource( 14 ), ExtResource( 16 ), ExtResource( 13 ), ExtResource( 12 ), ExtResource( 17 ), ExtResource( 21 ), ExtResource( 22 ), ExtResource( 26 ) ],
 "loop": true,
-"name": "default",
+"name": "idle",
 "speed": 5.0
 }, {
-"frames": [ ExtResource( 6 ), ExtResource( 9 ), ExtResource( 8 ) ],
+"frames": [ ExtResource( 27 ), ExtResource( 9 ), ExtResource( 30 ), ExtResource( 29 ), ExtResource( 31 ), ExtResource( 8 ), ExtResource( 28 ) ],
 "loop": false,
 "name": "attack",
-"speed": 5.0
+"speed": 10.0
+}, {
+"frames": [ ExtResource( 18 ), ExtResource( 20 ), ExtResource( 15 ), ExtResource( 25 ), ExtResource( 19 ), ExtResource( 23 ), ExtResource( 24 ), ExtResource( 6 ) ],
+"loop": true,
+"name": "walk",
+"speed": 8.0
 } ]
-
-[sub_resource type="CapsuleShape2D" id=3]
-radius = 6.77359
-height = 30.0058
-
-[sub_resource type="OccluderPolygon2D" id=4]
-polygon = PoolVector2Array( -16, -16, -20, -6, -20, 4, -12, 8, 12, 8, 20, 4, 20, -6, 16, -16, 12, -16, 12, -6, 0, -4, -12, -6, -12, -16 )
 
 [node name="Werewolf" type="KinematicBody2D"]
 use_parent_material = true
@@ -50,23 +77,31 @@ script = ExtResource( 1 )
 [node name="Feet" type="AnimatedSprite" parent="."]
 light_mask = 2
 use_parent_material = true
-position = Vector2( 0, -8 )
+rotation = -1.5708
+scale = Vector2( 2, 2 )
 frames = SubResource( 1 )
+animation = "idle"
 playing = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
+rotation = 1.5708
+scale = Vector2( 1.1875, 1.07143 )
+shape = SubResource( 2 )
+
+[node name="LightOccluder2D" type="LightOccluder2D" parent="."]
+visible = false
+occluder = SubResource( 3 )
 
 [node name="Body" type="AnimatedSprite" parent="."]
 light_mask = 2
 use_parent_material = true
-position = Vector2( 0, -8 )
-frames = SubResource( 2 )
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2( 0, 1.97685 )
-rotation = 1.5708
-shape = SubResource( 3 )
-
-[node name="LightOccluder2D" type="LightOccluder2D" parent="."]
-occluder = SubResource( 4 )
+rotation = -1.5708
+scale = Vector2( 2, 2 )
+frames = SubResource( 4 )
+animation = "attack"
+frame = 6
+playing = true
 
 [node name="Camera2D" type="Camera2D" parent="."]
 current = true

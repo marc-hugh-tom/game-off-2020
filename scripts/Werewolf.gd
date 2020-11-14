@@ -6,6 +6,7 @@ var speed = 250
 
 var walk_dir = Vector2(0.0, 0.0)
 var velocity = Vector2(0.0, 0.0)
+var attacking = false
 
 func _ready():
 	pass # Replace with function body.
@@ -27,19 +28,27 @@ func _physics_process(delta):
 		walk_dir.x = 1.0
 	if Input.is_action_pressed("left"):
 		walk_dir.x = -1.0
-	if walk_dir.length_squared() == 0:
-		$Feet.play("default")
+	elif walk_dir.length_squared() == 0:
+		$Feet.play("idle")
+		if not attacking:
+			$Body.play("idle")
 	else:
-		if not $Feet.get_animation() == "walk":
-			$Feet.play("walk")
+		$Feet.play("walk")
+		if not attacking:
+			$Body.play("walk")
 	rotation = get_global_mouse_position().angle_to_point(
 		get_global_position()) + PI/2
 	velocity = walk_dir.normalized() * speed
 	move_and_slide(velocity)
 
 func attack():
+	attacking = true
 	$Body.play("attack")
-	$Body.connect("animation_finished", $Body, "play", ["default"], CONNECT_ONESHOT)
+	$Body.connect("animation_finished", self, "end_attack", [], CONNECT_ONESHOT)
+	
+func end_attack():
+	attacking = false
+	$Body.play("idle")
 
 func bark():
 	var noise = Noise.instance()
