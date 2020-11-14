@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/building.png-d342b32fdc5fd5a4de78d0dc9a8f9c7f.stex"
+path="res://.import/building_tileset.png-6a102554684da6e18a8df5caeced3c1f.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://raw_assets/sprites/building.png"
-dest_files=[ "res://.import/building.png-d342b32fdc5fd5a4de78d0dc9a8f9c7f.stex" ]
+source_file="res://assets/sprites/map/building_tileset.png"
+dest_files=[ "res://.import/building_tileset.png-6a102554684da6e18a8df5caeced3c1f.stex" ]
 
 [params]
 
