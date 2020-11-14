@@ -16,12 +16,12 @@ extents = Vector2( 127.826, 96.2069 )
 [sub_resource type="OccluderPolygon2D" id=2]
 polygon = PoolVector2Array( -126.502, -94.1544, -125.167, 94.058, 128.452, 95.3929, 128.452, -94.1544 )
 
-[sub_resource type="Curve2D" id=4]
+[sub_resource type="Curve2D" id=3]
 _data = {
 "points": PoolVector2Array( 0, 0, 0, 0, 983.927, 32.0334, 0, 0, 0, 0, 993.463, 225.915, 0, 0, 0, 0, 699.991, 214.261, 0, 0, 0, 0, 712.705, 37.3307, 0, 0, 0, 0, 983.927, 32.0334 )
 }
 
-[sub_resource type="NavigationPolygon" id=3]
+[sub_resource type="NavigationPolygon" id=4]
 vertices = PoolVector2Array( 1108.94, -68.6156, 1104.71, 663.473, 969.095, 166.585, 969.095, 53.2227, 936.252, 518.327, 934.133, 440.986, -107.319, 669.83, 697.872, 520.446, -71.2977, -71.794, 727.537, 54.2822, 424.531, 56.4011, 149.071, 53.2227, 150.13, 265.115, 421.353, 261.937, 694.694, 438.867, 729.656, 168.704 )
 polygons = [ PoolIntArray( 0, 1, 2, 3 ), PoolIntArray( 2, 1, 4, 5 ), PoolIntArray( 4, 1, 6, 7 ), PoolIntArray( 8, 0, 3, 9 ), PoolIntArray( 8, 9, 10, 11 ), PoolIntArray( 6, 8, 11, 12 ), PoolIntArray( 7, 6, 12, 13, 14 ), PoolIntArray( 15, 2, 5, 14, 13 ), PoolIntArray( 15, 13, 10, 9 ) ]
 outlines = [ PoolVector2Array( 1104.71, 663.473, -107.319, 669.83, -71.2977, -71.794, 1108.94, -68.6156 ), PoolVector2Array( 694.694, 438.867, 934.133, 440.986, 936.252, 518.327, 697.872, 520.446 ), PoolVector2Array( 729.656, 168.704, 969.095, 166.585, 969.095, 53.2227, 727.537, 54.2822 ), PoolVector2Array( 421.353, 261.937, 150.13, 265.115, 149.071, 53.2227, 424.531, 56.4011 ) ]
@@ -79,12 +79,13 @@ level_navigation_path = NodePath("../../Navigation2D")
 
 [node name="Path2D" type="Path2D" parent="Map/Villager/Patrol"]
 position = Vector2( -704.781, -29.665 )
-curve = SubResource( 4 )
+curve = SubResource( 3 )
 
 [node name="Navigation2D" type="Navigation2D" parent="Map"]
 
 [node name="NavigationPolygonInstance" type="NavigationPolygonInstance" parent="Map/Navigation2D"]
-navpoly = SubResource( 3 )
+visible = false
+navpoly = SubResource( 4 )
 
 [node name="HUD" type="CanvasLayer" parent="."]
 
