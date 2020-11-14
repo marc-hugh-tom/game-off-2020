@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://nodes/villager/Villager.gd" type="Script" id=1]
 [ext_resource path="res://assets/sprites/villager.png" type="Texture" id=2]
@@ -6,6 +6,7 @@
 [ext_resource path="res://nodes/villager/senses/Sight.tscn" type="PackedScene" id=4]
 [ext_resource path="res://nodes/villager/actions/Flee.tscn" type="PackedScene" id=5]
 [ext_resource path="res://nodes/villager/senses/Hearing.tscn" type="PackedScene" id=6]
+[ext_resource path="res://nodes/villager/actions/Investigate.tscn" type="PackedScene" id=7]
 
 [sub_resource type="CircleShape2D" id=1]
 radius = 16.0
@@ -26,7 +27,10 @@ texture = ExtResource( 2 )
 [node name="Idle" parent="." instance=ExtResource( 3 )]
 
 [node name="Sight" parent="." instance=ExtResource( 4 )]
+sight_distance = 250.0
 
 [node name="Flee" parent="." instance=ExtResource( 5 )]
 
 [node name="Hearing" parent="." instance=ExtResource( 6 )]
+
+[node name="Investigate" parent="." instance=ExtResource( 7 )]
