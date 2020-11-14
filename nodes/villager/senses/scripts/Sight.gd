@@ -1,5 +1,5 @@
 tool
-extends "res://nodes/villager/senses/Sense.gd"
+extends "res://nodes/villager/senses/scripts/Sense.gd"
 
 export(float) var sight_distance = 250.0
 

@@ -2,21 +2,33 @@
 tool
 extends KinematicBody2D
 
+# The villager needs to be able to navigate to its patrol path either
+# - on start up, or
+# - after it has fled from the werewolf
+export(NodePath) var level_navigation_path
+
 export(NodePath) var werewolf_path
 
 onready var werewolf = get_node(werewolf_path)
+onready var navigation: Navigation2D = get_node(level_navigation_path)
 
 func _get_configuration_warning():
 	# if we're viewing the villager scene then don't bother showing this warning
 	if get_parent() is Viewport:
 		return ""
+		
+	var navigation = get_node(level_navigation_path)
+	if navigation == null:
+		return "cannot find navigation node from path"
+	if not navigation is Navigation2D:
+		return "navigation node is not a Navigation2D"
 
 	if werewolf_path == null or get_node(werewolf_path) == null:
 		return "could not find werewolf node, make sure werewolf_path is set"
 	return ""
 
-var ActionBase = preload("res://nodes/villager/actions/ActionBase.gd")
-var SenseBase = preload("res://nodes/villager/senses/SenseBase.gd")
+var ActionBase = preload("res://nodes/villager/actions/scripts/ActionBase.gd")
+var SenseBase = preload("res://nodes/villager/senses/scripts/SenseBase.gd")
 
 class_name Villager
 
@@ -45,29 +57,40 @@ var action_labels = {}
 const Emotion = {
 	FEAR = "FEAR",
 	FATIGUE = "FATIGUE",
+	CURIOSITY = "CURIOSITY"
 }
 
 # a map of emotion to intensity, exported to configure different initial
 # emotions
 export(Dictionary) var exported_emotion_intensity = {
 	Emotion.FEAR: 0,
-	Emotion.FATIGUE: 0
+	Emotion.FATIGUE: 0,
+	Emotion.CURIOSITY: 0,
+}
+
+var emotion_metadata = {
+	Emotion.FEAR: null,
+	Emotion.FATIGUE: null,
+	Emotion.CURIOSITY: null,
 }
 
 # if we won't duplicate the exported dictionary, then it seems as though
 # an exported dict is shared between all instances, so any updates to it
-# will update ALL other villager's instances as well, what the fuck?
+# will update ALL other villager's instances as well, whaaaat?
 onready var emotion_intensity = exported_emotion_intensity.duplicate()
 
 func get_emotion_intensity(emotion):
 	return emotion_intensity[emotion]
 
-func amend_emotion(emotion, val):
+func amend_emotion(emotion, val, metadata = null):
 	set_emotion(emotion, emotion_intensity[emotion] + val)
 
-func set_emotion(emotion, val):
+func set_emotion(emotion, val, metadata = null):	
 	emotion_intensity[emotion] = val
 	clamp_emotion(emotion)
+	
+	if metadata != null:
+		emotion_metadata[emotion] = metadata
 
 func clamp_emotion(emotion):
 	var intensity = emotion_intensity[emotion]
@@ -88,11 +111,32 @@ func _update_actions():
 		_exit_action(action)
 
 	var children = _get_should_activate_action_children()
-	children.sort_custom(self, "priority_sort")
 	if len(children) > 0:
-		_enter_action(children[0])
+		children.sort_custom(self, "priority_sort")
+		var new_action = children[0]
+		
+		var higher_priority = new_action.get_priority() > current_action.get_priority()
+		var is_idling = current_action == idle
+		
+		if higher_priority or is_idling:
+			_enter_action(new_action)
 	elif current_action == null:
 		_enter_action(idle)
+
+func _enter_action(next_action):
+	var is_new_action = next_action != current_action
+	if is_new_action:
+		if current_action != null:
+			_exit_action(current_action)
+		current_action = next_action
+		current_action.on_enter()
+		current_action.is_active = true
+
+func _exit_action(action):
+	action.on_exit()
+	action.is_active = false
+	if current_action == action:
+		current_action = idle
 
 func _get_action_children():
 	return _get_children(ActionBase)
@@ -111,7 +155,7 @@ func _get_should_activate_action_children():
 	var actions = _get_action_children()
 	var ret = []
 	for action in actions:
-		if action.has_method("should_activate") and action.should_activate():
+		if not action.is_active and action.should_activate():
 			ret.append(action) 
 	return ret
 
@@ -119,19 +163,21 @@ func _get_should_deactivate_action_children():
 	var actions = _get_action_children()
 	var ret = []
 	for action in actions:
-		if action.has_method("should_deactivate") and action.should_deactivate():
+		if action.is_active and action.should_deactivate():
 			ret.append(action) 
 	return ret
 
 func _ready():
-	for action in _get_action_children():
-		action.villager = self
-	for sense in _get_sense_children():
-		sense.villager = self
-	
-	_create_debug_labels()
-	_update_actions()
-	_create_next_action_timer()
+	if not Engine.editor_hint:
+		for action in _get_action_children():
+			action.villager = self
+		for sense in _get_sense_children():
+			sense.villager = self
+		
+		_enter_action(idle)
+		_create_debug_labels()
+		_update_actions()
+		_create_next_action_timer()
 	
 func _create_debug_labels():
 	if DEBUG:
@@ -144,12 +190,11 @@ func _create_debug_labels():
 			add_child(label)
 			emotion_labels[emotion] = label
 			i += 1
-			
+		
+		i += 1
 		for action in _get_action_children():
 			var label = Label.new()
-			label.set_position(
-				Vector2(0, (-spacing * (Emotion.size())) + (-20 * i))
-			)
+			label.set_position(Vector2(0, -spacing + (-spacing * i)))
 			label.add_color_override("font_color", Color.red)
 			add_child(label)
 			action_labels[action] = label
@@ -167,27 +212,16 @@ func _create_next_action_timer():
 	add_child(timer)
 	timer.start()
 
-func _enter_action(next_action):
-	var is_new_action = next_action != current_action
-	if is_new_action:
-		if current_action != null:
-			_exit_action(current_action)
-		current_action = next_action
-		current_action.on_enter()
-
-func _exit_action(action):
-	action.on_exit()
-	if current_action == action:
-		current_action = null
-
 func _physics_process(delta):
-	if current_action != null and current_action.has_method("physics_process"):
-		current_action.physics_process(delta)
+	if not Engine.editor_hint:
+		if current_action != null and current_action.has_method("physics_process"):
+			current_action.physics_process(delta)
 
 func _process(delta):
-	if current_action != null and current_action.has_method("process"):
-		current_action.process(delta)
-	_update_debug_labels()
+	if not Engine.editor_hint:
+		if current_action != null and current_action.has_method("process"):
+			current_action.process(delta)
+		_update_debug_labels()
 
 func _update_debug_labels():
 	if DEBUG:

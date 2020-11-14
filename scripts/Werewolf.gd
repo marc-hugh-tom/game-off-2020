@@ -1,5 +1,7 @@
 extends KinematicBody2D
 
+var Noise = preload("res://nodes/Noise.tscn")
+
 var speed = 250
 
 var walk_dir = Vector2(0.0, 0.0)
@@ -11,6 +13,9 @@ func _ready():
 func _input(event):
 	if event.is_action_pressed("attack"):
 		attack()
+	
+	if event.is_action_pressed("bark"):
+		bark()
 
 func _physics_process(delta):
 	walk_dir = Vector2(0.0, 0.0)
@@ -38,6 +43,11 @@ func _physics_process(delta):
 func attack():
 	$Body.play("attack")
 	$Body.connect("animation_finished", $Body, "play", ["idle"], CONNECT_ONESHOT)
+
+func bark():
+	var noise = Noise.instance()
+	noise.position = position
+	get_parent().add_child(noise)
 
 func set_speed(new_speed):
 	speed = new_speed
