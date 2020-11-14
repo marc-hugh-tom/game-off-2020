@@ -36,11 +36,11 @@ func _physics_process(delta):
 	if walk_dir.length_squared() == 0:
 		$Feet.play("idle")
 		if not attacking:
-			$Body.play("idle")
+			$AnimationPlayer.play("idle")
 	else:
 		$Feet.play("walk")
 		if not attacking:
-			$Body.play("walk")
+			$AnimationPlayer.play("walk")
 	
 	rotation = get_global_mouse_position().angle_to_point(
 		get_global_position()) + PI/2
@@ -49,12 +49,12 @@ func _physics_process(delta):
 
 func attack():
 	attacking = true
-	$Body.play("attack")
-	$Body.connect("animation_finished", self, "end_attack", [], CONNECT_ONESHOT)
+	$AnimationPlayer.play("attack")
+	$AnimationPlayer.connect("animation_finished", self, "end_attack", [], CONNECT_ONESHOT)
 	
 func end_attack():
 	attacking = false
-	$Body.play("idle")
+	$AnimationPlayer.play("idle")
 
 func bark():
 	var noise = Noise.instance()
