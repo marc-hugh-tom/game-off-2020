@@ -105,5 +105,4 @@ smoothing_speed = 10.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 rotation = 1.5708
-scale = Vector2( 1.1875, 1.07143 )
 shape = SubResource( 4 )
