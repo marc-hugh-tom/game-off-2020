@@ -18,7 +18,6 @@ func _ready():
 	pass # Replace with function body.
 
 func _process(delta):
-	return
 	update_map_scale()
 	update_player_speed()
 	update_camera_margin()
