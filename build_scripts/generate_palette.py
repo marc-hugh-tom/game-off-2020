@@ -8,6 +8,8 @@ output_dir = 'assets'
 palette_filepath = os.path.join(output_dir, 'base_palette.png')
 
 def rgba2hex(r, g, b, a):
+    if a == 0:
+        r, g, b = (0, 0, 0)
     return('#{:02x}{:02x}{:02x}{:02x}'.format(r, g, b, a))
 
 raw_png_filepaths = glob.glob(raw_assets_dir + '/**/*.png', recursive=True)
