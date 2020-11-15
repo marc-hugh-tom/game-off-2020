@@ -16,6 +16,9 @@ class Null:
 	func get_label():
 		return ""
 
+	func get_priority():
+		return 2
+
 # Villager has been alerted by a noise, pause for 1 second to make it look as
 # though the villager is contemplating investigating, once we have a decent
 # sprite we could make it look in the direction of the noise, or perhaps have
@@ -38,18 +41,25 @@ class Alert:
 	func get_label():
 		return "alerted!"
 
+	func get_priority():
+		return 2
+
 # Villager is moving towards the noise
 class MoveToNoise:
 	var route: PoolVector2Array
 	var target: Vector2
+	var time_looking = 0
 	
 	func _init(in_route: PoolVector2Array):
 		self.route = in_route
 
 	func physics_process(delta: float, villager: Villager):
-		if route.size() <= 0:
-			# we have reached the end of our path, we should now switch
-			# to investigating whatever we found
+		time_looking += delta
+		
+		if route.size() <= 0 or time_looking > (10 * 1000):
+			# we have reached the end of our path, or we have
+			# searched for longer than 10 seconds 
+			# we should now switch to investigating whatever we found
 			return DoInvestigation.new(target, villager)
 
 		target = route[0]
@@ -63,6 +73,9 @@ class MoveToNoise:
 
 	func get_label():
 		return "moving to noise"
+
+	func get_priority():
+		return 2
 
 # Villager has reached the noise, do some investigation and reduce the curiosity
 # emotion
@@ -96,9 +109,13 @@ class DoInvestigation:
 
 	func get_label():
 		return "do investigation"
+		
+	func get_priority():
+		return 2
 
 func get_label():
-	return "investigate (" + current_state.get_label() + ")"
+	return "investigate (%s) priority (%s)" % \
+		[current_state.get_label(),  str(get_priority())]
 
 func on_enter():
 	current_path = villager.emotion_metadata.get(Villager.Emotion.CURIOSITY)
@@ -130,4 +147,4 @@ func should_deactivate():
 	return curiosity <= 0.0
 
 func get_priority():
-	return 1
+	return current_state.get_priority()

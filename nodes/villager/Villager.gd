@@ -2,6 +2,22 @@
 tool
 extends KinematicBody2D
 
+# state priority
+"""
+- flee
+- attack default
+- attack running towards wolf
+- investigate default
+- investigate alerted
+- attack searching for wolf
+- investigate moving towards sound
+- investigate do investigation
+- patrol default
+- patrol following patrol
+- patrol moving towards patrol
+- idle
+"""
+
 # The villager needs to be able to navigate to its patrol path either
 # - on start up, or
 # - after it has fled from the werewolf
@@ -39,7 +55,7 @@ export(float) var run_speed = 150.0
 
 # debug mode
 # TODO: move somewhere global
-var DEBUG = false
+var DEBUG = true
 
 # the current action in the villager's FSM
 var current_action
@@ -57,7 +73,8 @@ var action_labels = {}
 const Emotion = {
 	FEAR = "FEAR",
 	FATIGUE = "FATIGUE",
-	CURIOSITY = "CURIOSITY"
+	CURIOSITY = "CURIOSITY",
+	ANGER = "ANGER"
 }
 
 # a map of emotion to intensity, exported to configure different initial
@@ -66,12 +83,14 @@ export(Dictionary) var exported_emotion_intensity = {
 	Emotion.FEAR: 0,
 	Emotion.FATIGUE: 0,
 	Emotion.CURIOSITY: 0,
+	Emotion.ANGER: 0,
 }
 
 var emotion_metadata = {
 	Emotion.FEAR: null,
 	Emotion.FATIGUE: null,
 	Emotion.CURIOSITY: null,
+	Emotion.ANGER: null,
 }
 
 # if we won't duplicate the exported dictionary, then it seems as though
@@ -172,9 +191,9 @@ func _get_should_deactivate_action_children():
 func _ready():
 	if not Engine.editor_hint:
 		for action in _get_action_children():
-			action.villager = self
+			action.init(self)
 		for sense in _get_sense_children():
-			sense.villager = self
+			sense.init(self)
 		
 		_enter_action(idle)
 		_create_debug_labels()
@@ -257,6 +276,5 @@ func set_rotation_with_delta(target, delta):
 	rotation = new_rotation
 
 func hurt():
-	print("OW!")
 	$AudioStreamPlayer2D.stream = load("res://assets/sounds/stab.ogg")
 	$AudioStreamPlayer2D.play()

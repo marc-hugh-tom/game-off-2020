@@ -111,7 +111,7 @@ func should_deactivate():
 	return fatigue > 9.0
 
 func process(delta):
-	villager.amend_emotion(Villager.Emotion.FATIGUE, delta)
+	villager.amend_emotion(Villager.Emotion.FATIGUE, 0.1 * delta)
 
 func should_run():
 	return false

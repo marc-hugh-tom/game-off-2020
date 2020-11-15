@@ -1,9 +1,6 @@
 tool
 extends "res://nodes/villager/senses/scripts/Sense.gd"
 
-export(float) var sight_distance = 250.0
-var sight_distance_squared = sight_distance * sight_distance
-
 onready var ray: RayCast2D = get_node("Ray")
 
 onready var area: Area2D = get_node("Area2D")
@@ -25,9 +22,16 @@ func on_vision_exited(other):
 func _process(delta):
 	if not Engine.editor_hint:
 		if werewolf_in_vision_cone and has_line_of_site_werewolf():
-			villager.set_emotion(Villager.Emotion.FEAR, 10)
+			seen_werewolf()
 		else:
-			villager.amend_emotion(Villager.Emotion.FEAR, 10 * -delta)
+			villager.amend_emotion(Villager.Emotion.FEAR, 3 * -delta)
+			villager.amend_emotion(Villager.Emotion.ANGER, -delta)
+
+func seen_werewolf():
+	if TimeManager.is_day() or villager.get_emotion_intensity(Villager.Emotion.ANGER) > 0.0:
+		villager.set_emotion(Villager.Emotion.ANGER, 10)
+	else:
+		villager.set_emotion(Villager.Emotion.FEAR, 10)
 
 func has_line_of_site_werewolf():
 	if villager == null:
@@ -41,6 +45,4 @@ func has_line_of_site_werewolf():
 	ray.rotation = -get_parent().rotation
 
 	return ray.is_colliding() and \
-		ray.get_collider() == werewolf and \
-		self.get_parent().position.distance_squared_to(werewolf.position) \
-			< sight_distance_squared
+		ray.get_collider() == werewolf

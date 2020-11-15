@@ -9,12 +9,18 @@
 config_version=4
 
 _global_script_classes=[ {
+"base": "Node2D",
+"class": "Attack",
+"language": "GDScript",
+"path": "res://nodes/villager/actions/scripts/Attack.gd"
+}, {
 "base": "KinematicBody2D",
 "class": "Villager",
 "language": "GDScript",
 "path": "res://nodes/villager/Villager.gd"
 } ]
 _global_script_class_icons={
+"Attack": "",
 "Villager": ""
 }
 

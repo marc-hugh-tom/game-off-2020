@@ -1,9 +1,6 @@
 extends "res://nodes/villager/senses/scripts/SenseBase.gd"
 
-var villager: Villager setget set_villager, get_villager
+var villager: Villager
 
-func set_villager(v: Villager):
-	villager = v
-
-func get_villager():
-	return villager
+func init(in_villager: Villager):
+	villager = in_villager

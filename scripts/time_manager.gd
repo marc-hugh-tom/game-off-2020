@@ -4,7 +4,7 @@ var dawn = 6.0
 var dusk = 18.0
 var game_seconds_in_an_hour = 6.0
 
-var current_time = 0.0
+var current_time = dawn
 
 func _ready():
 	assert(dawn < dusk)
@@ -20,6 +20,12 @@ func update_current_time(delta):
 func get_decimal_time():
 	# Returns the decimal time, which goes from 0.0 to 23.99999...
 	return(current_time / game_seconds_in_an_hour)
+
+func is_day():
+	return current_time > dawn and current_time < dusk
+	
+func is_night():
+	return not is_day()
 
 func get_day_night_fraction():
 	# Returns a decimal indicating how far from midnight / noon the clock is
