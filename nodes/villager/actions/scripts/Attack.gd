@@ -130,9 +130,6 @@ class LookAround:
 	func get_label():
 		return "look around"
 		
-	func get_priority():
-		return 2
-
 func get_label():
 	return "attack (%s) priority (%s)" % \
 		[current_state.get_label(),  str(get_priority())]

@@ -16,9 +16,6 @@ class Null:
 	func get_label():
 		return ""
 
-	func get_priority():
-		return 2
-
 # Villager has been alerted by a noise, pause for 1 second to make it look as
 # though the villager is contemplating investigating, once we have a decent
 # sprite we could make it look in the direction of the noise, or perhaps have
@@ -40,9 +37,6 @@ class Alert:
 
 	func get_label():
 		return "alerted!"
-
-	func get_priority():
-		return 2
 
 # Villager is moving towards the noise
 class MoveToNoise:
@@ -73,9 +67,6 @@ class MoveToNoise:
 
 	func get_label():
 		return "moving to noise"
-
-	func get_priority():
-		return 2
 
 # Villager has reached the noise, do some investigation and reduce the curiosity
 # emotion
@@ -110,9 +101,6 @@ class DoInvestigation:
 	func get_label():
 		return "do investigation"
 		
-	func get_priority():
-		return 2
-
 func get_label():
 	return "investigate (%s) priority (%s)" % \
 		[current_state.get_label(),  str(get_priority())]
@@ -149,4 +137,3 @@ func should_deactivate():
 
 func get_priority():
 	return 3
-#	return current_state.get_priority()
