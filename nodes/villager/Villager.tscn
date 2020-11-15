@@ -1,19 +1,137 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=22 format=2]
 
 [ext_resource path="res://nodes/villager/Villager.gd" type="Script" id=1]
-[ext_resource path="res://assets/sprites/villager.png" type="Texture" id=2]
+[ext_resource path="res://assets/sprites/villagers/basic_villager/feet_idle.png" type="Texture" id=2]
 [ext_resource path="res://nodes/villager/actions/Idle.tscn" type="PackedScene" id=3]
 [ext_resource path="res://nodes/villager/senses/Sight.tscn" type="PackedScene" id=4]
 [ext_resource path="res://nodes/villager/actions/Flee.tscn" type="PackedScene" id=5]
 [ext_resource path="res://nodes/villager/senses/Hearing.tscn" type="PackedScene" id=6]
 [ext_resource path="res://nodes/villager/actions/Investigate.tscn" type="PackedScene" id=7]
+[ext_resource path="res://assets/sprites/villagers/basic_villager/body_idle.png" type="Texture" id=8]
+[ext_resource path="res://assets/sprites/villagers/basic_villager/body_walk_01.png" type="Texture" id=9]
+[ext_resource path="res://assets/sprites/villagers/basic_villager/body_walk_02.png" type="Texture" id=10]
+[ext_resource path="res://assets/sprites/villagers/basic_villager/body_walk_04.png" type="Texture" id=11]
+[ext_resource path="res://assets/sprites/villagers/basic_villager/body_walk_03.png" type="Texture" id=12]
+[ext_resource path="res://assets/sprites/villagers/basic_villager/feet_walk_01.png" type="Texture" id=13]
+[ext_resource path="res://assets/sprites/villagers/basic_villager/feet_walk_02.png" type="Texture" id=14]
+[ext_resource path="res://assets/sprites/villagers/basic_villager/feet_walk_04.png" type="Texture" id=15]
+[ext_resource path="res://assets/sprites/villagers/basic_villager/feet_walk_03.png" type="Texture" id=16]
 
 [sub_resource type="CircleShape2D" id=1]
-radius = 18.0
+radius = 24.0
+
+[sub_resource type="SpriteFrames" id=3]
+animations = [ {
+"frames": [ ExtResource( 8 ) ],
+"loop": true,
+"name": "idle",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 9 ), ExtResource( 10 ), ExtResource( 12 ), ExtResource( 11 ) ],
+"loop": true,
+"name": "walk",
+"speed": 5.0
+} ]
+
+[sub_resource type="SpriteFrames" id=4]
+animations = [ {
+"frames": [ ExtResource( 2 ) ],
+"loop": true,
+"name": "idle",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 13 ), ExtResource( 14 ), ExtResource( 16 ), ExtResource( 15 ) ],
+"loop": true,
+"name": "walk",
+"speed": 5.0
+} ]
+
+[sub_resource type="Animation" id=2]
+resource_name = "idle"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/path = NodePath("Body:animation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ "idle" ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Feet:animation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ "idle" ]
+}
+
+[sub_resource type="Animation" id=5]
+resource_name = "walk"
+length = 0.8
+loop = true
+step = 0.2
+tracks/0/type = "value"
+tracks/0/path = NodePath("Body:animation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ "walk" ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Feet:animation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ "walk" ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("Body:frame")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 0.2, 0.4, 0.6 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 0, 1, 2, 3 ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("Feet:frame")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0, 0.2, 0.4, 0.6 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 0, 1, 2, 3 ]
+}
 
 [node name="Villager" type="KinematicBody2D" groups=[
 "Victim",
 ]]
+use_parent_material = true
 collision_mask = 5
 script = ExtResource( 1 )
 exported_emotion_intensity = {
@@ -25,9 +143,18 @@ exported_emotion_intensity = {
 scale = Vector2( 0.6, 0.6 )
 shape = SubResource( 1 )
 
-[node name="Sprite" type="Sprite" parent="."]
-scale = Vector2( 0.75, 0.75 )
-texture = ExtResource( 2 )
+[node name="Body" type="AnimatedSprite" parent="."]
+light_mask = 2
+use_parent_material = true
+rotation = -1.5708
+frames = SubResource( 3 )
+animation = "idle"
+
+[node name="Feet" type="AnimatedSprite" parent="."]
+use_parent_material = true
+rotation = -1.5708
+frames = SubResource( 4 )
+animation = "idle"
 
 [node name="Idle" parent="." instance=ExtResource( 3 )]
 
@@ -40,3 +167,7 @@ texture = ExtResource( 2 )
 [node name="Investigate" parent="." instance=ExtResource( 7 )]
 
 [node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+anims/idle = SubResource( 2 )
+anims/walk = SubResource( 5 )

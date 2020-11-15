@@ -106,6 +106,9 @@ func get_run_speed():
 func priority_sort(a, b):
 	return a.get_priority() > b.get_priority()
 
+func get_animation_player() -> AnimationPlayer:
+	return $AnimationPlayer as AnimationPlayer
+
 func _update_actions():
 	for action in _get_should_deactivate_action_children():
 		_exit_action(action)
