@@ -1,5 +1,7 @@
 extends "res://nodes/villager/actions/scripts/Action.gd"
 
+var current_path = null
+
 # Investigate is a mini state machine that flows from "Alert" to "MoveToNoise"
 # to "DoInvestigation"
 # Each state should have a physics_process function that takes a delta and
@@ -99,14 +101,19 @@ func get_label():
 	return "investigate (" + current_state.get_label() + ")"
 
 func on_enter():
-	var path = villager.emotion_metadata.get(Villager.Emotion.CURIOSITY)
-	current_state = Alert.new(path)
+	current_path = villager.emotion_metadata.get(Villager.Emotion.CURIOSITY)
+	current_state = Alert.new(current_path)
 
 func on_exit():
 	current_state = Null.new()
 
 func physics_process(delta):
-	current_state = current_state.physics_process(delta, villager)
+	var path = villager.emotion_metadata.get(Villager.Emotion.CURIOSITY)
+	if path != current_path:
+		current_path = path
+		current_state = Alert.new(current_path)
+	else:
+		current_state = current_state.physics_process(delta, villager)
 
 func should_activate():
 	if villager == null:
