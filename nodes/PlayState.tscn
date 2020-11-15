@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://nodes/Werewolf.tscn" type="PackedScene" id=1]
 [ext_resource path="res://nodes/OverheadTileSet.tres" type="TileSet" id=2]
@@ -9,6 +9,7 @@
 [ext_resource path="res://nodes/villager/actions/Patrol.tscn" type="PackedScene" id=7]
 [ext_resource path="res://shaders/DayNightMaterial.tres" type="Material" id=8]
 [ext_resource path="res://nodes/Lamp.tscn" type="PackedScene" id=9]
+[ext_resource path="res://nodes/Moon.tscn" type="PackedScene" id=10]
 
 [sub_resource type="Curve2D" id=1]
 _data = {
@@ -86,4 +87,8 @@ tile_data = PoolIntArray( -65536, 1, 0, -65535, 1, 0, -65534, 1, 0, -65533, 0, 1
 [node name="HUD" type="CanvasLayer" parent="."]
 
 [node name="Clock" parent="HUD" instance=ExtResource( 4 )]
-position = Vector2( 60, 60 )
+position = Vector2( 64, 64 )
+
+[node name="Moon" parent="HUD" instance=ExtResource( 10 )]
+position = Vector2( 64, 176 )
+scale = Vector2( 2, 2 )

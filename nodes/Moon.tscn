@@ -1,0 +1,17 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://assets/sprites/ui/moon.png" type="Texture" id=1]
+[ext_resource path="res://scripts/Moon.gd" type="Script" id=2]
+[ext_resource path="res://shaders/Moon.shader" type="Shader" id=3]
+
+[sub_resource type="ShaderMaterial" id=1]
+shader = ExtResource( 3 )
+shader_param/t = 0.222
+shader_param/red_colour = Color( 0.580392, 0.0392157, 0.0392157, 1 )
+
+[node name="Moon" type="Node2D"]
+script = ExtResource( 2 )
+
+[node name="Face" type="Sprite" parent="."]
+material = SubResource( 1 )
+texture = ExtResource( 1 )
