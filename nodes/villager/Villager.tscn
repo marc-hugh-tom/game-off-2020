@@ -17,10 +17,7 @@
 [ext_resource path="res://assets/sprites/villagers/basic_villager/feet_walk_04.png" type="Texture" id=15]
 [ext_resource path="res://assets/sprites/villagers/basic_villager/feet_walk_03.png" type="Texture" id=16]
 
-[sub_resource type="CircleShape2D" id=1]
-radius = 24.0
-
-[sub_resource type="SpriteFrames" id=3]
+[sub_resource type="SpriteFrames" id=1]
 animations = [ {
 "frames": [ ExtResource( 8 ) ],
 "loop": true,
@@ -33,7 +30,7 @@ animations = [ {
 "speed": 5.0
 } ]
 
-[sub_resource type="SpriteFrames" id=4]
+[sub_resource type="SpriteFrames" id=2]
 animations = [ {
 "frames": [ ExtResource( 2 ) ],
 "loop": true,
@@ -46,8 +43,7 @@ animations = [ {
 "speed": 5.0
 } ]
 
-[sub_resource type="Animation" id=2]
-resource_name = "idle"
+[sub_resource type="Animation" id=3]
 length = 0.1
 tracks/0/type = "value"
 tracks/0/path = NodePath("Body:animation")
@@ -74,7 +70,7 @@ tracks/1/keys = {
 "values": [ "idle" ]
 }
 
-[sub_resource type="Animation" id=5]
+[sub_resource type="Animation" id=4]
 resource_name = "walk"
 length = 0.8
 loop = true
@@ -128,6 +124,9 @@ tracks/3/keys = {
 "values": [ 0, 1, 2, 3 ]
 }
 
+[sub_resource type="CircleShape2D" id=5]
+radius = 16.0
+
 [node name="Villager" type="KinematicBody2D" groups=[
 "Victim",
 ]]
@@ -139,21 +138,17 @@ exported_emotion_intensity = {
 "FEAR": 0
 }
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-scale = Vector2( 0.6, 0.6 )
-shape = SubResource( 1 )
-
 [node name="Body" type="AnimatedSprite" parent="."]
 light_mask = 2
 use_parent_material = true
 rotation = -1.5708
-frames = SubResource( 3 )
+frames = SubResource( 1 )
 animation = "idle"
 
 [node name="Feet" type="AnimatedSprite" parent="."]
 use_parent_material = true
 rotation = -1.5708
-frames = SubResource( 4 )
+frames = SubResource( 2 )
 animation = "idle"
 
 [node name="Idle" parent="." instance=ExtResource( 3 )]
@@ -169,5 +164,9 @@ animation = "idle"
 [node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-anims/idle = SubResource( 2 )
-anims/walk = SubResource( 5 )
+anims/idle = SubResource( 3 )
+anims/walk = SubResource( 4 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+scale = Vector2( 0.6, 0.6 )
+shape = SubResource( 5 )
