@@ -12,8 +12,6 @@ export(NodePath) var werewolf_path
 onready var werewolf = get_node(werewolf_path)
 onready var navigation: Navigation2D = get_node(level_navigation_path)
 
-var TWO_PI = 2 * PI
-	
 func _get_configuration_warning():
 	# if we're viewing the villager scene then don't bother showing this warning
 	if get_parent() is Viewport:
@@ -142,6 +140,8 @@ func _exit_action(action):
 	action.is_active = false
 	if current_action == action:
 		current_action = idle
+		current_action.on_enter()
+		current_action.is_active = true
 
 func _get_action_children():
 	return _get_children(ActionBase)
@@ -184,27 +184,6 @@ func _ready():
 		_update_actions()
 		_create_next_action_timer()
 	
-func _create_debug_labels():
-	if DEBUG:
-		var spacing = 20
-		var i = 0
-		for emotion in Emotion:
-			var label = Label.new()
-			label.set_position(Vector2(0, -spacing + (-spacing * i)))
-			label.add_color_override("font_color", Color.red)
-			add_child(label)
-			emotion_labels[emotion] = label
-			i += 1
-		
-		i += 1
-		for action in _get_action_children():
-			var label = Label.new()
-			label.set_position(Vector2(0, -spacing + (-spacing * i)))
-			label.add_color_override("font_color", Color.red)
-			add_child(label)
-			action_labels[action] = label
-			i += 1
-
 func _create_next_action_timer():
 	# create a timer that calls next action
 	# this is how a villager will decide to do a different action
@@ -228,24 +207,39 @@ func _process(delta):
 			current_action.process(delta)
 		_update_debug_labels()
 
-func _update_debug_labels():
-	if DEBUG:
-		if emotion_intensity == null:
-			return
+var debug_label
+		
+func _create_debug_labels():
+	if DEBUG and not Engine.editor_hint:
+		var debug_node = Node2D.new()
+		debug_label = Label.new()
 
+		add_child(debug_node)
+		debug_node.set_z_index(999)
+		
+		debug_label.add_color_override("font_color", Color.red)
+		debug_node.add_child(debug_label)
+		
+func _update_debug_labels():
+	if DEBUG and not Engine.editor_hint:
+		debug_label.set_rotation(-rotation)
+
+		var debug_text = ""
 		for emotion in Emotion:
 			var intensity = emotion_intensity[Emotion[emotion]]
-			if emotion_labels.has(emotion):
-				emotion_labels[emotion].text = "%s %f" % [emotion, intensity]
+			debug_text += "%s %f\n" % [emotion, intensity]
+		debug_text += "\n"
 
 		for action in _get_action_children():
-			var format = " %s"
+			var format = " %s\n"
 			if action == current_action:
-				format = "*%s"
+				format = "*%s\n"
+			debug_text += format % action.get_label()
+	
+		debug_label.text = debug_text
 
-			if action_labels.has(action):
-				action_labels[action].text = format % action.get_label()
-
+var TWO_PI = 2 * PI
+	
 func set_rotation_with_delta(target, delta):
 	# some rotation fiddling here to get it to behave itself, here be dragons
 	# angle_to will always return a value between 0 and 2PI, but this causes
