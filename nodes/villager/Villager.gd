@@ -261,3 +261,7 @@ func set_rotation_with_delta(target, delta):
 	if new_rotation < -TWO_PI:
 		new_rotation += TWO_PI
 	rotation = new_rotation
+
+func hurt():
+	print("OW!")
+
