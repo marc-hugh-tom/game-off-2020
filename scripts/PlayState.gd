@@ -70,4 +70,5 @@ func update_blood_moon():
 	var fraction = get_day_night_fraction_easing()
 	fraction = ((fraction * -1) + 1) / 2
 	# TEMP END
-	$HUD/Moon.set_crescent(fraction)
+	if $HUD/Moon:
+		$HUD/Moon.set_crescent(fraction)
