@@ -10,6 +10,9 @@ func set_villager(v: Villager):
 func get_villager():
 	return villager
 
+func get_animation_player() -> AnimationPlayer:
+	return villager.get_animation_player()
+
 func get_label():
 	return "base action"
 

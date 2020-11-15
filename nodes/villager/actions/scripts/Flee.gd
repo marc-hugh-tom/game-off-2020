@@ -8,6 +8,7 @@ func get_label():
 func on_enter():
 	AudioManager.play_sound(FLEE_SOUNDS[randi() % FLEE_SOUNDS.size()])
 	villager.set_emotion(Villager.Emotion.CURIOSITY, 0.0)
+	get_animation_player().play("walk")
 
 func on_exit():
 	villager.set_emotion(Villager.Emotion.CURIOSITY, 0.0)
