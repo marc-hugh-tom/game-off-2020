@@ -120,6 +120,7 @@ func get_label():
 func on_enter():
 	current_path = villager.emotion_metadata.get(Villager.Emotion.CURIOSITY)
 	current_state = Alert.new(current_path)
+	get_animation_player().play("walk")
 
 func on_exit():
 	current_state = Null.new()
