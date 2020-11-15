@@ -107,6 +107,9 @@ func get_run_speed():
 
 func priority_sort(a, b):
 	return a.get_priority() > b.get_priority()
+	
+func get_animation_player() -> AnimationPlayer:
+	return $AnimationPlayer as AnimationPlayer
 
 func _update_actions():
 	for action in _get_should_deactivate_action_children():
@@ -261,6 +264,13 @@ func set_rotation_with_delta(target, delta):
 	if new_rotation < -TWO_PI:
 		new_rotation += TWO_PI
 	rotation = new_rotation
+	
+func move_and_slide(linear_velocity,up_direction=Vector2( 0, 0 ),stop_on_slope=false,max_slides=4,floor_max_angle=0.785398,infinite_inertia=true):
+	.move_and_slide(linear_velocity,up_direction,stop_on_slope,max_slides,floor_max_angle,infinite_inertia)
+	if linear_velocity.length_squared() > 0:
+		$AnimationPlayer.play("walk")
+	else:
+		$AnimationPlayer.play("idle")
 
 func hurt():
 	print("OW!")
