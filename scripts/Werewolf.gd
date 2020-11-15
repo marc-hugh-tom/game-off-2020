@@ -6,8 +6,23 @@ var walk_dir = Vector2(0.0, 0.0)
 var velocity = Vector2(0.0, 0.0)
 var attacking = false
 
+onready var killzone: Area2D = get_node("KillZone")
+
+var villagers_in_range = []
+
 func _ready():
-	pass # Replace with function body.
+	killzone.connect("body_entered", self, "on_killzone_entered")
+	killzone.connect("body_exited", self, "on_killzone_exited")
+
+func on_killzone_entered(other):
+	if other.get_class() == "Villager":
+		villagers_in_range.append(other)
+		print(villagers_in_range)
+	
+func on_killzone_exited(other):
+	if other.get_class() == "Villager":
+		villagers_in_range.erase(other)
+		print(villagers_in_range)
 
 func _input(event):
 	if event.is_action_pressed("attack"):

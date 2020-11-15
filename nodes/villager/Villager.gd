@@ -33,6 +33,8 @@ var ActionBase = preload("res://nodes/villager/actions/scripts/ActionBase.gd")
 var SenseBase = preload("res://nodes/villager/senses/scripts/SenseBase.gd")
 
 class_name Villager
+func get_class():
+	return("Villager")
 
 onready var idle = get_node("Idle")
 
