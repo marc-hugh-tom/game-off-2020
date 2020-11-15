@@ -28,7 +28,7 @@ func _process(delta):
 			villager.amend_emotion(Villager.Emotion.ANGER, -delta)
 
 func seen_werewolf():
-	if TimeManager.is_day() or villager.get_emotion_intensity(Villager.Emotion.ANGER) > 0.0:
+	if TimeManager.is_day():
 		villager.set_emotion(Villager.Emotion.ANGER, 10)
 	else:
 		villager.set_emotion(Villager.Emotion.FEAR, 10)

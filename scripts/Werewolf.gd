@@ -70,6 +70,5 @@ func set_camera_scale(new_scale):
 		$Camera2D.set_drag_margin(margin, new_scale)
 
 func _on_ClawsArea_body_entered(body):
-	print("gotcha")
 	if body.is_in_group("Victim"):
 		body.hurt()

@@ -15,15 +15,32 @@ func can_see_werewolf():
 	return ray.is_colliding() and \
 		ray.get_collider() == werewolf
 
+func distance_squared_to_werewolf():
+	if not can_see_werewolf():
+		return 999999.0
+	return villager.position.distance_squared_to(villager.werewolf.position)
+
 class Null:
 	func physics_process(delta):
 		return self
 
 	func get_label():
 		return ""
+
+class DoAttack:
+	var attack: Attack
+	
+	func _init(in_attack: Attack):
+		self.attack = in_attack
+
+	func physics_process(delta):
+		if attack.villager.can_attack():
+			attack.villager.do_attack()
 		
-	func get_priority():
-		return 1
+		return RunTowardsWerewolf.new(attack)
+		
+	func get_label():
+		return "attacking"
 
 class RunTowardsWerewolf:
 	var attack: Attack
@@ -33,8 +50,11 @@ class RunTowardsWerewolf:
 
 	func physics_process(delta):
 		var villager = attack.villager
-
+		
 		if attack.can_see_werewolf():
+			if attack.distance_squared_to_werewolf() < 500.0:
+				return DoAttack.new(attack)
+
 			var werewolf = villager.werewolf
 			var towards_werewolf = (werewolf.position - villager.position).normalized()
 			villager.set_rotation_with_delta(villager.position + towards_werewolf, delta)
@@ -45,9 +65,6 @@ class RunTowardsWerewolf:
 
 	func get_label():
 		return "run towards werewolf"
-
-	func get_priority():
-		return 3
 
 class SearchForWerewolf:
 	var attack: Attack
@@ -68,7 +85,10 @@ class SearchForWerewolf:
 			# we have reached the end of our path, or we have
 			# searched for longer than 10 seconds 
 			# we should now switch to investigating whatever we found
-			return DoInvestigation.new(target, attack.villager)
+			return LookAround.new(attack)
+			
+		if attack.can_see_werewolf():
+			return RunTowardsWerewolf.new(attack)
 
 		var villager = attack.villager
 		target = route[0]
@@ -80,27 +100,45 @@ class SearchForWerewolf:
 			route.remove(0)
 		return self
 
-	func get_priority():
-		return 1
-
 	func get_label():
 		return "searching"
 
-func _ready():
-#	Engine.time_scale = 0.2
-	# create_update_navigation_timer()
-	return
+class LookAround:
+	var pause_time = 2.0
+	var initial_rotation
+	var running_delta = 0.0
+	var attack
+	
+	func _init(in_attack):
+		self.attack = in_attack
+		self.initial_rotation = in_attack.villager.rotation
 
-func create_update_navigation_timer():
-	update_nav_timer.connect("timeout", self, "update_navigation")
-	update_nav_timer.set_wait_time(0.3)
-	update_nav_timer.set_one_shot(false)
+	func physics_process(delta):		
+		if attack.can_see_werewolf():
+			return RunTowardsWerewolf.new(attack)
+
+		self.pause_time -= delta
+		if pause_time <= 0:
+			attack.villager.set_emotion(Villager.Emotion.ANGER, 0.0)
+			return Null.new()
+
+		attack.villager.rotation = self.initial_rotation + (PI / 4 * sin(PI * running_delta))
+		running_delta += delta
+
+		return self
+
+	func get_label():
+		return "look around"
+		
+	func get_priority():
+		return 2
 
 func get_label():
 	return "attack (%s) priority (%s)" % \
 		[current_state.get_label(),  str(get_priority())]
 
 func on_enter():
+	villager.set_emotion(Villager.Emotion.CURIOSITY, 0.0, null)
 	current_state = RunTowardsWerewolf.new(self)
 
 func on_exit():
@@ -133,4 +171,3 @@ func should_deactivate():
 
 func get_priority():
 	return 4
-	#return current_state.get_priority()

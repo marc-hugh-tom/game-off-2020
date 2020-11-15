@@ -56,7 +56,7 @@ export(float) var run_speed = 150.0
 
 # debug mode
 # TODO: move somewhere global
-var DEBUG = true
+var DEBUG = false
 
 # the current action in the villager's FSM
 var current_action
@@ -282,3 +282,12 @@ func set_rotation_with_delta(target, delta):
 func hurt():
 	$AudioStreamPlayer2D.stream = load("res://assets/sounds/stab.ogg")
 	$AudioStreamPlayer2D.play()
+
+var _can_attack = true
+
+func can_attack():
+	return _can_attack
+
+func do_attack():
+	print("do attack")
+	_can_attack = false
