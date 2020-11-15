@@ -137,6 +137,8 @@ func _exit_action(action):
 	action.is_active = false
 	if current_action == action:
 		current_action = idle
+		current_action.on_enter()
+		current_action.is_active = true
 
 func _get_action_children():
 	return _get_children(ActionBase)
