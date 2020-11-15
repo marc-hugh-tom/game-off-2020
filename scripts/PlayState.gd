@@ -63,7 +63,7 @@ func update_lamp_lights():
 	previous_fraction = fraction
 
 func get_day_night_fraction_easing():
-	return(sin($HUD/Clock.get_day_night_fraction() * PI / 2))
+	return(sin(TimeManager.get_day_night_fraction() * PI / 2))
 
 func update_blood_moon():
 	# TEMP - should be replaced with actual werewolf hunger
