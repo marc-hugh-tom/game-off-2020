@@ -22,15 +22,16 @@ exported_emotion_intensity = {
 }
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+scale = Vector2( 0.6, 0.6 )
 shape = SubResource( 1 )
 
 [node name="Sprite" type="Sprite" parent="."]
+scale = Vector2( 0.75, 0.75 )
 texture = ExtResource( 2 )
 
 [node name="Idle" parent="." instance=ExtResource( 3 )]
 
 [node name="Sight" parent="." instance=ExtResource( 4 )]
-sight_distance = 250.0
 
 [node name="Flee" parent="." instance=ExtResource( 5 )]
 
