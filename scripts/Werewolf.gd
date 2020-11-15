@@ -68,3 +68,8 @@ func set_speed(new_speed):
 func set_camera_scale(new_scale):
 	for margin in [MARGIN_BOTTOM, MARGIN_LEFT, MARGIN_RIGHT, MARGIN_TOP]:
 		$Camera2D.set_drag_margin(margin, new_scale)
+
+func _on_ClawsArea_body_entered(body):
+	print("gotcha")
+	if body.is_in_group("Victim"):
+		body.hurt()
