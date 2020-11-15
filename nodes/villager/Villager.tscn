@@ -37,3 +37,5 @@ sight_distance = 250.0
 [node name="Hearing" parent="." instance=ExtResource( 6 )]
 
 [node name="Investigate" parent="." instance=ExtResource( 7 )]
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
