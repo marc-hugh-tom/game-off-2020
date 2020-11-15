@@ -264,4 +264,5 @@ func set_rotation_with_delta(target, delta):
 
 func hurt():
 	print("OW!")
-
+	$AudioStreamPlayer2D.stream = load("res://assets/sounds/stab.ogg")
+	$AudioStreamPlayer2D.play()
