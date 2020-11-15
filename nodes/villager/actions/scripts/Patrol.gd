@@ -114,5 +114,5 @@ func should_deactivate():
 func process(delta):
 	villager.amend_emotion(Villager.Emotion.FATIGUE, 0.1 * delta)
 
-func should_run():
-	return false
+func get_priority():
+	return 2

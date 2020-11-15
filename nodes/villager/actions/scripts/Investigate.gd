@@ -148,4 +148,5 @@ func should_deactivate():
 	return curiosity <= 0.0
 
 func get_priority():
-	return current_state.get_priority()
+	return 3
+#	return current_state.get_priority()

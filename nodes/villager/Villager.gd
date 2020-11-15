@@ -4,18 +4,19 @@ extends KinematicBody2D
 
 # state priority
 """
-- flee
-- attack default
-- attack running towards wolf
-- investigate default
-- investigate alerted
-- attack searching for wolf
-- investigate moving towards sound
-- investigate do investigation
-- patrol default
-- patrol following patrol
-- patrol moving towards patrol
-- idle
+- 5 flee
+- 4 attack running towards wolf
+- 4 attack searching
+- 4 attack default
+- 3 investigate alerted
+- 3 investigate moving towards sound
+- 3 investigate do investigation
+- 3 investigate default
+- 2 patrol following patrol
+- 2 patrol moving towards patrol
+- 2 patrol default
+- 1 idle
+- 0 default
 """
 
 # The villager needs to be able to navigate to its patrol path either

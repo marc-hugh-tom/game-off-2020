@@ -8,3 +8,6 @@ func process(delta):
 		return
 	villager.amend_emotion(Villager.Emotion.FATIGUE, 3 * -delta)
 	get_animation_player().play("idle")
+
+func get_priority():
+	return 1

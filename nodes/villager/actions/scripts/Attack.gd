@@ -33,7 +33,7 @@ class RunTowardsWerewolf:
 
 	func physics_process(delta):
 		var villager = attack.villager
-		
+
 		if attack.can_see_werewolf():
 			var werewolf = villager.werewolf
 			var towards_werewolf = (werewolf.position - villager.position).normalized()
@@ -51,20 +51,38 @@ class RunTowardsWerewolf:
 
 class SearchForWerewolf:
 	var attack: Attack
-	var last_search_position: Vector2
-	
+	var route: PoolVector2Array
+	var time_looking = 0
+	var target: Vector2
+
 	func _init(in_attack: Attack):
 		self.attack = in_attack
-		self.last_search_position = in_attack.villager.werewolf.position
-	
+		self.route = attack.villager.navigation.get_simple_path(
+			attack.villager.position, attack.villager.werewolf.position
+		)
+		
 	func physics_process(delta):
-		if attack.can_see_werewolf():
-			return RunTowardsWerewolf.new(attack)
+		time_looking += delta
+		
+		if route.size() <= 0 or time_looking > (10 * 1000):
+			# we have reached the end of our path, or we have
+			# searched for longer than 10 seconds 
+			# we should now switch to investigating whatever we found
+			return DoInvestigation.new(target, attack.villager)
+
+		var villager = attack.villager
+		target = route[0]
+		var direction = (target - villager.position).normalized()
+		villager.set_rotation_with_delta(target, delta)
+		villager.move_and_slide(direction * villager.get_run_speed())
+		var distance_to = villager.position.distance_squared_to(target)
+		if distance_to < 20.0:
+			route.remove(0)
 		return self
 
 	func get_priority():
 		return 1
-		
+
 	func get_label():
 		return "searching"
 
@@ -83,7 +101,7 @@ func get_label():
 		[current_state.get_label(),  str(get_priority())]
 
 func on_enter():
-	current_state = SearchForWerewolf.new(self)
+	current_state = RunTowardsWerewolf.new(self)
 
 func on_exit():
 	current_state = Null.new()
@@ -114,4 +132,5 @@ func should_deactivate():
 	return fear <= 0.0
 
 func get_priority():
-	return current_state.get_priority()
+	return 4
+	#return current_state.get_priority()

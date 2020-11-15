@@ -36,4 +36,4 @@ func should_deactivate():
 	return fear <= 0.0
 
 func get_priority():
-	return 100
+	return 5

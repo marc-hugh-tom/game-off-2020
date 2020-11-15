@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=2]
+[gd_scene load_steps=23 format=2]
 
 [ext_resource path="res://nodes/villager/Villager.gd" type="Script" id=1]
 [ext_resource path="res://assets/sprites/villagers/basic_villager/feet_idle.png" type="Texture" id=2]
@@ -16,6 +16,7 @@
 [ext_resource path="res://assets/sprites/villagers/basic_villager/feet_walk_02.png" type="Texture" id=14]
 [ext_resource path="res://assets/sprites/villagers/basic_villager/feet_walk_04.png" type="Texture" id=15]
 [ext_resource path="res://assets/sprites/villagers/basic_villager/feet_walk_03.png" type="Texture" id=16]
+[ext_resource path="res://nodes/villager/actions/Attack.tscn" type="PackedScene" id=17]
 
 [sub_resource type="SpriteFrames" id=1]
 animations = [ {
@@ -170,3 +171,5 @@ anims/walk = SubResource( 4 )
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 scale = Vector2( 0.6, 0.6 )
 shape = SubResource( 5 )
+
+[node name="Attack" parent="." instance=ExtResource( 17 )]

@@ -12,6 +12,7 @@ func on_sound(sound, node):
 		villager.position, node.position)
 	if within_hearing_distance(path):
 		villager.set_emotion(Villager.Emotion.CURIOSITY, 10.0, path)
+		villager.set_emotion(Villager.Emotion.ANGER, 0.0)
 
 func within_hearing_distance(path: PoolVector2Array):
 	return path_length_squared(path) < hearing_distance_squared
