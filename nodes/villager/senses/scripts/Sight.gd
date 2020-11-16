@@ -24,8 +24,9 @@ func _process(delta):
 		if werewolf_in_vision_cone and has_line_of_site_werewolf():
 			seen_werewolf()
 		else:
-			villager.amend_emotion(Villager.Emotion.FEAR, 3 * -delta)
-			villager.amend_emotion(Villager.Emotion.ANGER, -delta)
+			var d = max(delta, 0)
+			villager.amend_emotion(Villager.Emotion.FEAR, 3 * -d)
+			villager.amend_emotion(Villager.Emotion.ANGER, -d)
 
 func seen_werewolf():
 	if TimeManager.is_day():

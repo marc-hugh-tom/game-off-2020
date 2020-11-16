@@ -41,7 +41,7 @@ class MoveAlongPath:
 
 		villager.set_rotation_with_delta(next_pos, delta)
 		villager.position = next_pos
-		self.offset += delta * villager.get_walk_speed()
+		self.offset += max(delta, 0) * villager.get_walk_speed()
 		if self.offset >= self.curve.get_baked_length():
 			self.offset = 0
 		return self

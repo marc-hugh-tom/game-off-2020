@@ -272,7 +272,7 @@ func set_rotation_with_delta(target, delta):
 		target_rotation += TWO_PI
 	if rotation_diff < -PI:
 		target_rotation -= TWO_PI
-	var new_rotation = lerp(rotation, target_rotation, 10.0 * delta)
+	var new_rotation = lerp(rotation, target_rotation, 10.0 * max(delta, 0))
 	if new_rotation > TWO_PI:
 		new_rotation -= TWO_PI
 	if new_rotation < -TWO_PI:

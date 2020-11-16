@@ -95,7 +95,7 @@ class DoInvestigation:
 		villager.rotation = self.initial_rotation + (PI / 4 * sin(PI * running_delta))
 		running_delta += delta
 
-		villager.amend_emotion(Villager.Emotion.FATIGUE, 3 * -delta)
+		villager.amend_emotion(Villager.Emotion.FATIGUE, 3 * -max(delta, 0))
 		return self
 
 	func get_label():
