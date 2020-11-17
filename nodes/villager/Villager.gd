@@ -56,7 +56,7 @@ export(float) var run_speed = 150.0
 
 # debug mode
 # TODO: move somewhere global
-var DEBUG = false
+var DEBUG = true
 
 # the current action in the villager's FSM
 var current_action

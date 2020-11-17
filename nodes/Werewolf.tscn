@@ -209,7 +209,6 @@ use_parent_material = true
 rotation = -1.5708
 frames = SubResource( 3 )
 animation = "attack"
-frame = 6
 
 [node name="Camera2D" type="Camera2D" parent="."]
 current = true

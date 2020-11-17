@@ -1,8 +1,5 @@
 extends Node2D
 
-var map_scale_noon = 3
-var map_scale_midnight = 1.5
-
 var player_speed_noon = 100
 var player_speed_midnight = 400
 
@@ -16,19 +13,11 @@ func _ready():
 	pass # Replace with function body.
 
 func _process(delta):
-	update_map_scale()
 	update_player_speed()
-	update_camera_margin()
+	#update_camera_margin()
 	update_global_lighting()
 	update_lamp_lights()
 	update_blood_moon()
-
-func update_map_scale():
-	var fraction = get_day_night_fraction_easing()
-	var a = (map_scale_noon + map_scale_midnight) / 2
-	var b = abs(a - map_scale_midnight)
-	var map_scale = a + b * fraction
-	$Map.set_scale(Vector2(map_scale, map_scale))
 
 func update_player_speed():
 	var fraction = get_day_night_fraction_easing()
