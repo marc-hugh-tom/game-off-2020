@@ -35,28 +35,16 @@ tile_data = PoolIntArray( -65536, 1, 0, -65535, 1, 0, -65534, 1, 0, -65533, 0, 1
 [node name="LampLights" type="Node2D" parent="Map"]
 
 [node name="1" parent="Map/LampLights" instance=ExtResource( 9 )]
-position = Vector2( 194, 252 )
-
-[node name="1_2" parent="Map/LampLights/1" instance=ExtResource( 9 )]
-position = Vector2( 28, 0 )
+position = Vector2( 222, 252 )
 
 [node name="2" parent="Map/LampLights" instance=ExtResource( 9 )]
 position = Vector2( 478, 124 )
 
-[node name="2_2" parent="Map/LampLights/2" instance=ExtResource( 9 )]
-position = Vector2( -28, 0 )
-
 [node name="3" parent="Map/LampLights" instance=ExtResource( 9 )]
 position = Vector2( 804, 98 )
 
-[node name="3_2" parent="Map/LampLights/3" instance=ExtResource( 9 )]
-position = Vector2( 0, 28 )
-
 [node name="4" parent="Map/LampLights" instance=ExtResource( 9 )]
-position = Vector2( 1214, 452 )
-
-[node name="4_2" parent="Map/LampLights/4" instance=ExtResource( 9 )]
-position = Vector2( -28, 0 )
+position = Vector2( 1186, 452 )
 
 [node name="Villager" parent="Map" instance=ExtResource( 5 )]
 position = Vector2( 704.781, 29.665 )
