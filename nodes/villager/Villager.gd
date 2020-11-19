@@ -23,11 +23,15 @@ extends KinematicBody2D
 # - on start up, or
 # - after it has fled from the werewolf
 export(NodePath) var level_navigation_path
+onready var navigation: Navigation2D = get_node(level_navigation_path)
 
 export(NodePath) var werewolf_path
-
 onready var werewolf = get_node(werewolf_path)
-onready var navigation: Navigation2D = get_node(level_navigation_path)
+
+export(NodePath) var moon_path
+onready var moon: Moon = get_node(moon_path)
+
+export(float) var blood = 0.25
 
 func _get_configuration_warning():
 	# if we're viewing the villager scene then don't bother showing this warning
@@ -259,7 +263,7 @@ func _update_debug_labels():
 		debug_label.text = debug_text
 
 var TWO_PI = 2 * PI
-	
+
 func set_rotation_with_delta(target, delta):
 	# some rotation fiddling here to get it to behave itself, here be dragons
 	# angle_to will always return a value between 0 and 2PI, but this causes
@@ -282,6 +286,9 @@ func set_rotation_with_delta(target, delta):
 func hurt():
 	$AudioStreamPlayer2D.stream = load("res://assets/sounds/stab.ogg")
 	$AudioStreamPlayer2D.play()
+
+	moon.amend_crescent(blood)
+	queue_free()
 
 var _can_attack = true
 

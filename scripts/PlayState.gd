@@ -21,7 +21,6 @@ func _process(delta):
 	update_camera_margin()
 	update_global_lighting()
 	update_lamp_lights()
-	update_blood_moon()
 
 func update_map_scale():
 	var fraction = get_day_night_fraction_easing()
@@ -64,11 +63,3 @@ func update_lamp_lights():
 
 func get_day_night_fraction_easing():
 	return(sin(TimeManager.get_day_night_fraction() * PI / 2))
-
-func update_blood_moon():
-	# TEMP - should be replaced with actual werewolf hunger
-	var fraction = get_day_night_fraction_easing()
-	fraction = ((fraction * -1) + 1) / 2
-	# TEMP END
-	if $HUD/Moon:
-		$HUD/Moon.set_crescent(fraction)
