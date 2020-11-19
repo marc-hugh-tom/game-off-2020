@@ -10,8 +10,7 @@ func _ready():
 	set_crescent(1.0)
 
 func _process(delta):
-	amend_crescent((1.0 / hunger_duration_seconds) * -delta)
-	
+	amend_crescent((1.0 / hunger_duration_seconds) * -max(0, delta))
 	if face <= 0.0:
 		# TODO: game over
 		pass
