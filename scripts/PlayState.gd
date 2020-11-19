@@ -1,5 +1,7 @@
 extends Node2D
 
+var start_time = 0.0
+
 var map_scale_noon = 3
 var map_scale_midnight = 1.5
 
@@ -13,7 +15,7 @@ var camera_margin_midnight = 0.3
 var previous_fraction = null
 
 func _ready():
-	pass # Replace with function body.
+	TimeManager.current_time = start_time
 
 func _process(delta):
 	update_map_scale()

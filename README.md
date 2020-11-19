@@ -29,3 +29,14 @@ Run the game and take a screenshot.
 Open up GIMP and paste the screenshot in.
 Copy the night palette into the image, and dick around with the hue, saturation, and colour temperature.
 Overwrite `assets/night_palette.png` with the altered palette, making sure that the resulting palette is the same size as `assets/base_palette.png`.
+
+# Credits
+
+Moon image modified from https://commons.wikimedia.org/wiki/File:Supermoon_Nov-14-2016-minneapolis.jpg
+
+Fonts used are:
+Scratch by KohanTheBarbarian
+http://fontstruct.com/fontstructions/show/959231
+
+Aquifer Regular Font by JLH Fonts
+http://www.publicdomainfiles.com/show_file.php?id=13949887208668
