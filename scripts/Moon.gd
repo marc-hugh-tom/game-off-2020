@@ -7,7 +7,6 @@ var face = 1.0
 var hunger_duration_seconds = 30.0
 
 func _ready():
-	yield(get_tree(), "idle_frame")
 	set_crescent(1.0)
 
 func _process(delta):
