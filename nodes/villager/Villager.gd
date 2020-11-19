@@ -23,13 +23,12 @@ extends KinematicBody2D
 # - on start up, or
 # - after it has fled from the werewolf
 export(NodePath) var level_navigation_path
+onready var navigation: Navigation2D = get_node(level_navigation_path)
 
 export(NodePath) var werewolf_path
+onready var werewolf = get_node(werewolf_path)
 
 export(NodePath) var moon_path
-
-onready var werewolf = get_node(werewolf_path)
-onready var navigation: Navigation2D = get_node(level_navigation_path)
 onready var moon: Moon = get_node(moon_path)
 
 func _get_configuration_warning():
