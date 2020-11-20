@@ -118,5 +118,3 @@ text = "Credits"
 position = Vector2( -64, 540 )
 scale = Vector2( 4, 4 )
 frames = SubResource( 4 )
-frame = 3
-playing = true

@@ -31,6 +31,7 @@ func _ready():
 	setup_werewolf()
 
 func setup_werewolf():
+	$Werewolf.play("default")
 	werewolf_bounds.append(-$Werewolf.get_scale().x * 
 		$Werewolf.frames.get_frame("default", 0).get_size().x)
 	werewolf_bounds.append(get_viewport_rect().size.x -

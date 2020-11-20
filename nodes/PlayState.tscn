@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=15 format=2]
 
 [ext_resource path="res://nodes/Werewolf.tscn" type="PackedScene" id=1]
 [ext_resource path="res://nodes/OverheadTileSet.tres" type="TileSet" id=2]
@@ -10,11 +10,19 @@
 [ext_resource path="res://shaders/DayNightMaterial.tres" type="Material" id=8]
 [ext_resource path="res://nodes/Lamp.tscn" type="PackedScene" id=9]
 [ext_resource path="res://nodes/Moon.tscn" type="PackedScene" id=10]
+[ext_resource path="res://nodes/ui/ButtonTheme.tres" type="Theme" id=11]
 
 [sub_resource type="Curve2D" id=1]
 _data = {
 "points": PoolVector2Array( 0, 0, 0, 0, 983.927, 32.0334, 0, 0, 0, 0, 993.463, 225.915, 0, 0, 0, 0, 699.991, 214.261, 0, 0, 0, 0, 712.705, 37.3307, 0, 0, 0, 0, 983.927, 32.0334 )
 }
+
+[sub_resource type="DynamicFontData" id=2]
+font_path = "res://raw_assets/font/Scratch.ttf"
+
+[sub_resource type="DynamicFont" id=3]
+size = 96
+font_data = SubResource( 2 )
 
 [node name="PlayState" type="Node2D"]
 script = ExtResource( 3 )
@@ -56,7 +64,7 @@ position = Vector2( 0, 28 )
 position = Vector2( 1214, 452 )
 
 [node name="4_2" parent="Map/LampLights/4" instance=ExtResource( 9 )]
-position = Vector2( -28, 0 )
+position = Vector2( -30, -4 )
 
 [node name="Villager" parent="Map" instance=ExtResource( 5 )]
 position = Vector2( 704.781, 29.665 )
@@ -93,3 +101,37 @@ position = Vector2( 64, 64 )
 [node name="Moon" parent="HUD" instance=ExtResource( 10 )]
 position = Vector2( 64, 176 )
 scale = Vector2( 2, 2 )
+
+[node name="PauseMenu" type="VBoxContainer" parent="HUD"]
+margin_left = 384.0
+margin_top = 128.0
+margin_right = 640.0
+margin_bottom = 512.0
+custom_constants/separation = 20
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="HUD/PauseMenu"]
+margin_right = 256.0
+margin_bottom = 86.0
+custom_fonts/font = SubResource( 3 )
+custom_colors/font_color = Color( 0.494118, 0, 0, 1 )
+text = "PAUSE"
+align = 1
+
+[node name="Continue" type="Button" parent="HUD/PauseMenu"]
+margin_top = 106.0
+margin_right = 256.0
+margin_bottom = 156.0
+rect_min_size = Vector2( 0, 50 )
+theme = ExtResource( 11 )
+text = "Continue"
+
+[node name="QuitToMenu" type="Button" parent="HUD/PauseMenu"]
+margin_top = 176.0
+margin_right = 256.0
+margin_bottom = 226.0
+rect_min_size = Vector2( 0, 50 )
+theme = ExtResource( 11 )
+text = "Quit To Menu"
