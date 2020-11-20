@@ -1,12 +1,23 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=21 format=2]
 
 [ext_resource path="res://scripts/MenuState.gd" type="Script" id=1]
 [ext_resource path="res://shaders/Moon.shader" type="Shader" id=2]
 [ext_resource path="res://scripts/Moon.gd" type="Script" id=3]
 [ext_resource path="res://assets/sprites/ui/moon.png" type="Texture" id=4]
 [ext_resource path="res://nodes/ui/ButtonTheme.tres" type="Theme" id=5]
+[ext_resource path="res://assets/sprites/menu/werewolf/side_walk_07.png" type="Texture" id=6]
+[ext_resource path="res://assets/sprites/menu/werewolf/side_walk_06.png" type="Texture" id=7]
+[ext_resource path="res://assets/sprites/menu/werewolf/side_walk_05.png" type="Texture" id=8]
+[ext_resource path="res://assets/sprites/menu/werewolf/side_walk_03.png" type="Texture" id=9]
+[ext_resource path="res://assets/sprites/menu/werewolf/side_walk_04.png" type="Texture" id=10]
+[ext_resource path="res://assets/sprites/menu/werewolf/side_walk_02.png" type="Texture" id=11]
+[ext_resource path="res://assets/sprites/menu/werewolf/side_walk_11.png" type="Texture" id=12]
+[ext_resource path="res://assets/sprites/menu/werewolf/side_walk_08.png" type="Texture" id=13]
+[ext_resource path="res://assets/sprites/menu/werewolf/side_walk_09.png" type="Texture" id=14]
+[ext_resource path="res://assets/sprites/menu/werewolf/side_walk_10.png" type="Texture" id=15]
+[ext_resource path="res://assets/sprites/menu/werewolf/side_walk_01.png" type="Texture" id=16]
 
-[sub_resource type="ShaderMaterial" id=3]
+[sub_resource type="ShaderMaterial" id=1]
 shader = ExtResource( 2 )
 shader_param/t = 0.667
 shader_param/red_colour = Color( 0.580392, 0.0392157, 0.0392157, 1 )
@@ -14,9 +25,17 @@ shader_param/red_colour = Color( 0.580392, 0.0392157, 0.0392157, 1 )
 [sub_resource type="DynamicFontData" id=2]
 font_path = "res://raw_assets/font/Scratch.ttf"
 
-[sub_resource type="DynamicFont" id=1]
+[sub_resource type="DynamicFont" id=3]
 size = 200
 font_data = SubResource( 2 )
+
+[sub_resource type="SpriteFrames" id=4]
+animations = [ {
+"frames": [ ExtResource( 16 ), ExtResource( 11 ), ExtResource( 9 ), ExtResource( 10 ), ExtResource( 8 ), ExtResource( 7 ), ExtResource( 6 ), ExtResource( 13 ), ExtResource( 14 ), ExtResource( 15 ), ExtResource( 12 ) ],
+"loop": true,
+"name": "default",
+"speed": 8.0
+} ]
 
 [node name="MenuState" type="Node2D"]
 script = ExtResource( 1 )
@@ -45,7 +64,7 @@ scale = Vector2( 6, 6 )
 script = ExtResource( 3 )
 
 [node name="Face" type="Sprite" parent="Moon"]
-material = SubResource( 3 )
+material = SubResource( 1 )
 texture = ExtResource( 4 )
 
 [node name="Clouds" type="Node2D" parent="."]
@@ -62,7 +81,7 @@ margin_left = 192.0
 margin_top = 72.0
 margin_right = 1024.0
 margin_bottom = 251.0
-custom_fonts/font = SubResource( 1 )
+custom_fonts/font = SubResource( 3 )
 custom_colors/font_color = Color( 0.494118, 0, 0, 1 )
 text = "BLOOD MOON"
 align = 1
@@ -82,15 +101,22 @@ __meta__ = {
 
 [node name="StartButton" type="Button" parent="Menu/VBox"]
 margin_right = 256.0
-margin_bottom = 52.0
+margin_bottom = 50.0
 rect_min_size = Vector2( 0, 50 )
 theme = ExtResource( 5 )
 text = "Play"
 
 [node name="CreditsButton" type="Button" parent="Menu/VBox"]
-margin_top = 82.0
+margin_top = 80.0
 margin_right = 256.0
-margin_bottom = 134.0
+margin_bottom = 130.0
 rect_min_size = Vector2( 0, 50 )
 theme = ExtResource( 5 )
 text = "Credits"
+
+[node name="Werewolf" type="AnimatedSprite" parent="."]
+position = Vector2( -64, 540 )
+scale = Vector2( 4, 4 )
+frames = SubResource( 4 )
+frame = 3
+playing = true
