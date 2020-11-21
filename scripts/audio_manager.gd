@@ -45,3 +45,8 @@ func play_sound(sound, node = null):
 
 func add_listener(listener):
 	listeners.append(listener)
+
+func remove_listener(listener):
+	var index = listeners.find(listener)
+	if index != -1:
+		listeners.remove(index)

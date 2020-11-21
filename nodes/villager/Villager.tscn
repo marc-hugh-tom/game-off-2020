@@ -20,27 +20,27 @@
 
 [sub_resource type="SpriteFrames" id=1]
 animations = [ {
-"frames": [ ExtResource( 8 ) ],
-"loop": true,
-"name": "idle",
-"speed": 5.0
-}, {
 "frames": [ ExtResource( 9 ), ExtResource( 10 ), ExtResource( 12 ), ExtResource( 11 ) ],
 "loop": true,
 "name": "walk",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 8 ) ],
+"loop": true,
+"name": "idle",
 "speed": 5.0
 } ]
 
 [sub_resource type="SpriteFrames" id=2]
 animations = [ {
-"frames": [ ExtResource( 2 ) ],
-"loop": true,
-"name": "idle",
-"speed": 5.0
-}, {
 "frames": [ ExtResource( 13 ), ExtResource( 14 ), ExtResource( 16 ), ExtResource( 15 ) ],
 "loop": true,
 "name": "walk",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 2 ) ],
+"loop": true,
+"name": "idle",
 "speed": 5.0
 } ]
 
@@ -130,14 +130,11 @@ radius = 16.0
 
 [node name="Villager" type="KinematicBody2D" groups=[
 "Victim",
+"Villager",
 ]]
 use_parent_material = true
 collision_mask = 5
 script = ExtResource( 1 )
-exported_emotion_intensity = {
-"FATIGUE": 0,
-"FEAR": 0
-}
 
 [node name="Body" type="AnimatedSprite" parent="."]
 light_mask = 2

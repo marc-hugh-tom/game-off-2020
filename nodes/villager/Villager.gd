@@ -84,7 +84,7 @@ const Emotion = {
 
 # a map of emotion to intensity, exported to configure different initial
 # emotions
-export(Dictionary) var exported_emotion_intensity = {
+var emotion_intensity = {
 	Emotion.FEAR: 0,
 	Emotion.FATIGUE: 0,
 	Emotion.CURIOSITY: 0,
@@ -97,11 +97,6 @@ var emotion_metadata = {
 	Emotion.CURIOSITY: null,
 	Emotion.ANGER: null,
 }
-
-# if we won't duplicate the exported dictionary, then it seems as though
-# an exported dict is shared between all instances, so any updates to it
-# will update ALL other villager's instances as well, whaaaat?
-onready var emotion_intensity = exported_emotion_intensity.duplicate()
 
 func get_emotion_intensity(emotion):
 	return emotion_intensity[emotion]
@@ -144,7 +139,7 @@ func _update_actions():
 		
 		var higher_priority = new_action.get_priority() > current_action.get_priority()
 		var is_idling = current_action == idle
-		
+
 		if higher_priority or is_idling:
 			_enter_action(new_action)
 	elif current_action == null:
@@ -286,7 +281,14 @@ func set_rotation_with_delta(target, delta):
 func hurt():
 	$AudioStreamPlayer2D.stream = load("res://assets/sounds/stab.ogg")
 	$AudioStreamPlayer2D.play()
+	die()
 
+func die():
+	for action in _get_action_children():
+		action.on_die()
+	for sense in _get_sense_children():
+		sense.on_die()
+	
 	moon.amend_crescent(blood)
 	queue_free()
 
