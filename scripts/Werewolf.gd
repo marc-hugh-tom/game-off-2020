@@ -46,10 +46,11 @@ func _physics_process(delta):
 	move_and_slide(velocity)
 
 func attack():
-	attacking = true
-	$AnimationPlayer.play("attack")
-	$AnimationPlayer.connect("animation_finished", self, "animation_finished",
-		[], CONNECT_ONESHOT)
+	if not attacking:
+		attacking = true
+		$AnimationPlayer.play("attack")
+		$AnimationPlayer.connect("animation_finished", self,
+			"animation_finished", [], CONNECT_ONESHOT)
 
 func animation_finished(animation_name):
 	if animation_name == "attack":

@@ -47,7 +47,7 @@ func spawn_villager():
 	add_child(villager)
 
 	# Move child above OverheadTileMap position in scene tree so they spawn
-	# the buildings
+	# inside the buildings
 	move_child(villager, overhead_tile_map_position - 1)
 
 func random_spawn_position():
