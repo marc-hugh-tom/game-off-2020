@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=2]
+[gd_scene load_steps=16 format=2]
 
 [ext_resource path="res://nodes/Werewolf.tscn" type="PackedScene" id=1]
 [ext_resource path="res://nodes/OverheadTileSet.tres" type="TileSet" id=2]
@@ -6,6 +6,7 @@
 [ext_resource path="res://nodes/Clock.tscn" type="PackedScene" id=4]
 [ext_resource path="res://nodes/SpawnPoint.tscn" type="PackedScene" id=5]
 [ext_resource path="res://nodes/TileSet.tres" type="TileSet" id=6]
+[ext_resource path="res://nodes/villager/DeadVillager.tscn" type="PackedScene" id=7]
 [ext_resource path="res://shaders/DayNightMaterial.tres" type="Material" id=8]
 [ext_resource path="res://nodes/Lamp.tscn" type="PackedScene" id=9]
 [ext_resource path="res://nodes/Moon.tscn" type="PackedScene" id=10]
@@ -43,6 +44,7 @@ use_parent_material = true
 
 [node name="TileMap" type="TileMap" parent="Map/Navigation2D"]
 use_parent_material = true
+z_index = -2
 tile_set = ExtResource( 6 )
 cell_size = Vector2( 32, 32 )
 format = 1
@@ -64,9 +66,11 @@ position = Vector2( 1186, 452 )
 
 [node name="Werewolf" parent="Map" instance=ExtResource( 1 )]
 position = Vector2( 131.703, 142.127 )
+z_index = 1
 
 [node name="OverheadTileMap" type="TileMap" parent="Map"]
 use_parent_material = true
+z_index = 5
 tile_set = ExtResource( 2 )
 cell_size = Vector2( 32, 32 )
 format = 1
@@ -111,6 +115,10 @@ position = Vector2( 809.828, 112.588 )
 [node name="SpawnPoint4" parent="Map/SpawnPoints" instance=ExtResource( 5 )]
 visible = false
 position = Vector2( 1200.05, 457.074 )
+
+[node name="DeadVillager" parent="Map" instance=ExtResource( 7 )]
+position = Vector2( 128.964, 257.221 )
+z_index = 0
 
 [node name="HUD" type="CanvasLayer" parent="."]
 

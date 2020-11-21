@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=2]
+[gd_scene load_steps=28 format=2]
 
 [ext_resource path="res://nodes/villager/Villager.gd" type="Script" id=1]
 [ext_resource path="res://assets/sprites/villagers/basic_villager/feet_idle.png" type="Texture" id=2]
@@ -17,32 +17,58 @@
 [ext_resource path="res://assets/sprites/villagers/basic_villager/feet_walk_04.png" type="Texture" id=15]
 [ext_resource path="res://assets/sprites/villagers/basic_villager/feet_walk_03.png" type="Texture" id=16]
 [ext_resource path="res://nodes/villager/actions/Attack.tscn" type="PackedScene" id=17]
+[ext_resource path="res://assets/sprites/villagers/basic_villager/dying_02.png" type="Texture" id=18]
+[ext_resource path="res://assets/sprites/villagers/basic_villager/dying_01.png" type="Texture" id=19]
+[ext_resource path="res://assets/sprites/villagers/basic_villager/dying_04.png" type="Texture" id=20]
+[ext_resource path="res://assets/sprites/villagers/basic_villager/dying_03.png" type="Texture" id=21]
 
 [sub_resource type="SpriteFrames" id=1]
 animations = [ {
+"frames": [ ExtResource( 8 ) ],
+"loop": true,
+"name": "idle",
+"speed": 5.0
+}, {
 "frames": [ ExtResource( 9 ), ExtResource( 10 ), ExtResource( 12 ), ExtResource( 11 ) ],
 "loop": true,
 "name": "walk",
 "speed": 5.0
 }, {
-"frames": [ ExtResource( 8 ) ],
+"frames": [ ExtResource( 19 ), ExtResource( 18 ), ExtResource( 21 ), ExtResource( 20 ) ],
 "loop": true,
-"name": "idle",
+"name": "dying",
 "speed": 5.0
 } ]
 
 [sub_resource type="SpriteFrames" id=2]
 animations = [ {
-"frames": [ ExtResource( 13 ), ExtResource( 14 ), ExtResource( 16 ), ExtResource( 15 ) ],
-"loop": true,
-"name": "walk",
-"speed": 5.0
-}, {
 "frames": [ ExtResource( 2 ) ],
 "loop": true,
 "name": "idle",
 "speed": 5.0
+}, {
+"frames": [ ExtResource( 13 ), ExtResource( 14 ), ExtResource( 16 ), ExtResource( 15 ) ],
+"loop": true,
+"name": "walk",
+"speed": 5.0
 } ]
+
+[sub_resource type="Animation" id=6]
+resource_name = "dying"
+length = 0.8
+step = 0.2
+tracks/0/type = "value"
+tracks/0/path = NodePath("Body:animation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ "dying" ]
+}
 
 [sub_resource type="Animation" id=3]
 length = 0.1
@@ -141,7 +167,7 @@ light_mask = 2
 use_parent_material = true
 rotation = -1.5708
 frames = SubResource( 1 )
-animation = "idle"
+animation = "dying"
 
 [node name="Feet" type="AnimatedSprite" parent="."]
 use_parent_material = true
@@ -162,6 +188,7 @@ animation = "idle"
 [node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+anims/dying = SubResource( 6 )
 anims/idle = SubResource( 3 )
 anims/walk = SubResource( 4 )
 
