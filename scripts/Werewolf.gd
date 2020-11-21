@@ -49,8 +49,8 @@ func attack():
 	if not attacking:
 		attacking = true
 		$AnimationPlayer.play("attack")
-		$AnimationPlayer.connect("animation_finished", self, "animation_finished",
-			[], CONNECT_ONESHOT)
+		$AnimationPlayer.connect("animation_finished", self,
+		"animation_finished", [], CONNECT_ONESHOT)
 
 func animation_finished(animation_name):
 	if animation_name == "attack":
