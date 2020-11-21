@@ -43,6 +43,7 @@ use_parent_material = true
 
 [node name="TileMap" type="TileMap" parent="Map/Navigation2D"]
 use_parent_material = true
+z_index = -2
 tile_set = ExtResource( 6 )
 cell_size = Vector2( 32, 32 )
 format = 1
@@ -64,9 +65,11 @@ position = Vector2( 1186, 452 )
 
 [node name="Werewolf" parent="Map" instance=ExtResource( 1 )]
 position = Vector2( 131.703, 142.127 )
+z_index = 1
 
 [node name="OverheadTileMap" type="TileMap" parent="Map"]
 use_parent_material = true
+z_index = 5
 tile_set = ExtResource( 2 )
 cell_size = Vector2( 32, 32 )
 format = 1
