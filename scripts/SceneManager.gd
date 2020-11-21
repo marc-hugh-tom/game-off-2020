@@ -21,6 +21,7 @@ func deferred_new_game():
 	clear_scene()
 	var new_game = play_scene.instance()
 	new_game.connect("quit", self, "start_menu")
+	new_game.connect("restart", self, "start_new_game")
 	add_child(new_game)
 	initiate_fade_to_transparent("remove_transition_overlay")
 

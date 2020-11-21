@@ -119,7 +119,7 @@ __meta__ = {
 }
 
 [node name="CenterContainer" type="CenterContainer" parent="HUD/PauseMenu"]
-anchor_top = 0.5
+anchor_top = 0.4
 anchor_right = 1.0
 anchor_bottom = 0.5
 margin_top = -108.0
@@ -130,8 +130,9 @@ __meta__ = {
 
 [node name="PauseMenu" type="VBoxContainer" parent="HUD/PauseMenu/CenterContainer"]
 margin_left = 384.0
+margin_top = 13.0
 margin_right = 640.0
-margin_bottom = 226.0
+margin_bottom = 239.0
 size_flags_horizontal = 0
 size_flags_vertical = 0
 custom_constants/separation = 20
@@ -161,5 +162,158 @@ margin_top = 176.0
 margin_right = 256.0
 margin_bottom = 226.0
 rect_min_size = Vector2( 256, 50 )
+theme = ExtResource( 11 )
+text = "Quit To Menu"
+
+[node name="StarveMenu" type="Control" parent="HUD"]
+visible = false
+margin_right = 1024.0
+margin_bottom = 600.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ColorRect" type="ColorRect" parent="HUD/StarveMenu"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color( 0, 0, 0, 0.470588 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="CenterContainer" type="CenterContainer" parent="HUD/StarveMenu"]
+anchor_top = 0.3
+anchor_right = 1.0
+anchor_bottom = 0.5
+margin_top = -108.0
+margin_bottom = 84.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="StarveMenu" type="VBoxContainer" parent="HUD/StarveMenu/CenterContainer"]
+margin_left = 311.0
+margin_right = 712.0
+margin_bottom = 404.0
+size_flags_horizontal = 0
+size_flags_vertical = 0
+custom_constants/separation = 20
+alignment = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="HUD/StarveMenu/CenterContainer/StarveMenu"]
+margin_right = 401.0
+margin_bottom = 264.0
+custom_fonts/font = SubResource( 3 )
+custom_colors/font_color = Color( 0.494118, 0, 0, 1 )
+text = "YOU FAILED TO
+PLEASE THE
+BLOOD MOON"
+align = 1
+
+[node name="Restart" type="CenterContainer" parent="HUD/StarveMenu/CenterContainer/StarveMenu"]
+margin_top = 284.0
+margin_right = 401.0
+margin_bottom = 334.0
+
+[node name="Restart" type="Button" parent="HUD/StarveMenu/CenterContainer/StarveMenu/Restart"]
+margin_left = 72.0
+margin_right = 328.0
+margin_bottom = 50.0
+rect_min_size = Vector2( 256, 50 )
+size_flags_horizontal = 0
+size_flags_vertical = 0
+theme = ExtResource( 11 )
+text = "Restart"
+
+[node name="QuitToMenu" type="CenterContainer" parent="HUD/StarveMenu/CenterContainer/StarveMenu"]
+margin_top = 354.0
+margin_right = 401.0
+margin_bottom = 404.0
+
+[node name="QuitToMenu" type="Button" parent="HUD/StarveMenu/CenterContainer/StarveMenu/QuitToMenu"]
+margin_left = 72.0
+margin_right = 328.0
+margin_bottom = 50.0
+rect_min_size = Vector2( 256, 50 )
+size_flags_horizontal = 0
+size_flags_vertical = 0
+theme = ExtResource( 11 )
+text = "Quit To Menu"
+
+[node name="DiedMenu" type="Control" parent="HUD"]
+visible = false
+margin_right = 1024.0
+margin_bottom = 600.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ColorRect" type="ColorRect" parent="HUD/DiedMenu"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color( 0, 0, 0, 0.470588 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="CenterContainer" type="CenterContainer" parent="HUD/DiedMenu"]
+anchor_top = 0.3
+anchor_right = 1.0
+anchor_bottom = 0.5
+margin_top = -108.0
+margin_bottom = 84.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="DiedMenu" type="VBoxContainer" parent="HUD/DiedMenu/CenterContainer"]
+margin_left = 384.0
+margin_top = 89.0
+margin_right = 640.0
+margin_bottom = 315.0
+size_flags_horizontal = 0
+size_flags_vertical = 0
+custom_constants/separation = 20
+alignment = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="HUD/DiedMenu/CenterContainer/DiedMenu"]
+margin_right = 256.0
+margin_bottom = 86.0
+custom_fonts/font = SubResource( 3 )
+custom_colors/font_color = Color( 0.494118, 0, 0, 1 )
+text = "YOU DIED"
+align = 1
+
+[node name="Restart" type="CenterContainer" parent="HUD/DiedMenu/CenterContainer/DiedMenu"]
+margin_top = 106.0
+margin_right = 256.0
+margin_bottom = 156.0
+
+[node name="Restart" type="Button" parent="HUD/DiedMenu/CenterContainer/DiedMenu/Restart"]
+margin_right = 256.0
+margin_bottom = 50.0
+rect_min_size = Vector2( 256, 50 )
+size_flags_horizontal = 0
+size_flags_vertical = 0
+theme = ExtResource( 11 )
+text = "Restart"
+
+[node name="QuitToMenu" type="CenterContainer" parent="HUD/DiedMenu/CenterContainer/DiedMenu"]
+margin_top = 176.0
+margin_right = 256.0
+margin_bottom = 226.0
+
+[node name="QuitToMenu" type="Button" parent="HUD/DiedMenu/CenterContainer/DiedMenu/QuitToMenu"]
+margin_right = 256.0
+margin_bottom = 50.0
+rect_min_size = Vector2( 256, 50 )
+size_flags_horizontal = 0
+size_flags_vertical = 0
 theme = ExtResource( 11 )
 text = "Quit To Menu"

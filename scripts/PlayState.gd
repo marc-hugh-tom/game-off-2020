@@ -1,6 +1,7 @@
 extends Node2D
 
 signal quit
+signal restart
 
 var start_time = 0.0
 
@@ -101,8 +102,24 @@ func toggle_pause():
 		TimeManager.pause_mode = PAUSE_MODE_STOP
 		get_tree().paused = true
 
+func show_starve_menu():
+	if not $HUD/DiedMenu.visible:
+		$HUD/StarveMenu.show()
+
+func show_died_menu():
+	if not $HUD/StarveMenu.visible:
+		$HUD/DiedMenu.show()
+
 func connect_menu_buttons():
 	$HUD/PauseMenu/CenterContainer/PauseMenu/Continue.connect(
 		"button_up", self, "toggle_pause")
 	$HUD/PauseMenu/CenterContainer/PauseMenu/QuitToMenu.connect(
 		"button_up", self, "emit_signal", ["quit"])
+	$HUD/StarveMenu/CenterContainer/StarveMenu/QuitToMenu/QuitToMenu.connect(
+		"button_up", self, "emit_signal", ["quit"])
+	$HUD/StarveMenu/CenterContainer/StarveMenu/Restart/Restart.connect(
+		"button_up", self, "emit_signal", ["restart"])
+	$HUD/DiedMenu/CenterContainer/DiedMenu/QuitToMenu/QuitToMenu.connect(
+		"button_up", self, "emit_signal", ["quit"])
+	$HUD/DiedMenu/CenterContainer/DiedMenu/Restart/Restart.connect(
+		"button_up", self, "emit_signal", ["restart"])
