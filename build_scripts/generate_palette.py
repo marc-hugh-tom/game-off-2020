@@ -1,4 +1,4 @@
-from PIL import Image, ImageColor
+from PIL import Image, ImageColor, ImageEnhance
 import numpy as np
 import glob
 import os
@@ -6,6 +6,7 @@ import os
 raw_assets_dir = 'raw_assets'
 output_dir = 'assets'
 palette_filepath = os.path.join(output_dir, 'base_palette.png')
+night_palette_filepath = os.path.join(output_dir, 'night_palette.png')
 
 def rgba2hex(r, g, b, a):
     if a == 0:
@@ -35,6 +36,11 @@ for idx, hex_str in enumerate(palette):
 
 palette_im = Image.fromarray(palette_array, 'RGBA')
 palette_im.save(palette_filepath)
+
+night_palette_im = ImageEnhance.Brightness(palette_im).enhance(0.4)
+night_palette_im = ImageEnhance.Color(night_palette_im).enhance(0.5)
+night_palette_im = ImageEnhance.Contrast(night_palette_im).enhance(0.9)
+night_palette_im.save(night_palette_filepath)
 
 for filepath in raw_png_filepaths:
     original_im = Image.open(filepath)

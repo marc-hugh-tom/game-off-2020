@@ -23,12 +23,17 @@ Saving: assets/sprites/werewolf/feet_0.png
 Saving: assets/sprites/map/grass_tileset.png
 Saving: assets/sprites/map/dirt_tileset.png
 ```
-The script will output the modified sprites in `assets`, as well as a file `assets/base_palette.png`.
-Run `cp assets/base_palette.png assets/night_palette.png` to create the night palette.
-Run the game and take a screenshot.
-Open up GIMP and paste the screenshot in.
-Copy the night palette into the image, and dick around with the hue, saturation, and colour temperature.
-Overwrite `assets/night_palette.png` with the altered palette, making sure that the resulting palette is the same size as `assets/base_palette.png`.
+The script will output the modified sprites in `assets`, as well as a file `assets/base_palette.png` and `assets/night_palette.png`
+
+### Editing night palette
+`night_palette.png` is "best effort" in code, but sometimes you might want to edit this manually:
+
+- Run `cp assets/base_palette.png assets/night_palette.png` to match night palette to day palette.
+- Modify `Palette.shader` to only use `day_colour`.
+- Run the game and take a screenshot.
+- Open up GIMP and paste the screenshot in.
+- Copy the night palette into the image, and dick around with the hue, saturation, and colour temperature.
+- Overwrite `assets/night_palette.png` with the altered palette, making sure that the resulting palette is the same size as `assets/base_palette.png`.
 
 # Credits
 

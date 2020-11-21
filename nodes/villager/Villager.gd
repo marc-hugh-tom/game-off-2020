@@ -23,11 +23,17 @@ extends KinematicBody2D
 # - on start up, or
 # - after it has fled from the werewolf
 export(NodePath) var level_navigation_path
+onready var navigation: Navigation2D = get_node(level_navigation_path)
 
 export(NodePath) var werewolf_path
-
 onready var werewolf = get_node(werewolf_path)
-onready var navigation: Navigation2D = get_node(level_navigation_path)
+
+export(NodePath) var moon_path
+onready var moon: Moon = get_node(moon_path)
+
+onready var DeadVillager = load("res://nodes/villager/DeadVillager.tscn")
+
+export(float) var blood = 0.25
 
 func _get_configuration_warning():
 	# if we're viewing the villager scene then don't bother showing this warning
@@ -80,7 +86,7 @@ const Emotion = {
 
 # a map of emotion to intensity, exported to configure different initial
 # emotions
-export(Dictionary) var exported_emotion_intensity = {
+var emotion_intensity = {
 	Emotion.FEAR: 0,
 	Emotion.FATIGUE: 0,
 	Emotion.CURIOSITY: 0,
@@ -93,11 +99,6 @@ var emotion_metadata = {
 	Emotion.CURIOSITY: null,
 	Emotion.ANGER: null,
 }
-
-# if we won't duplicate the exported dictionary, then it seems as though
-# an exported dict is shared between all instances, so any updates to it
-# will update ALL other villager's instances as well, whaaaat?
-onready var emotion_intensity = exported_emotion_intensity.duplicate()
 
 func get_emotion_intensity(emotion):
 	return emotion_intensity[emotion]
@@ -140,7 +141,7 @@ func _update_actions():
 		
 		var higher_priority = new_action.get_priority() > current_action.get_priority()
 		var is_idling = current_action == idle
-		
+
 		if higher_priority or is_idling:
 			_enter_action(new_action)
 	elif current_action == null:
@@ -259,7 +260,7 @@ func _update_debug_labels():
 		debug_label.text = debug_text
 
 var TWO_PI = 2 * PI
-	
+
 func set_rotation_with_delta(target, delta):
 	# some rotation fiddling here to get it to behave itself, here be dragons
 	# angle_to will always return a value between 0 and 2PI, but this causes
@@ -280,8 +281,27 @@ func set_rotation_with_delta(target, delta):
 	rotation = new_rotation
 
 func hurt():
-	$AudioStreamPlayer2D.stream = load("res://assets/sounds/stab.ogg")
+	play_sound("res://assets/sounds/stab.ogg")
+	die()
+
+func play_sound(path):
+	$AudioStreamPlayer2D.stream = load(path)
 	$AudioStreamPlayer2D.play()
+
+func die():
+	for action in _get_action_children():
+		action.on_die()
+	for sense in _get_sense_children():
+		sense.on_die()
+	
+	moon.amend_crescent(blood)
+	
+	var dead = DeadVillager.instance()
+	dead.position = position
+	dead.rotation = rotation
+	get_parent().add_child(dead)
+	
+	queue_free()
 
 var _can_attack = true
 

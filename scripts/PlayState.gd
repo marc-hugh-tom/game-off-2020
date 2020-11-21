@@ -22,13 +22,12 @@ func _ready():
 	connect_menu_buttons()
 
 func _process(delta):
-	if not get_tree().paused:
-		update_map_scale()
-		update_player_speed()
-		update_camera_margin()
-		update_global_lighting()
-		update_lamp_lights()
-		update_blood_moon()
+  if not get_tree().paused:
+	  update_map_scale()
+	  update_player_speed()
+	  update_camera_margin()
+	  update_global_lighting()
+	  update_lamp_lights()
 
 func update_map_scale():
 	var fraction = get_day_night_fraction_easing()
@@ -71,14 +70,6 @@ func update_lamp_lights():
 
 func get_day_night_fraction_easing():
 	return(sin(TimeManager.get_day_night_fraction() * PI / 2))
-
-func update_blood_moon():
-	# TEMP - should be replaced with actual werewolf hunger
-	var fraction = get_day_night_fraction_easing()
-	fraction = ((fraction * -1) + 1) / 2
-	# TEMP END
-	if $HUD/Moon:
-		$HUD/Moon.set_crescent(fraction)
 
 func _input(event):
 	if event.is_action_released("pause"):

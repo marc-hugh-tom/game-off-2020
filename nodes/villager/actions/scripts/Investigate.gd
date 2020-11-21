@@ -24,15 +24,16 @@ class Alert:
 	var pause_time = 1.0
 	var route: PoolVector2Array
 
-	func _init(in_route: PoolVector2Array):
+	func _init(in_route: PoolVector2Array, villager: Villager):
 		self.route = in_route
+		villager.get_animation_player().play("idle")
 
 	func physics_process(delta, villager):
 		villager.set_rotation_with_delta(self.route[1], delta)
 		
 		self.pause_time -= delta
 		if pause_time <= 0:
-			return MoveToNoise.new(self.route)
+			return MoveToNoise.new(self.route, villager)
 		return self
 
 	func get_label():
@@ -44,8 +45,9 @@ class MoveToNoise:
 	var target: Vector2
 	var time_looking = 0
 	
-	func _init(in_route: PoolVector2Array):
+	func _init(in_route: PoolVector2Array, villager: Villager):
 		self.route = in_route
+		villager.get_animation_player().play("walk")
 
 	func physics_process(delta: float, villager: Villager):
 		time_looking += delta
@@ -75,16 +77,19 @@ class DoInvestigation:
 	var target
 	var initial_rotation
 	var running_delta = 0.0
+	var villager
 	
-	func _init(in_target, villager):
+	func _init(in_target, in_villager):
 		self.target = in_target
-		self.initial_rotation = villager.rotation
+		self.initial_rotation = in_villager.rotation
+		self.villager = villager
+		in_villager.get_animation_player().play("idle")
 
 	func physics_process(delta, villager):
 		var route = villager.emotion_metadata.get(Villager.Emotion.CURIOSITY)
 		if route[-1] != self.target:
 			var new_route = villager.navigation.get_simple_path(villager.position, route[-1])
-			return Alert.new(new_route)
+			return Alert.new(new_route, villager)
 
 		self.pause_time -= delta
 		if pause_time <= 0:
@@ -107,8 +112,7 @@ func get_label():
 
 func on_enter():
 	current_path = villager.emotion_metadata.get(Villager.Emotion.CURIOSITY)
-	current_state = Alert.new(current_path)
-	get_animation_player().play("walk")
+	current_state = Alert.new(current_path, villager)
 
 func on_exit():
 	current_state = Null.new()
@@ -117,7 +121,7 @@ func physics_process(delta):
 	var path = villager.emotion_metadata.get(Villager.Emotion.CURIOSITY)
 	if path != current_path:
 		current_path = path
-		current_state = Alert.new(current_path)
+		current_state = Alert.new(current_path, villager)
 	else:
 		current_state = current_state.physics_process(delta, villager)
 

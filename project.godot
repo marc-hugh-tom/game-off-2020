@@ -14,6 +14,16 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://nodes/villager/actions/scripts/Attack.gd"
 }, {
+"base": "Node2D",
+"class": "Flee",
+"language": "GDScript",
+"path": "res://nodes/villager/actions/scripts/Flee.gd"
+}, {
+"base": "Node2D",
+"class": "Moon",
+"language": "GDScript",
+"path": "res://scripts/Moon.gd"
+}, {
 "base": "KinematicBody2D",
 "class": "Villager",
 "language": "GDScript",
@@ -21,6 +31,8 @@ _global_script_classes=[ {
 } ]
 _global_script_class_icons={
 "Attack": "",
+"Flee": "",
+"Moon": "",
 "Villager": ""
 }
 

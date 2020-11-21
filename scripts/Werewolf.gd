@@ -46,10 +46,11 @@ func _physics_process(delta):
 	move_and_slide(velocity)
 
 func attack():
-	attacking = true
-	$AnimationPlayer.play("attack")
-	$AnimationPlayer.connect("animation_finished", self, "animation_finished",
-		[], CONNECT_ONESHOT)
+	if not attacking:
+		attacking = true
+		$AnimationPlayer.play("attack")
+		$AnimationPlayer.connect("animation_finished", self,
+			"animation_finished", [], CONNECT_ONESHOT)
 
 func animation_finished(animation_name):
 	if animation_name == "attack":
@@ -60,7 +61,9 @@ func end_attack():
 	$AnimationPlayer.play("idle")
 
 func bark():
-	AudioManager.play_sound(AudioManager.SoundType.WOOF, self)
+	AudioManager.on_sound(self)
+	$AudioStreamPlayer2D.stream = load("res://assets/sounds/woof.wav")
+	$AudioStreamPlayer2D.play()
 
 func set_speed(new_speed):
 	speed = new_speed
