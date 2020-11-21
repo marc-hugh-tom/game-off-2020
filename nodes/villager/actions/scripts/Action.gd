@@ -27,3 +27,6 @@ func should_deactivate():
 
 func get_priority():
 	return 0
+
+func on_die():
+	pass
