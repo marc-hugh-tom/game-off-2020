@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=2]
+[gd_scene load_steps=24 format=2]
 
 [ext_resource path="res://nodes/villager/Villager.gd" type="Script" id=1]
 [ext_resource path="res://assets/sprites/villagers/basic_villager/feet_idle.png" type="Texture" id=2]
@@ -128,6 +128,9 @@ tracks/3/keys = {
 [sub_resource type="CircleShape2D" id=5]
 radius = 16.0
 
+[sub_resource type="OccluderPolygon2D" id=6]
+polygon = PoolVector2Array( 12.8494, 3.30483, 11.6629, 6.24267, 5.56126, 8.10707, -0.0319366, 9.80198, -6.19011, 7.5421, -12.5178, 5.50821, -13.0827, 2.68336, -13.2522, -0.875946, -9.29744, -2.51435, -5.00367, -5.73468, 0.0810547, -6.35615, 5.61776, -5.50869, 9.17706, -2.11888, 13.5273, -0.480465 )
+
 [node name="Villager" type="KinematicBody2D" groups=[
 "Victim",
 "Villager",
@@ -170,3 +173,7 @@ scale = Vector2( 0.6, 0.6 )
 shape = SubResource( 5 )
 
 [node name="Attack" parent="." instance=ExtResource( 17 )]
+
+[node name="LightOccluder2D" type="LightOccluder2D" parent="."]
+position = Vector2( 0.0564957, -1.01694 )
+occluder = SubResource( 6 )
