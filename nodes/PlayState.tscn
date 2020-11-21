@@ -102,17 +102,45 @@ position = Vector2( 64, 64 )
 position = Vector2( 64, 176 )
 scale = Vector2( 2, 2 )
 
-[node name="PauseMenu" type="VBoxContainer" parent="HUD"]
-margin_left = 384.0
-margin_top = 128.0
-margin_right = 640.0
-margin_bottom = 512.0
-custom_constants/separation = 20
+[node name="PauseMenu" type="Control" parent="HUD"]
+visible = false
+margin_right = 1024.0
+margin_bottom = 600.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Label" type="Label" parent="HUD/PauseMenu"]
+[node name="ColorRect" type="ColorRect" parent="HUD/PauseMenu"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color( 0, 0, 0, 0.470588 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="CenterContainer" type="CenterContainer" parent="HUD/PauseMenu"]
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+margin_top = -108.0
+margin_bottom = 84.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="PauseMenu" type="VBoxContainer" parent="HUD/PauseMenu/CenterContainer"]
+margin_left = 384.0
+margin_right = 640.0
+margin_bottom = 226.0
+size_flags_horizontal = 0
+size_flags_vertical = 0
+custom_constants/separation = 20
+alignment = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="HUD/PauseMenu/CenterContainer/PauseMenu"]
 margin_right = 256.0
 margin_bottom = 86.0
 custom_fonts/font = SubResource( 3 )
@@ -120,18 +148,18 @@ custom_colors/font_color = Color( 0.494118, 0, 0, 1 )
 text = "PAUSE"
 align = 1
 
-[node name="Continue" type="Button" parent="HUD/PauseMenu"]
+[node name="Continue" type="Button" parent="HUD/PauseMenu/CenterContainer/PauseMenu"]
 margin_top = 106.0
 margin_right = 256.0
 margin_bottom = 156.0
-rect_min_size = Vector2( 0, 50 )
+rect_min_size = Vector2( 256, 50 )
 theme = ExtResource( 11 )
 text = "Continue"
 
-[node name="QuitToMenu" type="Button" parent="HUD/PauseMenu"]
+[node name="QuitToMenu" type="Button" parent="HUD/PauseMenu/CenterContainer/PauseMenu"]
 margin_top = 176.0
 margin_right = 256.0
 margin_bottom = 226.0
-rect_min_size = Vector2( 0, 50 )
+rect_min_size = Vector2( 256, 50 )
 theme = ExtResource( 11 )
 text = "Quit To Menu"

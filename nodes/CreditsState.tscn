@@ -90,10 +90,10 @@ size_flags_vertical = 3
 
 [node name="MenuButton" type="Button" parent="Column/MarginContainer"]
 margin_left = 384.0
-margin_top = 43.0
+margin_top = 44.0
 margin_right = 640.0
-margin_bottom = 95.0
-rect_min_size = Vector2( 256, 52 )
+margin_bottom = 94.0
+rect_min_size = Vector2( 256, 50 )
 size_flags_horizontal = 0
 size_flags_vertical = 0
 theme = ExtResource( 2 )

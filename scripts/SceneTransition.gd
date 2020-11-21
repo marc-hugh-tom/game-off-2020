@@ -7,11 +7,7 @@ var transition_speed = 1.0
 var callback_function_str
 
 func _ready():
-	var offset = get_viewport().get_canvas_transform().origin
-	$ColorRect.margin_left = -offset.x
-	$ColorRect.margin_top = -offset.y
-	$ColorRect.margin_right = $ColorRect.get_viewport_rect().size.x
-	$ColorRect.margin_bottom = $ColorRect.get_viewport_rect().size.y
+	$ColorRect.rect_size = $ColorRect.get_viewport_rect().size
 	$Tween.connect("tween_completed", self, "transition_finished_callback")
 
 func set_to_black():

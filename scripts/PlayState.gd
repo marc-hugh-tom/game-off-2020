@@ -1,5 +1,7 @@
 extends Node2D
 
+signal quit
+
 var start_time = 0.0
 
 var map_scale_noon = 3
@@ -16,14 +18,16 @@ var previous_fraction = null
 
 func _ready():
 	TimeManager.current_time = start_time
+	connect_menu_buttons()
 
 func _process(delta):
-	update_map_scale()
-	update_player_speed()
-	update_camera_margin()
-	update_global_lighting()
-	update_lamp_lights()
-	update_blood_moon()
+	if not get_tree().paused:
+		update_map_scale()
+		update_player_speed()
+		update_camera_margin()
+		update_global_lighting()
+		update_lamp_lights()
+		update_blood_moon()
 
 func update_map_scale():
 	var fraction = get_day_night_fraction_easing()
@@ -74,3 +78,31 @@ func update_blood_moon():
 	# TEMP END
 	if $HUD/Moon:
 		$HUD/Moon.set_crescent(fraction)
+
+func _input(event):
+	if event.is_action_released("pause"):
+		toggle_pause()
+
+func toggle_pause():
+	if get_tree().paused:
+		$HUD/PauseMenu.hide()
+		pause_mode = PAUSE_MODE_INHERIT
+		$Map.pause_mode = PAUSE_MODE_INHERIT
+		$HUD.pause_mode = PAUSE_MODE_INHERIT
+		$HUD/PauseMenu.pause_mode = PAUSE_MODE_INHERIT
+		TimeManager.pause_mode = PAUSE_MODE_INHERIT
+		get_tree().paused = false
+	else:
+		$HUD/PauseMenu.show()
+		pause_mode = PAUSE_MODE_PROCESS
+		$Map.pause_mode = PAUSE_MODE_STOP
+		$HUD.pause_mode = PAUSE_MODE_STOP
+		$HUD/PauseMenu.pause_mode = PAUSE_MODE_PROCESS
+		TimeManager.pause_mode = PAUSE_MODE_STOP
+		get_tree().paused = true
+
+func connect_menu_buttons():
+	$HUD/PauseMenu/CenterContainer/PauseMenu/Continue.connect(
+		"button_up", self, "toggle_pause")
+	$HUD/PauseMenu/CenterContainer/PauseMenu/QuitToMenu.connect(
+		"button_up", self, "emit_signal", ["quit"])

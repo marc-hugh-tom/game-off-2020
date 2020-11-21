@@ -78,7 +78,7 @@ func spawn_cloud():
 	$CloudTimer.start(rand_range(min_cloud_timer, max_cloud_timer))
 
 func _process(delta):
-	if not $Werewolf == null:
+	if has_node("Werewolf"):
 		var new_werewolf_position = ($Werewolf.position.x +
 			delta * werewolf_speed)
 		if (new_werewolf_position <= werewolf_bounds[0] or
