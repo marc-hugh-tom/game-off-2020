@@ -279,9 +279,12 @@ func set_rotation_with_delta(target, delta):
 	rotation = new_rotation
 
 func hurt():
-	$AudioStreamPlayer2D.stream = load("res://assets/sounds/stab.ogg")
-	$AudioStreamPlayer2D.play()
+	play_sound("res://assets/sounds/stab.ogg")
 	die()
+
+func play_sound(path):
+	$AudioStreamPlayer2D.stream = load(path)
+	$AudioStreamPlayer2D.play()
 
 func die():
 	for action in _get_action_children():

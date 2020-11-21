@@ -35,15 +35,15 @@
 
 [sub_resource type="SpriteFrames" id=1]
 animations = [ {
-"frames": [ ExtResource( 5 ) ],
-"loop": false,
-"name": "idle",
-"speed": 5.0
-}, {
 "frames": [ ExtResource( 10 ), ExtResource( 2 ), ExtResource( 5 ), ExtResource( 7 ), ExtResource( 4 ), ExtResource( 3 ), ExtResource( 11 ) ],
 "loop": true,
 "name": "walk",
 "speed": 8.0
+}, {
+"frames": [ ExtResource( 5 ) ],
+"loop": false,
+"name": "idle",
+"speed": 5.0
 } ]
 
 [sub_resource type="OccluderPolygon2D" id=2]
@@ -51,20 +51,20 @@ polygon = PoolVector2Array( -5.4012, -2.41667, -1.86566, -3.83088, -0.539837, -7
 
 [sub_resource type="SpriteFrames" id=3]
 animations = [ {
-"frames": [ ExtResource( 14 ), ExtResource( 16 ), ExtResource( 13 ), ExtResource( 12 ), ExtResource( 17 ), ExtResource( 21 ), ExtResource( 22 ), ExtResource( 26 ) ],
+"frames": [ ExtResource( 18 ), ExtResource( 20 ), ExtResource( 15 ), ExtResource( 25 ), ExtResource( 19 ), ExtResource( 23 ), ExtResource( 24 ), ExtResource( 6 ) ],
 "loop": true,
-"name": "idle",
-"speed": 5.0
+"name": "walk",
+"speed": 8.0
 }, {
 "frames": [ ExtResource( 27 ), ExtResource( 9 ), ExtResource( 30 ), ExtResource( 29 ), ExtResource( 31 ), ExtResource( 8 ), ExtResource( 28 ) ],
 "loop": false,
 "name": "attack",
 "speed": 10.0
 }, {
-"frames": [ ExtResource( 18 ), ExtResource( 20 ), ExtResource( 15 ), ExtResource( 25 ), ExtResource( 19 ), ExtResource( 23 ), ExtResource( 24 ), ExtResource( 6 ) ],
+"frames": [ ExtResource( 14 ), ExtResource( 16 ), ExtResource( 13 ), ExtResource( 12 ), ExtResource( 17 ), ExtResource( 21 ), ExtResource( 22 ), ExtResource( 26 ) ],
 "loop": true,
-"name": "walk",
-"speed": 8.0
+"name": "idle",
+"speed": 5.0
 } ]
 
 [sub_resource type="CapsuleShape2D" id=4]
