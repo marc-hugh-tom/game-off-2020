@@ -6,9 +6,9 @@
 [node name="Lamp" type="Light2D"]
 position = Vector2( 165.308, 256.482 )
 texture = ExtResource( 1 )
+texture_scale = 16.0
 color = Color( 1, 0.937255, 0, 1 )
 range_item_cull_mask = 3
 shadow_enabled = true
-shadow_filter = 1
 shadow_item_cull_mask = 3
 script = ExtResource( 2 )

@@ -26,3 +26,6 @@ func path_length_squared(path: PoolVector2Array):
 		var b = path[i + 1]
 		length += a.distance_squared_to(b)
 	return length
+
+func on_die():
+	AudioManager.remove_listener(self)
