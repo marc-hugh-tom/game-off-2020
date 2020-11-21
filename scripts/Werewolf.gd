@@ -61,7 +61,9 @@ func end_attack():
 	$AnimationPlayer.play("idle")
 
 func bark():
-	AudioManager.play_sound(AudioManager.SoundType.WOOF, self)
+	AudioManager.on_sound(self)
+	$AudioStreamPlayer2D.stream = load("res://assets/sounds/woof.wav")
+	$AudioStreamPlayer2D.play()
 
 func set_speed(new_speed):
 	speed = new_speed

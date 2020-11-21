@@ -2,7 +2,10 @@ extends "res://nodes/villager/actions/scripts/Action.gd"
 
 class_name Flee
 
-const FLEE_SOUNDS = [AudioManager.SoundType.ARGH, AudioManager.SoundType.SCREAM]
+const FLEE_SOUNDS = [
+	"res://assets/sounds/argh.wav",
+	"res://assets/sounds/scream.ogg"
+]
 
 var current_state = Null.new()
 
@@ -38,7 +41,8 @@ class RunAway:
 	func _init(in_flee: Flee):
 		self.flee = in_flee
 		flee.get_animation_player().play("walk")
-		AudioManager.play_sound(FLEE_SOUNDS[randi() % FLEE_SOUNDS.size()], flee.villager)
+		flee.villager.play_sound(FLEE_SOUNDS[randi() % FLEE_SOUNDS.size()])
+		AudioManager.on_sound(flee.villager)
 
 	func process(delta: float):
 		var villager = flee.villager
