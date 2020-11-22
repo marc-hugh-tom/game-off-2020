@@ -1,6 +1,7 @@
 extends Node2D
 
 const play_scene = preload("res://nodes/PlayState.tscn")
+const exposition_scene = preload("res://nodes/ExpositionState.tscn")
 const menu_scene = preload("res://nodes/MenuState.tscn")
 const credits_scene = preload("res://nodes/CreditsState.tscn")
 const scene_transition = preload("res://nodes/SceneTransition.tscn")
@@ -25,6 +26,18 @@ func deferred_new_game():
 	add_child(new_game)
 	initiate_fade_to_transparent("remove_transition_overlay")
 
+# Exposiion
+func start_exposition():
+	if not has_node("scene_transition"):
+		initiate_fade_to_black("deferred_exposition")
+
+func deferred_exposition():
+	clear_scene()
+	var exposition = exposition_scene.instance()
+	exposition.connect("continue_to_game", self, "start_new_game")
+	add_child(exposition)
+	initiate_fade_to_transparent("remove_transition_overlay")
+
 # MenuState
 func start_menu():
 	if not has_node("scene_transition"):
@@ -34,7 +47,7 @@ func deferred_start_menu():
 	get_tree().set_pause(false)
 	clear_scene()
 	var menu = menu_scene.instance()
-	menu.connect("start_game", self, "start_new_game")
+	menu.connect("start_game", self, "start_exposition")
 	menu.connect("start_credits", self, "start_credits")
 	add_child(menu)
 	initiate_fade_to_transparent("remove_transition_overlay")
