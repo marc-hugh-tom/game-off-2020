@@ -3,7 +3,7 @@ extends Node2D
 signal quit
 signal restart
 
-var start_time = 0.0
+var start_time = 700.0
 
 var map_scale_noon = 3
 var map_scale_midnight = 1.5

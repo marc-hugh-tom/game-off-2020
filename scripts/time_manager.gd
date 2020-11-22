@@ -2,9 +2,9 @@ extends Node
 
 var dawn = 6.0
 var dusk = 18.0
-var game_seconds_in_an_hour = 6.0
+var game_seconds_in_an_hour = 100
 
-var current_time = 0.0
+var current_time = (dawn + 1) * game_seconds_in_an_hour
 
 func _ready():
 	assert(dawn < dusk)

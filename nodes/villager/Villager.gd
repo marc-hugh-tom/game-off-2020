@@ -35,6 +35,8 @@ onready var DeadVillager = load("res://nodes/villager/DeadVillager.tscn")
 
 export(float) var blood = 0.25
 
+export(float) var damage = 10.0
+
 func _get_configuration_warning():
 	# if we're viewing the villager scene then don't bother showing this warning
 	if get_parent() is Viewport:
@@ -204,6 +206,9 @@ func _ready():
 		_create_debug_labels()
 		_update_actions()
 		_create_next_action_timer()
+		
+		$AnimationPlayer.connect("animation_finished", self, "_on_animation_finished")
+		$PunchArea.connect("body_entered", self, "_on_entity_punched")
 	
 func _create_next_action_timer():
 	# create a timer that calls next action
@@ -304,10 +309,24 @@ func die():
 	queue_free()
 
 var _can_attack = true
+var _is_attacking = false
 
 func can_attack():
 	return _can_attack
 
+func is_attacking():
+	return _is_attacking
+
 func do_attack():
-	print("do attack")
 	_can_attack = false
+	_is_attacking = true
+	$AnimationPlayer.play("attack")
+
+func _on_animation_finished(animation):
+	if animation == "attack":
+		_can_attack = true
+		_is_attacking = false
+
+func _on_entity_punched(other):
+	if other == werewolf:
+		werewolf.on_damage(damage)

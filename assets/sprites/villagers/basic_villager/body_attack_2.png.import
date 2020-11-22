@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/body_walk_01.png-6121c1317b607299c8adce1a3edc80a6.stex"
+path="res://.import/body_attack_2.png-e07ddb975813c3148baa2ffdb580d6be.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprites/villagers/basic_villager/body_walk_01.png"
-dest_files=[ "res://.import/body_walk_01.png-6121c1317b607299c8adce1a3edc80a6.stex" ]
+source_file="res://assets/sprites/villagers/basic_villager/body_attack_2.png"
+dest_files=[ "res://.import/body_attack_2.png-e07ddb975813c3148baa2ffdb580d6be.stex" ]
 
 [params]
 

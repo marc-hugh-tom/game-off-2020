@@ -75,3 +75,7 @@ func set_camera_scale(new_scale):
 func _on_ClawsArea_body_entered(body):
 	if body.is_in_group("Victim"):
 		body.hurt()
+
+func on_damage(damage):
+	print("wolf taken %f damage" % damage)
+
