@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=2]
+[gd_scene load_steps=16 format=2]
 
 [ext_resource path="res://nodes/Werewolf.tscn" type="PackedScene" id=1]
 [ext_resource path="res://nodes/OverheadTileSet.tres" type="TileSet" id=2]
@@ -6,12 +6,11 @@
 [ext_resource path="res://nodes/Clock.tscn" type="PackedScene" id=4]
 [ext_resource path="res://nodes/SpawnPoint.tscn" type="PackedScene" id=5]
 [ext_resource path="res://nodes/TileSet.tres" type="TileSet" id=6]
+[ext_resource path="res://nodes/ui/MenuTitleFont.tres" type="DynamicFont" id=7]
 [ext_resource path="res://shaders/DayNightMaterial.tres" type="Material" id=8]
 [ext_resource path="res://nodes/Lamp.tscn" type="PackedScene" id=9]
 [ext_resource path="res://nodes/Moon.tscn" type="PackedScene" id=10]
 [ext_resource path="res://nodes/ui/ButtonTheme.tres" type="Theme" id=11]
-[ext_resource path="res://scripts/Map.gd" type="Script" id=12]
-
 
 [sub_resource type="Curve2D" id=1]
 _data = {
@@ -32,13 +31,6 @@ _data = {
 _data = {
 "points": PoolVector2Array( 0, 0, 0, 0, 543.756, 7.63325, 0, 0, 0, 0, 549.029, 138.521, 0, 0, 0, 0, 145.511, 146.585, 0, 0, 0, 0, 145.511, 9.49421, 0, 0, 0, 0, 543.756, 7.63325 )
 }
-
-[sub_resource type="DynamicFontData" id=2]
-font_path = "res://raw_assets/font/Scratch.ttf"
-
-[sub_resource type="DynamicFont" id=3]
-size = 96
-font_data = SubResource( 2 )
 
 [node name="PlayState" type="Node2D"]
 script = ExtResource( 3 )
@@ -175,7 +167,7 @@ __meta__ = {
 [node name="Label" type="Label" parent="HUD/PauseMenu/CenterContainer/PauseMenu"]
 margin_right = 256.0
 margin_bottom = 86.0
-custom_fonts/font = SubResource( 3 )
+custom_fonts/font = ExtResource( 7 )
 custom_colors/font_color = Color( 0.494118, 0, 0, 1 )
 text = "PAUSE"
 align = 1
@@ -237,7 +229,7 @@ __meta__ = {
 [node name="Label" type="Label" parent="HUD/StarveMenu/CenterContainer/StarveMenu"]
 margin_right = 401.0
 margin_bottom = 264.0
-custom_fonts/font = SubResource( 3 )
+custom_fonts/font = ExtResource( 7 )
 custom_colors/font_color = Color( 0.494118, 0, 0, 1 )
 text = "YOU FAILED TO
 PLEASE THE
@@ -302,9 +294,9 @@ __meta__ = {
 
 [node name="DiedMenu" type="VBoxContainer" parent="HUD/DiedMenu/CenterContainer"]
 margin_left = 384.0
-margin_top = 89.0
+margin_top = 43.0
 margin_right = 640.0
-margin_bottom = 315.0
+margin_bottom = 269.0
 size_flags_horizontal = 0
 size_flags_vertical = 0
 custom_constants/separation = 20
@@ -316,7 +308,7 @@ __meta__ = {
 [node name="Label" type="Label" parent="HUD/DiedMenu/CenterContainer/DiedMenu"]
 margin_right = 256.0
 margin_bottom = 86.0
-custom_fonts/font = SubResource( 3 )
+custom_fonts/font = ExtResource( 7 )
 custom_colors/font_color = Color( 0.494118, 0, 0, 1 )
 text = "YOU DIED"
 align = 1
