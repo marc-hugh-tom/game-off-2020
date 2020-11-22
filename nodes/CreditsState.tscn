@@ -1,0 +1,103 @@
+[gd_scene load_steps=7 format=2]
+
+[ext_resource path="res://scripts/CreditsState.gd" type="Script" id=1]
+[ext_resource path="res://nodes/ui/ButtonTheme.tres" type="Theme" id=2]
+
+[sub_resource type="DynamicFontData" id=1]
+font_path = "res://raw_assets/font/Scratch.ttf"
+
+[sub_resource type="DynamicFont" id=2]
+size = 160
+font_data = SubResource( 1 )
+
+[sub_resource type="DynamicFontData" id=3]
+font_path = "res://raw_assets/font/Aquifer.ttf"
+
+[sub_resource type="DynamicFont" id=4]
+font_data = SubResource( 3 )
+
+[node name="CreditsState" type="Node2D"]
+script = ExtResource( 1 )
+
+[node name="Control" type="Control" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_right = 1024.0
+margin_bottom = 600.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ColorRect" type="ColorRect" parent="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color( 0, 0, 0, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Title" type="Label" parent="Control"]
+anchor_right = 1.0
+margin_bottom = 143.0
+custom_fonts/font = SubResource( 2 )
+custom_colors/font_color = Color( 0.494118, 0, 0, 1 )
+text = "CREDITS"
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Column" type="VBoxContainer" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_top = 136.0
+margin_right = 1024.0
+margin_bottom = 576.0
+custom_constants/separation = 20
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Text" type="Label" parent="Column"]
+margin_right = 1024.0
+margin_bottom = 282.0
+custom_fonts/font = SubResource( 4 )
+text = "Design, programming, and art
+Tom Craven
+Hugh Grigg
+Marc Jones
+
+Music
+Tom Craven
+
+Moon image modified from https://commons.wikimedia.org/wiki/File:Supermoon_Nov-14-2016-minneapolis.jpg
+
+Fonts used are:
+Scratch by KohanTheBarbarian
+http://fontstruct.com/fontstructions/show/959231
+Aquifer Regular Font by JLH Fonts
+http://www.publicdomainfiles.com/show_file.php?id=13949887208668"
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="MarginContainer" type="CenterContainer" parent="Column"]
+margin_top = 302.0
+margin_right = 1024.0
+margin_bottom = 440.0
+size_flags_vertical = 3
+
+[node name="MenuButton" type="Button" parent="Column/MarginContainer"]
+margin_left = 384.0
+margin_top = 44.0
+margin_right = 640.0
+margin_bottom = 94.0
+rect_min_size = Vector2( 256, 50 )
+size_flags_horizontal = 0
+size_flags_vertical = 0
+theme = ExtResource( 2 )
+text = "Menu"
+__meta__ = {
+"_edit_use_anchors_": false
+}
