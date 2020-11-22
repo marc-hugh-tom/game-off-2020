@@ -1,8 +1,8 @@
 [gd_resource type="DynamicFont" load_steps=2 format=2]
 
-[sub_resource type="DynamicFontData" id=5]
+[sub_resource type="DynamicFontData" id=1]
 font_path = "res://raw_assets/font/Scratch.ttf"
 
 [resource]
 size = 96
-font_data = SubResource( 5 )
+font_data = SubResource( 1 )
