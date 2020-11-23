@@ -1,5 +1,7 @@
 extends Node2D
 
+signal starved
+
 class_name Moon
 
 var face = 1.0
@@ -12,11 +14,10 @@ func _ready():
 func _process(delta):
 	amend_crescent((1.0 / hunger_duration_seconds) * -max(0, delta))
 	if face <= 0.0:
-		# TODO: game over
-		pass
+		emit_signal("starved")
 
 func amend_crescent(t):
-	face += t
+	face = clamp(face + t, 0.0, 1.0)
 	set_crescent(face)
 
 func set_crescent(t):

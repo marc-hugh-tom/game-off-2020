@@ -23,6 +23,7 @@ func _ready():
 	TimeManager.current_time = start_time
 	TimeManager.days = 0
 	connect_menu_buttons()
+	connect_moon()
 
 func _process(delta):
 	if not get_tree().paused:
@@ -85,30 +86,33 @@ func _input(event):
 		toggle_pause()
 
 func toggle_pause():
-	if get_tree().paused:
-		$HUD/PauseMenu.hide()
-		pause_mode = PAUSE_MODE_INHERIT
-		$Map.pause_mode = PAUSE_MODE_INHERIT
-		$HUD.pause_mode = PAUSE_MODE_INHERIT
-		$HUD/PauseMenu.pause_mode = PAUSE_MODE_INHERIT
-		TimeManager.pause_mode = PAUSE_MODE_INHERIT
-		get_tree().paused = false
-	else:
-		$HUD/PauseMenu.show()
-		pause_mode = PAUSE_MODE_PROCESS
-		$Map.pause_mode = PAUSE_MODE_STOP
-		$HUD.pause_mode = PAUSE_MODE_STOP
-		$HUD/PauseMenu.pause_mode = PAUSE_MODE_PROCESS
-		TimeManager.pause_mode = PAUSE_MODE_STOP
-		get_tree().paused = true
+	if not $HUD/DiedMenu.visible and not $HUD/StarveMenu.visible:
+		if get_tree().paused:
+			$HUD/PauseMenu.hide()
+			pause_mode = PAUSE_MODE_INHERIT
+			$Map.pause_mode = PAUSE_MODE_INHERIT
+			$HUD.pause_mode = PAUSE_MODE_INHERIT
+			$HUD/PauseMenu.pause_mode = PAUSE_MODE_INHERIT
+			TimeManager.pause_mode = PAUSE_MODE_INHERIT
+			get_tree().paused = false
+		else:
+			$HUD/PauseMenu.show()
+			pause_mode = PAUSE_MODE_PROCESS
+			$Map.pause_mode = PAUSE_MODE_STOP
+			$HUD.pause_mode = PAUSE_MODE_STOP
+			$HUD/PauseMenu.pause_mode = PAUSE_MODE_PROCESS
+			TimeManager.pause_mode = PAUSE_MODE_STOP
+			get_tree().paused = true
 
 func show_starve_menu():
 	if not $HUD/DiedMenu.visible:
 		$HUD/StarveMenu.show()
+		$Map/Werewolf.disable()
 
 func show_died_menu():
 	if not $HUD/StarveMenu.visible:
 		$HUD/DiedMenu.show()
+		$Map/Werewolf.disable()
 
 func connect_menu_buttons():
 	$HUD/PauseMenu/CenterContainer/PauseMenu/Continue.connect(
@@ -123,3 +127,6 @@ func connect_menu_buttons():
 		"button_up", self, "emit_signal", ["quit"])
 	$HUD/DiedMenu/CenterContainer/DiedMenu/Restart/Restart.connect(
 		"button_up", self, "emit_signal", ["restart"])
+
+func connect_moon():
+	$HUD/Moon.connect("starved", self, "show_starve_menu")
