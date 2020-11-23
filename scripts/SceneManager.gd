@@ -4,6 +4,7 @@ const play_scene = preload("res://nodes/PlayState.tscn")
 const exposition_scene = preload("res://nodes/ExpositionState.tscn")
 const menu_scene = preload("res://nodes/MenuState.tscn")
 const credits_scene = preload("res://nodes/CreditsState.tscn")
+const win_scene = preload("res://nodes/WinState.tscn")
 const scene_transition = preload("res://nodes/SceneTransition.tscn")
 
 func _ready():
@@ -23,6 +24,7 @@ func deferred_new_game():
 	var new_game = play_scene.instance()
 	new_game.connect("quit", self, "start_menu")
 	new_game.connect("restart", self, "start_new_game")
+	new_game.connect("win", self, "start_win")
 	add_child(new_game)
 	initiate_fade_to_transparent("remove_transition_overlay")
 
@@ -36,6 +38,18 @@ func deferred_exposition():
 	var exposition = exposition_scene.instance()
 	exposition.connect("continue_to_game", self, "start_new_game")
 	add_child(exposition)
+	initiate_fade_to_transparent("remove_transition_overlay")
+
+# Win
+func start_win():
+	if not has_node("scene_transition"):
+		initiate_fade_to_black("deferred_win")
+
+func deferred_win():
+	clear_scene()
+	var win = win_scene.instance()
+	win.connect("quit", self, "start_menu")
+	add_child(win)
 	initiate_fade_to_transparent("remove_transition_overlay")
 
 # MenuState

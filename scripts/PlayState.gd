@@ -2,8 +2,10 @@ extends Node2D
 
 signal quit
 signal restart
+signal win
 
 var start_time = 0.0
+var day_win_threshold = 5
 
 var map_scale_noon = 3
 var map_scale_midnight = 1.5
@@ -19,15 +21,22 @@ var previous_fraction = null
 
 func _ready():
 	TimeManager.current_time = start_time
+	TimeManager.days = 0
 	connect_menu_buttons()
 
 func _process(delta):
-  if not get_tree().paused:
-	  update_map_scale()
-	  update_player_speed()
-	  update_camera_margin()
-	  update_global_lighting()
-	  update_lamp_lights()
+	if not get_tree().paused:
+		update_map_scale()
+		update_player_speed()
+		update_camera_margin()
+		update_global_lighting()
+		update_lamp_lights()
+		update_days()
+
+func update_days():
+	$HUD/Days.set_text("Days elapsed: " + str(TimeManager.days))
+	if TimeManager.days == day_win_threshold:
+		emit_signal("win")
 
 func update_map_scale():
 	var fraction = get_day_night_fraction_easing()
