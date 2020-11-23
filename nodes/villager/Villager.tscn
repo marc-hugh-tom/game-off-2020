@@ -154,7 +154,7 @@ tracks/3/keys = {
 [sub_resource type="CircleShape2D" id=5]
 radius = 16.0
 
-[sub_resource type="OccluderPolygon2D" id=6]
+[sub_resource type="OccluderPolygon2D" id=7]
 polygon = PoolVector2Array( 12.8494, 3.30483, 11.6629, 6.24267, 5.56126, 8.10707, -0.0319366, 9.80198, -6.19011, 7.5421, -12.5178, 5.50821, -13.0827, 2.68336, -13.2522, -0.875946, -9.29744, -2.51435, -5.00367, -5.73468, 0.0810547, -6.35615, 5.61776, -5.50869, 9.17706, -2.11888, 13.5273, -0.480465 )
 
 [node name="Villager" type="KinematicBody2D" groups=[
@@ -203,4 +203,4 @@ shape = SubResource( 5 )
 
 [node name="LightOccluder2D" type="LightOccluder2D" parent="."]
 position = Vector2( 0.0564957, -1.01694 )
-occluder = SubResource( 6 )
+occluder = SubResource( 7 )
