@@ -24,6 +24,7 @@ func _ready():
 	TimeManager.days = 0
 	connect_menu_buttons()
 	connect_moon()
+	connect_werewolf_died()
 
 func _process(delta):
 	if not get_tree().paused:
@@ -33,6 +34,7 @@ func _process(delta):
 		update_global_lighting()
 		update_lamp_lights()
 		update_days()
+		update_health()
 
 func update_days():
 	$HUD/Days.set_text("Days elapsed: " + str(TimeManager.days))
@@ -77,6 +79,9 @@ func update_lamp_lights():
 			for lamp in $Map/LampLights.get_children():
 				lamp.turn_off()
 	previous_fraction = fraction
+
+func update_health():
+	$HUD/Health.set_health($Map/Werewolf.current_health)
 
 func get_day_night_fraction_easing():
 	return(sin(TimeManager.get_day_night_fraction() * PI / 2))
@@ -130,3 +135,6 @@ func connect_menu_buttons():
 
 func connect_moon():
 	$HUD/Moon.connect("starved", self, "show_starve_menu")
+
+func connect_werewolf_died():
+	$Map/Werewolf.connect("died", self, "show_died_menu")

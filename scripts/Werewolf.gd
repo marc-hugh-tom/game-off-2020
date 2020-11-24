@@ -1,11 +1,15 @@
 extends KinematicBody2D
 
+signal died
+
 var speed = 250
 
 var walk_dir = Vector2(0.0, 0.0)
 var velocity = Vector2(0.0, 0.0)
 var attacking = false
 var disabled = false
+
+var current_health = 3
 
 func _ready():
 	pass # Replace with function body.
@@ -74,3 +78,8 @@ func _on_ClawsArea_body_entered(body):
 
 func disable():
 	disabled = true
+
+func hurt():
+	current_health = max(0, current_health-1)
+	if current_health == 0:
+		emit_signal("died")

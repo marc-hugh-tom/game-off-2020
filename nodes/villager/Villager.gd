@@ -309,5 +309,5 @@ func can_attack():
 	return _can_attack
 
 func do_attack():
-	print("do attack")
 	_can_attack = false
+	werewolf.hurt()
