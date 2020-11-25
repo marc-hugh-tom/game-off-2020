@@ -35,8 +35,6 @@ onready var DeadVillager = load("res://nodes/villager/DeadVillager.tscn")
 
 export(float) var blood = 0.25
 
-export(float) var damage = 10.0
-
 func _get_configuration_warning():
 	# if we're viewing the villager scene then don't bother showing this warning
 	if get_parent() is Viewport:
