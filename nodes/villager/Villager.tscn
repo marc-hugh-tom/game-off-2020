@@ -25,24 +25,24 @@
 [ext_resource path="res://assets/sprites/villagers/basic_villager/body_attack_1.png" type="Texture" id=23]
 [ext_resource path="res://assets/sprites/villagers/basic_villager/body_attack_2.png" type="Texture" id=24]
 
-[sub_resource type="SpriteFrames" id=2]
+[sub_resource type="SpriteFrames" id=1]
 animations = [ {
-"frames": [ ExtResource( 13 ), ExtResource( 14 ), ExtResource( 16 ), ExtResource( 15 ) ],
-"loop": true,
-"name": "walk",
-"speed": 5.0
-}, {
 "frames": [ ExtResource( 2 ) ],
 "loop": true,
 "name": "idle",
 "speed": 5.0
-} ]
-
-[sub_resource type="SpriteFrames" id=1]
-animations = [ {
-"frames": [ ExtResource( 9 ), ExtResource( 10 ), ExtResource( 12 ), ExtResource( 11 ) ],
+}, {
+"frames": [ ExtResource( 13 ), ExtResource( 14 ), ExtResource( 16 ), ExtResource( 15 ) ],
 "loop": true,
 "name": "walk",
+"speed": 5.0
+} ]
+
+[sub_resource type="SpriteFrames" id=2]
+animations = [ {
+"frames": [ ExtResource( 8 ) ],
+"loop": true,
+"name": "idle",
 "speed": 5.0
 }, {
 "frames": [ ExtResource( 23 ), ExtResource( 24 ), ExtResource( 22 ) ],
@@ -55,9 +55,9 @@ animations = [ {
 "name": "dying",
 "speed": 5.0
 }, {
-"frames": [ ExtResource( 8 ) ],
+"frames": [ ExtResource( 9 ), ExtResource( 10 ), ExtResource( 12 ), ExtResource( 11 ) ],
 "loop": true,
-"name": "idle",
+"name": "walk",
 "speed": 5.0
 } ]
 
@@ -218,16 +218,15 @@ script = ExtResource( 1 )
 [node name="Feet" type="AnimatedSprite" parent="."]
 use_parent_material = true
 rotation = -1.5708
-frames = SubResource( 2 )
+frames = SubResource( 1 )
 animation = "walk"
 
 [node name="Body" type="AnimatedSprite" parent="."]
 light_mask = 2
 use_parent_material = true
 rotation = -1.5708
-frames = SubResource( 1 )
+frames = SubResource( 2 )
 animation = "attack"
-frame = 2
 
 [node name="Idle" parent="." instance=ExtResource( 3 )]
 
@@ -263,3 +262,4 @@ occluder = SubResource( 8 )
 [node name="CollisionShape2D" type="CollisionShape2D" parent="PunchArea"]
 position = Vector2( 4.80224, -5.02822 )
 shape = SubResource( 9 )
+disabled = true

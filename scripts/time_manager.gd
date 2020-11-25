@@ -2,7 +2,7 @@ extends Node
 
 var dawn = 6.0
 var dusk = 18.0
-var game_seconds_in_an_hour = 100
+var game_seconds_in_an_hour = 6.0
 
 var current_time = 0.0
 var days = 0
