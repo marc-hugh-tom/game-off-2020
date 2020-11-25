@@ -50,14 +50,14 @@ animations = [ {
 "name": "attack",
 "speed": 5.0
 }, {
-"frames": [ ExtResource( 19 ), ExtResource( 18 ), ExtResource( 21 ), ExtResource( 20 ) ],
-"loop": true,
-"name": "dying",
-"speed": 5.0
-}, {
 "frames": [ ExtResource( 9 ), ExtResource( 10 ), ExtResource( 12 ), ExtResource( 11 ) ],
 "loop": true,
 "name": "walk",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 19 ), ExtResource( 18 ), ExtResource( 21 ), ExtResource( 20 ) ],
+"loop": true,
+"name": "dying",
 "speed": 5.0
 } ]
 
@@ -204,8 +204,9 @@ radius = 14.0334
 [sub_resource type="OccluderPolygon2D" id=8]
 polygon = PoolVector2Array( 10.6913, 6.49119, 0.182838, 8.92056, -8.3482, 7.96011, -11.625, 1.06749, -3.82845, -1.41838, 6.17151, -1.47487, 11.7647, 0.954493 )
 
-[sub_resource type="CircleShape2D" id=9]
-radius = 5.07639
+[sub_resource type="CapsuleShape2D" id=9]
+radius = 2.72904
+height = 7.2482
 
 [node name="Villager" type="KinematicBody2D" groups=[
 "Victim",
@@ -260,6 +261,6 @@ occluder = SubResource( 8 )
 [node name="PunchArea" type="Area2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="PunchArea"]
-position = Vector2( 4.80224, -5.02822 )
+position = Vector2( 6.03968, -9.44764 )
 shape = SubResource( 9 )
 disabled = true
