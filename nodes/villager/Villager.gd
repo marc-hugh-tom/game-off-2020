@@ -329,4 +329,4 @@ func _on_animation_finished(animation):
 
 func _on_entity_punched(other):
 	if other == werewolf:
-		werewolf.on_damage(damage)
+	  werewolf.hurt()

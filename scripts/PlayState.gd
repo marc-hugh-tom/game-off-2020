@@ -2,8 +2,10 @@ extends Node2D
 
 signal quit
 signal restart
+signal win
 
-var start_time = 700.0
+var start_time = 0.0
+var day_win_threshold = 5
 
 var map_scale_noon = 3
 var map_scale_midnight = 1.5
@@ -19,15 +21,25 @@ var previous_fraction = null
 
 func _ready():
 	TimeManager.current_time = start_time
+	TimeManager.days = 0
 	connect_menu_buttons()
+	connect_moon()
+	connect_werewolf_died()
 
 func _process(delta):
-  if not get_tree().paused:
-	  update_map_scale()
-	  update_player_speed()
-	  update_camera_margin()
-	  update_global_lighting()
-	  update_lamp_lights()
+	if not get_tree().paused:
+		update_map_scale()
+		update_player_speed()
+		update_camera_margin()
+		update_global_lighting()
+		update_lamp_lights()
+		update_days()
+		update_health()
+
+func update_days():
+	$HUD/Days.set_text("Days elapsed: " + str(TimeManager.days))
+	if TimeManager.days == day_win_threshold:
+		emit_signal("win")
 
 func update_map_scale():
 	var fraction = get_day_night_fraction_easing()
@@ -68,6 +80,9 @@ func update_lamp_lights():
 				lamp.turn_off()
 	previous_fraction = fraction
 
+func update_health():
+	$HUD/Health.set_health($Map/Werewolf.current_health)
+
 func get_day_night_fraction_easing():
 	return(sin(TimeManager.get_day_night_fraction() * PI / 2))
 
@@ -76,30 +91,33 @@ func _input(event):
 		toggle_pause()
 
 func toggle_pause():
-	if get_tree().paused:
-		$HUD/PauseMenu.hide()
-		pause_mode = PAUSE_MODE_INHERIT
-		$Map.pause_mode = PAUSE_MODE_INHERIT
-		$HUD.pause_mode = PAUSE_MODE_INHERIT
-		$HUD/PauseMenu.pause_mode = PAUSE_MODE_INHERIT
-		TimeManager.pause_mode = PAUSE_MODE_INHERIT
-		get_tree().paused = false
-	else:
-		$HUD/PauseMenu.show()
-		pause_mode = PAUSE_MODE_PROCESS
-		$Map.pause_mode = PAUSE_MODE_STOP
-		$HUD.pause_mode = PAUSE_MODE_STOP
-		$HUD/PauseMenu.pause_mode = PAUSE_MODE_PROCESS
-		TimeManager.pause_mode = PAUSE_MODE_STOP
-		get_tree().paused = true
+	if not $HUD/DiedMenu.visible and not $HUD/StarveMenu.visible:
+		if get_tree().paused:
+			$HUD/PauseMenu.hide()
+			pause_mode = PAUSE_MODE_INHERIT
+			$Map.pause_mode = PAUSE_MODE_INHERIT
+			$HUD.pause_mode = PAUSE_MODE_INHERIT
+			$HUD/PauseMenu.pause_mode = PAUSE_MODE_INHERIT
+			TimeManager.pause_mode = PAUSE_MODE_INHERIT
+			get_tree().paused = false
+		else:
+			$HUD/PauseMenu.show()
+			pause_mode = PAUSE_MODE_PROCESS
+			$Map.pause_mode = PAUSE_MODE_STOP
+			$HUD.pause_mode = PAUSE_MODE_STOP
+			$HUD/PauseMenu.pause_mode = PAUSE_MODE_PROCESS
+			TimeManager.pause_mode = PAUSE_MODE_STOP
+			get_tree().paused = true
 
 func show_starve_menu():
 	if not $HUD/DiedMenu.visible:
 		$HUD/StarveMenu.show()
+		$Map/Werewolf.disable()
 
 func show_died_menu():
 	if not $HUD/StarveMenu.visible:
 		$HUD/DiedMenu.show()
+		$Map/Werewolf.disable()
 
 func connect_menu_buttons():
 	$HUD/PauseMenu/CenterContainer/PauseMenu/Continue.connect(
@@ -114,3 +132,9 @@ func connect_menu_buttons():
 		"button_up", self, "emit_signal", ["quit"])
 	$HUD/DiedMenu/CenterContainer/DiedMenu/Restart/Restart.connect(
 		"button_up", self, "emit_signal", ["restart"])
+
+func connect_moon():
+	$HUD/Moon.connect("starved", self, "show_starve_menu")
+
+func connect_werewolf_died():
+	$Map/Werewolf.connect("died", self, "show_died_menu")

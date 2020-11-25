@@ -1,49 +1,49 @@
 extends KinematicBody2D
 
+signal died
+
 var speed = 250
 
 var walk_dir = Vector2(0.0, 0.0)
 var velocity = Vector2(0.0, 0.0)
 var attacking = false
+var disabled = false
+
+var current_health = 3
 
 func _ready():
 	pass # Replace with function body.
 
 func _input(event):
-	if event.is_action_pressed("attack"):
-		attack()
-	
-	if event.is_action_pressed("bark"):
-		bark()
+	if not disabled:
+		if event.is_action_pressed("attack"):
+			attack()
+		if event.is_action_pressed("bark"):
+			bark()
 
 func _physics_process(delta):
 	walk_dir = Vector2(0.0, 0.0)
-	
 	if Input.is_action_pressed("up"):
 		walk_dir.y = -1.0
-	
 	if Input.is_action_pressed("down"):
 		walk_dir.y = 1.0
-	
 	if Input.is_action_pressed("right"):
 		walk_dir.x = 1.0
-	
 	if Input.is_action_pressed("left"):
 		walk_dir.x = -1.0
-	
-	if walk_dir.length_squared() == 0:
-		$Feet.play("idle")
-		if not attacking:
-			$AnimationPlayer.play("idle")
-	else:
-		$Feet.play("walk")
-		if not attacking:
-			$AnimationPlayer.play("walk")
-	
-	rotation = get_global_mouse_position().angle_to_point(
-		get_global_position()) + PI/2
-	velocity = walk_dir.normalized() * speed
-	move_and_slide(velocity)
+	if not disabled:
+		if walk_dir.length_squared() == 0:
+			$Feet.play("idle")
+			if not attacking:
+				$AnimationPlayer.play("idle")
+		else:
+			$Feet.play("walk")
+			if not attacking:
+				$AnimationPlayer.play("walk")
+		rotation = get_global_mouse_position().angle_to_point(
+			get_global_position()) + PI/2
+		velocity = walk_dir.normalized() * speed
+		move_and_slide(velocity)
 
 func attack():
 	if not attacking:
@@ -76,6 +76,10 @@ func _on_ClawsArea_body_entered(body):
 	if body.is_in_group("Victim"):
 		body.hurt()
 
-func on_damage(damage):
-	print("wolf taken %f damage" % damage)
+func disable():
+	disabled = true
 
+func hurt():
+	current_health = max(0, current_health-1)
+	if current_health == 0:
+		emit_signal("died")
