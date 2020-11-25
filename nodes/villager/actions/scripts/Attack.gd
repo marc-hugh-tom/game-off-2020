@@ -29,16 +29,26 @@ class Null:
 
 class DoAttack:
 	var attack: Attack
+	var has_attacked = false
 	
 	func _init(in_attack: Attack):
 		self.attack = in_attack
 
 	func physics_process(delta):
-		if attack.villager.can_attack():
+		if attack.villager.can_attack() and not has_attacked:
 			attack.villager.do_attack()
-		
-		return RunTowardsWerewolf.new(attack)
-		
+			has_attacked = true
+			
+		if attack.villager.is_attacking():
+			var villager = attack.villager
+			var werewolf = villager.werewolf
+			var towards_werewolf = (werewolf.position - villager.position).normalized()
+			villager.set_rotation_with_delta(villager.position + towards_werewolf, delta)
+			villager.move_and_slide(towards_werewolf * villager.get_walk_speed())
+			return self
+		else:
+			return RunTowardsWerewolf.new(attack)
+
 	func get_label():
 		return "attacking"
 
@@ -47,6 +57,7 @@ class RunTowardsWerewolf:
 	
 	func _init(in_attack: Attack):
 		self.attack = in_attack
+		in_attack.villager.get_animation_player().play("walk")
 
 	func physics_process(delta):
 		var villager = attack.villager
