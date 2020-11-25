@@ -22,6 +22,7 @@ var werewolf_bounds = []
 var start_game_bool = false
 
 func _ready():
+	AudioManager.play_music("main_menu")
 	$Menu/VBox/StartButton.connect(
 		"button_up", self, "start_game")
 	$Menu/VBox/CreditsButton.connect(
@@ -45,12 +46,14 @@ func setup_cloud_timer():
 	cloud_timer.start(rand_range(min_cloud_timer, max_cloud_timer))
 
 func start_game():
+	AudioManager.play_sound("ring")
 	start_game_bool = true
 	werewolf_speed *= 8.0
 	$Werewolf.set_speed_scale(2.0)
 	$Menu/VBox.hide()
 
 func start_credits():
+	AudioManager.play_sound("ping_2")
 	emit_signal("start_credits")
 
 func spawn_initial_clouds():
