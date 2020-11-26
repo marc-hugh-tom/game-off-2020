@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/body_attack_3.png-1628dd6c4b252dbfe94a64047de26814.stex"
+path="res://.import/body_attack_05.png-c8022f9e450961ce88df442494c3fd61.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://raw_assets/sprites/villagers/basic_villager/body_attack_3.png"
-dest_files=[ "res://.import/body_attack_3.png-1628dd6c4b252dbfe94a64047de26814.stex" ]
+source_file="res://raw_assets/sprites/villagers/basic_villager/body_attack_05.png"
+dest_files=[ "res://.import/body_attack_05.png-c8022f9e450961ce88df442494c3fd61.stex" ]
 
 [params]
 
@@ -20,7 +20,7 @@ compress/hdr_mode=0
 compress/bptc_ldr=0
 compress/normal_map=0
 flags/repeat=0
-flags/filter=true
+flags/filter=false
 flags/mipmaps=false
 flags/anisotropic=false
 flags/srgb=2

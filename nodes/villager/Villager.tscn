@@ -1,4 +1,4 @@
-[gd_scene load_steps=34 format=2]
+[gd_scene load_steps=37 format=2]
 
 [ext_resource path="res://nodes/villager/Villager.gd" type="Script" id=1]
 [ext_resource path="res://assets/sprites/villagers/basic_villager/feet_idle.png" type="Texture" id=2]
@@ -21,9 +21,12 @@
 [ext_resource path="res://assets/sprites/villagers/basic_villager/dying_01.png" type="Texture" id=19]
 [ext_resource path="res://assets/sprites/villagers/basic_villager/dying_04.png" type="Texture" id=20]
 [ext_resource path="res://assets/sprites/villagers/basic_villager/dying_03.png" type="Texture" id=21]
-[ext_resource path="res://assets/sprites/villagers/basic_villager/body_attack_3.png" type="Texture" id=22]
-[ext_resource path="res://assets/sprites/villagers/basic_villager/body_attack_1.png" type="Texture" id=23]
-[ext_resource path="res://assets/sprites/villagers/basic_villager/body_attack_2.png" type="Texture" id=24]
+[ext_resource path="res://assets/sprites/villagers/basic_villager/body_attack_03.png" type="Texture" id=22]
+[ext_resource path="res://assets/sprites/villagers/basic_villager/body_attack_05.png" type="Texture" id=23]
+[ext_resource path="res://assets/sprites/villagers/basic_villager/body_attack_04.png" type="Texture" id=24]
+[ext_resource path="res://assets/sprites/villagers/basic_villager/body_walk_05.png" type="Texture" id=25]
+[ext_resource path="res://assets/sprites/villagers/basic_villager/body_attack_01.png" type="Texture" id=26]
+[ext_resource path="res://assets/sprites/villagers/basic_villager/body_attack_02.png" type="Texture" id=27]
 
 [sub_resource type="SpriteFrames" id=1]
 animations = [ {
@@ -45,15 +48,15 @@ animations = [ {
 "name": "idle",
 "speed": 5.0
 }, {
-"frames": [ ExtResource( 23 ), ExtResource( 24 ), ExtResource( 22 ) ],
-"loop": true,
-"name": "attack",
-"speed": 5.0
-}, {
-"frames": [ ExtResource( 9 ), ExtResource( 10 ), ExtResource( 12 ), ExtResource( 11 ) ],
+"frames": [ ExtResource( 9 ), ExtResource( 10 ), ExtResource( 12 ), ExtResource( 11 ), ExtResource( 25 ) ],
 "loop": true,
 "name": "walk",
 "speed": 5.0
+}, {
+"frames": [ ExtResource( 26 ), ExtResource( 27 ), ExtResource( 22 ), ExtResource( 24 ), ExtResource( 23 ) ],
+"loop": true,
+"name": "attack",
+"speed": 8.0
 }, {
 "frames": [ ExtResource( 19 ), ExtResource( 18 ), ExtResource( 21 ), ExtResource( 20 ) ],
 "loop": true,
@@ -227,7 +230,8 @@ light_mask = 2
 use_parent_material = true
 rotation = -1.5708
 frames = SubResource( 2 )
-animation = "attack"
+animation = "walk"
+frame = 4
 
 [node name="Idle" parent="." instance=ExtResource( 3 )]
 
