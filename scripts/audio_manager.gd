@@ -4,7 +4,7 @@ var listeners = []
 
 var music_paths = {
 	"main_menu": ["res://assets/music/main_menu.ogg", -3],
-	"play": ["res://assets/music/play.ogg", -3],
+	"main_theme": ["res://assets/music/main_theme.ogg", -3],
 	"ring": ["res://assets/sounds/ring.ogg", -3],
 	"ping": ["res://assets/sounds/ping.ogg", -3],
 	"ping_2": ["res://assets/sounds/ping_2.ogg", -3],

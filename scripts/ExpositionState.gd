@@ -3,7 +3,7 @@ extends Node2D
 signal continue_to_game
 
 func _ready():
-	AudioManager.play_music("play")
+	AudioManager.play_music("main_theme")
 	$Column/MarginContainer/MenuButton.connect(
 		"button_up", self, "return_to_menu")
 
