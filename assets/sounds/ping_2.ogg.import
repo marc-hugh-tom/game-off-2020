@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/ping_2.ogg-5c5c7ea1144f0ed2941a053004e9fdc4.oggstr"
+
+[deps]
+
+source_file="res://assets/sounds/ping_2.ogg"
+dest_files=[ "res://.import/ping_2.ogg-5c5c7ea1144f0ed2941a053004e9fdc4.oggstr" ]
+
+[params]
+
+loop=false
+loop_offset=0

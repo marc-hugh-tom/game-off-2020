@@ -8,6 +8,7 @@ const win_scene = preload("res://nodes/WinState.tscn")
 const scene_transition = preload("res://nodes/SceneTransition.tscn")
 
 func _ready():
+	AudioManager.init()
 	set_pause_mode(PAUSE_MODE_PROCESS)
 	var transition = scene_transition.instance()
 	transition.set_to_black()
