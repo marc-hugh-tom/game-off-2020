@@ -252,5 +252,4 @@ disabled = true
 
 [node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource( 32 )
-[connection signal="area_entered" from="ClawsArea" to="." method="_on_ClawsArea_area_entered"]
 [connection signal="body_entered" from="ClawsArea" to="." method="_on_ClawsArea_body_entered"]
