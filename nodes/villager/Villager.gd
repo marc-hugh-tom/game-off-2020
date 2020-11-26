@@ -323,6 +323,7 @@ func _on_animation_finished(animation):
 	if animation == "attack":
 		_can_attack = true
 		_is_attacking = false
+		$PunchArea/CollisionShape2D.disabled = true
 
 func _on_entity_punched(other):
 	if other == werewolf:
