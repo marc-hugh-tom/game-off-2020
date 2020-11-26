@@ -3,12 +3,13 @@ extends Node
 var listeners = []
 
 var music_paths = {
-	"main_menu": ["res://assets/music/main_menu.ogg", 0],
-	"ring": ["res://assets/sounds/ring.ogg", 0],
-	"ping": ["res://assets/sounds/ping.ogg", 0],
-	"ping_2": ["res://assets/sounds/ping_2.ogg", 0],
-	"ping_3": ["res://assets/sounds/ping_3.ogg", 0],
-	"intro_chord": ["res://assets/sounds/intro_chord.ogg", 0]
+	"main_menu": ["res://assets/music/main_menu.ogg", -3],
+	"main_theme": ["res://assets/music/main_theme.ogg", -3],
+	"ring": ["res://assets/sounds/ring.ogg", -3],
+	"ping": ["res://assets/sounds/ping.ogg", -3],
+	"ping_2": ["res://assets/sounds/ping_2.ogg", -3],
+	"ping_3": ["res://assets/sounds/ping_3.ogg", -3],
+	"intro_chord": ["res://assets/sounds/intro_chord.ogg", -3]
 }
 
 var stream_library = {}
