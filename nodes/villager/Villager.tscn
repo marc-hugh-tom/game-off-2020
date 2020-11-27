@@ -1,4 +1,4 @@
-[gd_scene load_steps=37 format=2]
+[gd_scene load_steps=38 format=2]
 
 [ext_resource path="res://nodes/villager/Villager.gd" type="Script" id=1]
 [ext_resource path="res://assets/sprites/villagers/basic_villager/feet_idle.png" type="Texture" id=2]
@@ -27,6 +27,7 @@
 [ext_resource path="res://assets/sprites/villagers/basic_villager/body_walk_05.png" type="Texture" id=25]
 [ext_resource path="res://assets/sprites/villagers/basic_villager/body_attack_01.png" type="Texture" id=26]
 [ext_resource path="res://assets/sprites/villagers/basic_villager/body_attack_02.png" type="Texture" id=27]
+[ext_resource path="res://assets/sounds/pitchfork-swoosh.ogg" type="AudioStream" id=28]
 
 [sub_resource type="SpriteFrames" id=1]
 animations = [ {
@@ -98,10 +99,36 @@ tracks/2/loop_wrap = true
 tracks/2/imported = false
 tracks/2/enabled = true
 tracks/2/keys = {
-"times": PoolRealArray( 0, 0.2, 0.4 ),
-"transitions": PoolRealArray( 1, 1, 1 ),
+"times": PoolRealArray( 0, 0.2, 0.4, 0.5 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
 "update": 1,
-"values": [ true, true, false ]
+"values": [ true, false, false, true ]
+}
+tracks/3/type = "audio"
+tracks/3/path = NodePath("AudioStreamPlayer2D")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"clips": [ {
+"end_offset": 0.0,
+"start_offset": 0.0,
+"stream": ExtResource( 28 )
+} ],
+"times": PoolRealArray( 0.2 )
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("AnimationPlayer:playback_speed")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ 1.5, 1.0 ]
 }
 
 [sub_resource type="Animation" id=4]
@@ -208,8 +235,8 @@ radius = 14.0334
 polygon = PoolVector2Array( 10.6913, 6.49119, 0.182838, 8.92056, -8.3482, 7.96011, -11.625, 1.06749, -3.82845, -1.41838, 6.17151, -1.47487, 11.7647, 0.954493 )
 
 [sub_resource type="CapsuleShape2D" id=9]
-radius = 2.72904
-height = 7.2482
+radius = 4.58802
+height = 6.36237
 
 [node name="Villager" type="KinematicBody2D" groups=[
 "Victim",
@@ -229,8 +256,7 @@ light_mask = 2
 use_parent_material = true
 rotation = -1.5708
 frames = SubResource( 2 )
-animation = "walk"
-frame = 4
+animation = "attack"
 
 [node name="Idle" parent="." instance=ExtResource( 3 )]
 
@@ -243,8 +269,10 @@ frame = 4
 [node name="Investigate" parent="." instance=ExtResource( 7 )]
 
 [node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource( 28 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+playback_speed = 1.5
 anims/attack = SubResource( 3 )
 anims/dying = SubResource( 4 )
 anims/idle = SubResource( 5 )
@@ -264,6 +292,7 @@ occluder = SubResource( 8 )
 [node name="PunchArea" type="Area2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="PunchArea"]
-position = Vector2( 6.03968, -9.44764 )
+position = Vector2( 2.11106, -9.30733 )
+rotation = 1.5708
 shape = SubResource( 9 )
 disabled = true

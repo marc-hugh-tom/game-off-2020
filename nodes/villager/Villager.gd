@@ -284,7 +284,6 @@ func set_rotation_with_delta(target, delta):
 	rotation = new_rotation
 
 func hurt():
-	play_sound("res://assets/sounds/stab.ogg")
 	die()
 
 func play_sound(path):

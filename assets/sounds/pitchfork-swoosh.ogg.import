@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/pitchfork-swoosh.ogg-4e5bbd0d9c5e0a8fc02f302cc44fa27e.oggstr"
+
+[deps]
+
+source_file="res://assets/sounds/pitchfork-swoosh.ogg"
+dest_files=[ "res://.import/pitchfork-swoosh.ogg-4e5bbd0d9c5e0a8fc02f302cc44fa27e.oggstr" ]
+
+[params]
+
+loop=true
+loop_offset=0
