@@ -1,4 +1,4 @@
-[gd_resource type="TileSet" load_steps=308 format=2]
+[gd_resource type="TileSet" load_steps=309 format=2]
 
 [ext_resource path="res://assets/sprites/map/grass_tileset.png" type="Texture" id=1]
 [ext_resource path="res://assets/sprites/map/dirt_tileset.png" type="Texture" id=2]
@@ -7,6 +7,7 @@
 [ext_resource path="res://assets/sprites/map/no_nav_grass.png" type="Texture" id=5]
 [ext_resource path="res://assets/sprites/map/fences.png" type="Texture" id=6]
 [ext_resource path="res://assets/sprites/map/fences_dirt.png" type="Texture" id=7]
+[ext_resource path="res://assets/sprites/map/dirt_variety.png" type="Texture" id=8]
 
 [sub_resource type="NavigationPolygon" id=1]
 vertices = PoolVector2Array( 0, 0, 32, 0, 32, 32, 0, 32 )
@@ -2371,4 +2372,25 @@ points = PoolVector2Array( 32, 20, 20, 20, 20, 12, 32, 12 )
 "shape_transform": Transform2D( 1, 0, 0, 1, 0, 0 )
 } ]
 8/z_index = 0
+9/name = "dirt_variety.png 9"
+9/texture = ExtResource( 8 )
+9/tex_offset = Vector2( 0, 0 )
+9/modulate = Color( 1, 1, 1, 1 )
+9/region = Rect2( 0, 32, 128, 96 )
+9/tile_mode = 2
+9/autotile/icon_coordinate = Vector2( 0, 0 )
+9/autotile/tile_size = Vector2( 32, 32 )
+9/autotile/spacing = 0
+9/autotile/occluder_map = [  ]
+9/autotile/navpoly_map = [  ]
+9/autotile/priority_map = [  ]
+9/autotile/z_index_map = [  ]
+9/occluder_offset = Vector2( 0, 0 )
+9/navigation_offset = Vector2( 0, 0 )
+9/shape_offset = Vector2( 0, 0 )
+9/shape_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
+9/shape_one_way = false
+9/shape_one_way_margin = 0.0
+9/shapes = [  ]
+9/z_index = 0
 script = ExtResource( 3 )
