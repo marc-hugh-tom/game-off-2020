@@ -3,11 +3,14 @@ extends TileSet
 
 const Grass = 0
 const Dirt = 2
-const Fence = 5
+const Fence_grass = 7
+const Fence_dirt = 8
 
 var binds = {
 	Grass: [Dirt],
-	Dirt: [Grass]
+	Dirt: [Grass],
+	Fence_grass: [Fence_dirt],
+	Fence_dirt: [Fence_grass],
 }
 
 func _is_tile_bound(id, nid):
