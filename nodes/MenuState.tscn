@@ -106,10 +106,18 @@ rect_min_size = Vector2( 0, 50 )
 theme = ExtResource( 5 )
 text = "Play"
 
-[node name="CreditsButton" type="Button" parent="Menu/VBox"]
+[node name="EndlessButton" type="Button" parent="Menu/VBox"]
 margin_top = 80.0
 margin_right = 256.0
 margin_bottom = 130.0
+rect_min_size = Vector2( 0, 50 )
+theme = ExtResource( 5 )
+text = "Endless Mode"
+
+[node name="CreditsButton" type="Button" parent="Menu/VBox"]
+margin_top = 160.0
+margin_right = 256.0
+margin_bottom = 210.0
 rect_min_size = Vector2( 0, 50 )
 theme = ExtResource( 5 )
 text = "Credits"

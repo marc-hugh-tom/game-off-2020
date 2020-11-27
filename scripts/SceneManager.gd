@@ -7,6 +7,8 @@ const credits_scene = preload("res://nodes/CreditsState.tscn")
 const win_scene = preload("res://nodes/WinState.tscn")
 const scene_transition = preload("res://nodes/SceneTransition.tscn")
 
+var endless = false
+
 func _ready():
 	AudioManager.init()
 	set_pause_mode(PAUSE_MODE_PROCESS)
@@ -23,6 +25,8 @@ func start_new_game():
 func deferred_new_game():
 	clear_scene()
 	var new_game = play_scene.instance()
+	if endless:
+		new_game.enable_endless_mode()
 	new_game.connect("quit", self, "start_menu")
 	new_game.connect("restart", self, "start_new_game")
 	new_game.connect("win", self, "start_win")
@@ -30,7 +34,8 @@ func deferred_new_game():
 	initiate_fade_to_transparent("remove_transition_overlay")
 
 # Exposiion
-func start_exposition():
+func start_exposition(endless_bool):
+	endless = endless_bool
 	if not has_node("scene_transition"):
 		initiate_fade_to_black("deferred_exposition")
 
@@ -62,7 +67,8 @@ func deferred_start_menu():
 	get_tree().set_pause(false)
 	clear_scene()
 	var menu = menu_scene.instance()
-	menu.connect("start_game", self, "start_exposition")
+	menu.connect("start_game", self, "start_exposition", [false])
+	menu.connect("start_endless", self, "start_exposition", [true])
 	menu.connect("start_credits", self, "start_credits")
 	add_child(menu)
 	initiate_fade_to_transparent("remove_transition_overlay")

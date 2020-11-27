@@ -1,6 +1,7 @@
 extends Node2D
 
 signal start_game
+signal start_endless
 signal start_credits
 
 # Werewolf settings
@@ -20,11 +21,14 @@ onready var start_x = (get_viewport_rect().size.x +
 # Variables
 var werewolf_bounds = []
 var start_game_bool = false
+var endless_bool = false
 
 func _ready():
 	AudioManager.play_music("main_menu")
 	$Menu/VBox/StartButton.connect(
 		"button_up", self, "start_game")
+	$Menu/VBox/EndlessButton.connect(
+		"button_up", self, "start_endless")
 	$Menu/VBox/CreditsButton.connect(
 		"button_up", self, "start_credits")
 	spawn_initial_clouds()
@@ -51,6 +55,10 @@ func start_game():
 	werewolf_speed *= 8.0
 	$Werewolf.set_speed_scale(2.0)
 	$Menu/VBox.hide()
+
+func start_endless():
+	endless_bool = true
+	start_game()
 
 func start_credits():
 	AudioManager.play_sound("ping_2")
@@ -92,7 +100,10 @@ func _process(delta):
 func flip_werewolf():
 	if start_game_bool:
 		$Werewolf.queue_free()
-		emit_signal("start_game")
+		if endless_bool:
+			emit_signal("start_endless")
+		else:
+			emit_signal("start_game")
 	else:
 		$Werewolf.set_flip_h(!$Werewolf.is_flipped_h())
 		werewolf_speed *= -1

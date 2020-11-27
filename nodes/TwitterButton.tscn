@@ -1,0 +1,20 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://nodes/ui/ButtonTheme.tres" type="Theme" id=1]
+
+[node name="Twitter" type="CenterContainer"]
+margin_top = 106.0
+margin_right = 256.0
+margin_bottom = 156.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Twitter" type="Button" parent="."]
+margin_right = 256.0
+margin_bottom = 50.0
+rect_min_size = Vector2( 256, 50 )
+size_flags_horizontal = 0
+size_flags_vertical = 0
+theme = ExtResource( 1 )
+text = "Share on Twitter"

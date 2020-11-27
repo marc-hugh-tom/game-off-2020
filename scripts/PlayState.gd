@@ -19,12 +19,19 @@ var camera_margin_midnight = 0.3
 
 var previous_fraction = null
 
+var endless_mode = false
+
 func _ready():
 	TimeManager.current_time = start_time
 	TimeManager.days = 0
 	connect_menu_buttons()
 	connect_moon()
 	connect_werewolf_died()
+	if endless_mode:
+		add_twitter_buttons()
+
+func enable_endless_mode():
+	endless_mode = true
 
 func _process(delta):
 	if not get_tree().paused:
@@ -38,7 +45,7 @@ func _process(delta):
 
 func update_days():
 	$HUD/Days.set_text("Days elapsed: " + str(TimeManager.days))
-	if TimeManager.days == day_win_threshold:
+	if TimeManager.days == day_win_threshold and not endless_mode:
 		emit_signal("win")
 
 func update_map_scale():
@@ -138,3 +145,19 @@ func connect_moon():
 
 func connect_werewolf_died():
 	$Map/Werewolf.connect("died", self, "show_died_menu")
+
+func add_twitter_buttons():
+	var twitter_button_scene = load("res://nodes/TwitterButton.tscn")
+	for menu in [$HUD/StarveMenu/CenterContainer/StarveMenu,
+		$HUD/DiedMenu/CenterContainer/DiedMenu]:
+		var twitter = twitter_button_scene.instance()
+		twitter.get_node("Twitter").connect("button_up", self, "twitter_post")
+		menu.add_child(twitter)
+		menu.move_child(twitter, menu.get_child_count()-2)
+
+func twitter_post():
+	var _return = OS.shell_open("http://twitter.com/share?text=" +
+		"I survived " + str(TimeManager.days) + " days as a " +
+		"werewolf under the Blood Moon&url=" +
+		"https://manicmoleman.itch.io/blood-moon" +
+		"&hashtags=GitHubGameOff,GodotEngine,BloodMoon")

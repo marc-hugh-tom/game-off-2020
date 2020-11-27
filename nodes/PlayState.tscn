@@ -61,23 +61,20 @@ __meta__ = {
 }
 
 [node name="CenterContainer" type="CenterContainer" parent="HUD/PauseMenu"]
-anchor_top = 0.4
 anchor_right = 1.0
-anchor_bottom = 0.5
-margin_top = -108.0
-margin_bottom = 84.0
+anchor_bottom = 1.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="PauseMenu" type="VBoxContainer" parent="HUD/PauseMenu/CenterContainer"]
 margin_left = 384.0
-margin_top = 13.0
+margin_top = 177.0
 margin_right = 640.0
-margin_bottom = 239.0
+margin_bottom = 423.0
 size_flags_horizontal = 0
 size_flags_vertical = 0
-custom_constants/separation = 20
+custom_constants/separation = 30
 alignment = 1
 __meta__ = {
 "_edit_use_anchors_": false
@@ -92,17 +89,17 @@ text = "PAUSE"
 align = 1
 
 [node name="Continue" type="Button" parent="HUD/PauseMenu/CenterContainer/PauseMenu"]
-margin_top = 106.0
+margin_top = 116.0
 margin_right = 256.0
-margin_bottom = 156.0
+margin_bottom = 166.0
 rect_min_size = Vector2( 256, 50 )
 theme = ExtResource( 11 )
 text = "Continue"
 
 [node name="QuitToMenu" type="Button" parent="HUD/PauseMenu/CenterContainer/PauseMenu"]
-margin_top = 176.0
+margin_top = 196.0
 margin_right = 256.0
-margin_bottom = 226.0
+margin_bottom = 246.0
 rect_min_size = Vector2( 256, 50 )
 theme = ExtResource( 11 )
 text = "Quit To Menu"
@@ -124,22 +121,20 @@ __meta__ = {
 }
 
 [node name="CenterContainer" type="CenterContainer" parent="HUD/StarveMenu"]
-anchor_top = 0.3
 anchor_right = 1.0
-anchor_bottom = 0.5
-margin_top = -108.0
-margin_bottom = 84.0
+anchor_bottom = 1.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="StarveMenu" type="VBoxContainer" parent="HUD/StarveMenu/CenterContainer"]
 margin_left = 311.0
+margin_top = 88.0
 margin_right = 712.0
-margin_bottom = 404.0
+margin_bottom = 512.0
 size_flags_horizontal = 0
 size_flags_vertical = 0
-custom_constants/separation = 20
+custom_constants/separation = 30
 alignment = 1
 __meta__ = {
 "_edit_use_anchors_": false
@@ -156,9 +151,9 @@ BLOOD MOON"
 align = 1
 
 [node name="Restart" type="CenterContainer" parent="HUD/StarveMenu/CenterContainer/StarveMenu"]
-margin_top = 284.0
+margin_top = 294.0
 margin_right = 401.0
-margin_bottom = 334.0
+margin_bottom = 344.0
 
 [node name="Restart" type="Button" parent="HUD/StarveMenu/CenterContainer/StarveMenu/Restart"]
 margin_left = 72.0
@@ -171,9 +166,9 @@ theme = ExtResource( 11 )
 text = "Restart"
 
 [node name="QuitToMenu" type="CenterContainer" parent="HUD/StarveMenu/CenterContainer/StarveMenu"]
-margin_top = 354.0
+margin_top = 374.0
 margin_right = 401.0
-margin_bottom = 404.0
+margin_bottom = 424.0
 
 [node name="QuitToMenu" type="Button" parent="HUD/StarveMenu/CenterContainer/StarveMenu/QuitToMenu"]
 margin_left = 72.0
@@ -202,23 +197,20 @@ __meta__ = {
 }
 
 [node name="CenterContainer" type="CenterContainer" parent="HUD/DiedMenu"]
-anchor_top = 0.3
 anchor_right = 1.0
-anchor_bottom = 0.5
-margin_top = -108.0
-margin_bottom = 84.0
+anchor_bottom = 1.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="DiedMenu" type="VBoxContainer" parent="HUD/DiedMenu/CenterContainer"]
 margin_left = 384.0
-margin_top = 43.0
+margin_top = 177.0
 margin_right = 640.0
-margin_bottom = 269.0
+margin_bottom = 423.0
 size_flags_horizontal = 0
 size_flags_vertical = 0
-custom_constants/separation = 20
+custom_constants/separation = 30
 alignment = 1
 __meta__ = {
 "_edit_use_anchors_": false
@@ -233,9 +225,9 @@ text = "YOU DIED"
 align = 1
 
 [node name="Restart" type="CenterContainer" parent="HUD/DiedMenu/CenterContainer/DiedMenu"]
-margin_top = 106.0
+margin_top = 116.0
 margin_right = 256.0
-margin_bottom = 156.0
+margin_bottom = 166.0
 
 [node name="Restart" type="Button" parent="HUD/DiedMenu/CenterContainer/DiedMenu/Restart"]
 margin_right = 256.0
@@ -247,9 +239,9 @@ theme = ExtResource( 11 )
 text = "Restart"
 
 [node name="QuitToMenu" type="CenterContainer" parent="HUD/DiedMenu/CenterContainer/DiedMenu"]
-margin_top = 176.0
+margin_top = 196.0
 margin_right = 256.0
-margin_bottom = 226.0
+margin_bottom = 246.0
 
 [node name="QuitToMenu" type="Button" parent="HUD/DiedMenu/CenterContainer/DiedMenu/QuitToMenu"]
 margin_right = 256.0
