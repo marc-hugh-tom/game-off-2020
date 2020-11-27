@@ -30,27 +30,27 @@
 
 [sub_resource type="SpriteFrames" id=1]
 animations = [ {
-"frames": [ ExtResource( 2 ) ],
-"loop": true,
-"name": "idle",
-"speed": 5.0
-}, {
 "frames": [ ExtResource( 13 ), ExtResource( 14 ), ExtResource( 16 ), ExtResource( 15 ) ],
 "loop": true,
 "name": "walk",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 2 ) ],
+"loop": true,
+"name": "idle",
 "speed": 5.0
 } ]
 
 [sub_resource type="SpriteFrames" id=2]
 animations = [ {
-"frames": [ ExtResource( 8 ) ],
-"loop": true,
-"name": "idle",
-"speed": 5.0
-}, {
 "frames": [ ExtResource( 9 ), ExtResource( 10 ), ExtResource( 12 ), ExtResource( 11 ), ExtResource( 25 ) ],
 "loop": true,
 "name": "walk",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 19 ), ExtResource( 18 ), ExtResource( 21 ), ExtResource( 20 ) ],
+"loop": true,
+"name": "dying",
 "speed": 5.0
 }, {
 "frames": [ ExtResource( 26 ), ExtResource( 27 ), ExtResource( 22 ), ExtResource( 24 ), ExtResource( 23 ) ],
@@ -58,9 +58,9 @@ animations = [ {
 "name": "attack",
 "speed": 8.0
 }, {
-"frames": [ ExtResource( 19 ), ExtResource( 18 ), ExtResource( 21 ), ExtResource( 20 ) ],
+"frames": [ ExtResource( 8 ) ],
 "loop": true,
-"name": "dying",
+"name": "idle",
 "speed": 5.0
 } ]
 
@@ -213,7 +213,6 @@ height = 7.2482
 
 [node name="Villager" type="KinematicBody2D" groups=[
 "Victim",
-"Villager",
 ]]
 use_parent_material = true
 collision_mask = 5
