@@ -108,6 +108,7 @@ func toggle_pause():
 			$HUD.pause_mode = PAUSE_MODE_INHERIT
 			$HUD/PauseMenu.pause_mode = PAUSE_MODE_INHERIT
 			TimeManager.pause_mode = PAUSE_MODE_INHERIT
+			AudioManager.pause_mode = PAUSE_MODE_INHERIT
 			get_tree().paused = false
 		else:
 			$HUD/PauseMenu.show()
@@ -116,6 +117,7 @@ func toggle_pause():
 			$HUD.pause_mode = PAUSE_MODE_STOP
 			$HUD/PauseMenu.pause_mode = PAUSE_MODE_PROCESS
 			TimeManager.pause_mode = PAUSE_MODE_STOP
+			AudioManager.pause_mode = PAUSE_MODE_PROCESS
 			get_tree().paused = true
 
 func show_starve_menu():
@@ -129,18 +131,36 @@ func show_died_menu():
 		$Map/Werewolf.disable()
 
 func connect_menu_buttons():
+	# Pause Continue
 	$HUD/PauseMenu/CenterContainer/PauseMenu/Continue.connect(
 		"button_up", self, "toggle_pause")
+	$HUD/PauseMenu/CenterContainer/PauseMenu/Continue.connect(
+		"button_up", self, "play_ping_sound")
+	# Pause Quit
 	$HUD/PauseMenu/CenterContainer/PauseMenu/QuitToMenu.connect(
 		"button_up", self, "emit_signal", ["quit"])
+	$HUD/PauseMenu/CenterContainer/PauseMenu/QuitToMenu.connect(
+		"button_up", self, "play_ping_sound")
+	# Starve Quit
 	$HUD/StarveMenu/CenterContainer/StarveMenu/QuitToMenu/QuitToMenu.connect(
 		"button_up", self, "emit_signal", ["quit"])
+	$HUD/StarveMenu/CenterContainer/StarveMenu/QuitToMenu/QuitToMenu.connect(
+		"button_up", self, "play_ping_sound")
+	# Starve Restart
 	$HUD/StarveMenu/CenterContainer/StarveMenu/Restart/Restart.connect(
 		"button_up", self, "emit_signal", ["restart"])
+	$HUD/StarveMenu/CenterContainer/StarveMenu/Restart/Restart.connect(
+		"button_up", self, "play_ping_sound")
+	# Died Quit
 	$HUD/DiedMenu/CenterContainer/DiedMenu/QuitToMenu/QuitToMenu.connect(
 		"button_up", self, "emit_signal", ["quit"])
+	$HUD/DiedMenu/CenterContainer/DiedMenu/QuitToMenu/QuitToMenu.connect(
+		"button_up", self, "play_ping_sound")
+	# Died Restart
 	$HUD/DiedMenu/CenterContainer/DiedMenu/Restart/Restart.connect(
 		"button_up", self, "emit_signal", ["restart"])
+	$HUD/DiedMenu/CenterContainer/DiedMenu/Restart/Restart.connect(
+		"button_up", self, "play_ping_sound")
 
 func connect_moon():
 	$HUD/Moon.connect("starved", self, "show_starve_menu")
@@ -154,6 +174,7 @@ func add_twitter_buttons():
 		$HUD/DiedMenu/CenterContainer/DiedMenu]:
 		var twitter = twitter_button_scene.instance()
 		twitter.get_node("Twitter").connect("button_up", self, "twitter_post")
+		twitter.get_node("Twitter").connect("button_up", self, "play_ping_sound")
 		menu.add_child(twitter)
 		menu.move_child(twitter, menu.get_child_count()-2)
 
@@ -163,3 +184,7 @@ func twitter_post():
 		"werewolf under the Blood Moon&url=" +
 		"https://manicmoleman.itch.io/blood-moon" +
 		"&hashtags=GitHubGameOff,GodotEngine,BloodMoon")
+
+func play_ping_sound():
+	var ping_sounds = ["ping_2", "ping_3"]
+	AudioManager.play_sound(ping_sounds[randi() % len(ping_sounds)])

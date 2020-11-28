@@ -8,4 +8,5 @@ func _ready():
 		"button_up", self, "return_to_menu")
 
 func return_to_menu():
+	AudioManager.play_sound("ping_2")
 	emit_signal("continue_to_game")
