@@ -24,7 +24,7 @@ class Freeze:
 
 	func _init(in_flee: Flee):
 		self.flee = in_flee
-		flee.get_animation_player().play("idle")
+		flee.get_animation_player().play("idle_night")
 
 	func process(delta: float):
 		freeze_time -= max(delta, 0)
@@ -40,7 +40,7 @@ class RunAway:
 	
 	func _init(in_flee: Flee):
 		self.flee = in_flee
-		flee.get_animation_player().play("walk")
+		flee.get_animation_player().play("walk_night")
 		flee.villager.play_sound(FLEE_SOUNDS[randi() % FLEE_SOUNDS.size()])
 		AudioManager.on_sound(flee.villager)
 

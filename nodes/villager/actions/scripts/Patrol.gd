@@ -80,7 +80,10 @@ func get_label():
 	return "patrol (" + current_state.get_label() + ")"
 
 func on_enter():
-	get_animation_player().play("walk")
+	if TimeManager.is_day():
+		get_animation_player().play("walk")
+	else:
+		get_animation_player().play("walk_night")
 	var closest_point = path.get_curve().get_closest_point(villager.position)
 	if closest_point.distance_squared_to(villager.position) < 10.0:
 		current_state = MoveAlongPath.new(path.get_curve(), villager)
