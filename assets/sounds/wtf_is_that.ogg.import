@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/wtf_is_that.ogg-be7e71a7ccf2604f4add7f077f09e7fc.oggstr"
+
+[deps]
+
+source_file="res://assets/sounds/wtf_is_that.ogg"
+dest_files=[ "res://.import/wtf_is_that.ogg-be7e71a7ccf2604f4add7f077f09e7fc.oggstr" ]
+
+[params]
+
+loop=false
+loop_offset=0

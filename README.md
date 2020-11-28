@@ -41,6 +41,11 @@ The script will output the modified sprites in `assets`, as well as a file `asse
 "Tawny Owls 2.wav" by Benboncan of Freesound.org
 "Dog Begging.wav" by Coral_Island_Studios of Freesound.org
 
+https://freesound.org/people/pyro13djt/sounds/332166/
+https://freesound.org/people/albertgrinyo/sounds/420015/
+https://freesound.org/people/Reitanna/sounds/242694/
+https://freesound.org/people/AmeAngelofSin/sounds/369469/
+
 Moon image modified from https://commons.wikimedia.org/wiki/File:Supermoon_Nov-14-2016-minneapolis.jpg
 
 Fonts used are:
