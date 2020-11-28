@@ -13,6 +13,7 @@ var disabled = false
 
 var current_health = 3
 var current_flash_number = 0
+var current_strength = 0
 
 onready var woof_sound = preload("res://assets/sounds/woof.wav")
 onready var wimper_sound = preload("res://assets/sounds/wimper.wav")
@@ -85,7 +86,7 @@ func set_camera_scale(new_scale):
 
 func _on_ClawsArea_body_entered(body):
 	if body.is_in_group("Victim"):
-		body.hurt()
+		body.hurt(current_strength)
 
 func disable():
 	disabled = true
@@ -120,3 +121,6 @@ func toggle_white():
 			var timer = $FlashTimer
 			remove_child(timer)
 			timer.queue_free()
+
+func set_strength(input_strength):
+	current_strength = input_strength

@@ -35,6 +35,11 @@ onready var DeadVillager = load("res://nodes/villager/DeadVillager.tscn")
 
 export(float) var blood = 0.25
 
+export(int) var health = 2
+var flash_number = 2
+var current_flash_number = 0
+var flash_time = 0.2
+
 func _get_configuration_warning():
 	# if we're viewing the villager scene then don't bother showing this warning
 	if get_parent() is Viewport:
@@ -283,8 +288,16 @@ func set_rotation_with_delta(target, delta):
 		new_rotation += TWO_PI
 	rotation = new_rotation
 
-func hurt():
-	die()
+func hurt(damage):
+	health -= damage
+	if health <= 0:
+		die()
+	else:
+		flash_white()
+		play_hurt_sound()
+
+func play_hurt_sound():
+	$HurtAudioStream.play()
 
 func play_sound(path):
 	$AudioStreamPlayer2D.stream = load(path)
@@ -328,3 +341,27 @@ func _on_animation_finished(animation):
 func _on_entity_punched(other):
 	if other == werewolf:
 	  werewolf.hurt()
+
+func flash_white():
+	current_flash_number = 0
+	if not has_node("FlashTimer"):
+		var flash_timer = Timer.new()
+		flash_timer.name = "FlashTimer"
+		flash_timer.set_autostart(true)
+		flash_timer.set_wait_time(flash_time)
+		flash_timer.connect("timeout", self, "toggle_white")
+		add_child(flash_timer)
+
+func toggle_white():
+	if use_parent_material:
+		var mat = load("res://shaders/HitMaterial.tres")
+		use_parent_material = false
+		set_material(mat)
+	else:
+		use_parent_material = true
+		set_material(null)
+		current_flash_number += 1
+		if current_flash_number == flash_number:
+			var timer = $FlashTimer
+			remove_child(timer)
+			timer.queue_free()

@@ -6,7 +6,7 @@ class_name Moon
 
 var face = 1.0
 
-var hunger_duration_seconds = 30.0
+var hunger_duration_seconds = 60.0
 
 func _ready():
 	set_crescent(1.0)

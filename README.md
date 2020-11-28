@@ -37,16 +37,29 @@ The script will output the modified sprites in `assets`, as well as a file `asse
 
 # Credits
 
+## Audio
+
 "Rooster Calling, Close, A.wav" by InspectorJ (www.jshaw.co.uk) of Freesound.org
+
 "Tawny Owls 2.wav" by Benboncan of Freesound.org
+
 "Dog Begging.wav" by Coral_Island_Studios of Freesound.org
 
-https://freesound.org/people/pyro13djt/sounds/332166/
-https://freesound.org/people/albertgrinyo/sounds/420015/
-https://freesound.org/people/Reitanna/sounds/242694/
-https://freesound.org/people/AmeAngelofSin/sounds/369469/
+"male_hurt12.ogg" by micahlg of Freesound.org
+
+"Oh Shit.wav" by pyro13djt of Freesound.org
+
+"crit - Shout - scream" by albertgrinyo of Freesound.org
+
+"oh my lord!.wav" by Reitanna of Freesound.org
+
+"Oh no Oh crap" by AmeAngelofSin of Freesound.org
+
+## Images
 
 Moon image modified from https://commons.wikimedia.org/wiki/File:Supermoon_Nov-14-2016-minneapolis.jpg
+
+## Fonts
 
 Fonts used are:
 Scratch by KohanTheBarbarian

@@ -13,6 +13,9 @@ var map_scale_midnight = 1.5
 var player_speed_noon = 100
 var player_speed_midnight = 400
 
+var player_strength_night = 2
+var player_strength_day = 1
+
 # Controls how tightly the camera follows the player
 var camera_margin_noon = 0
 var camera_margin_midnight = 0.3
@@ -39,7 +42,7 @@ func _process(delta):
 		update_player_speed()
 		update_camera_margin()
 		update_global_lighting()
-		update_lamp_lights_and_play_birds()
+		update_binary_day_night_changes()
 		update_days()
 		update_health()
 
@@ -75,18 +78,26 @@ func update_global_lighting():
 	fraction = ((fraction * -1) + 1) / 2
 	$Map.get_material().set_shader_param("t", fraction)
 
-func update_lamp_lights_and_play_birds():
+func update_binary_day_night_changes():
 	var fraction = get_day_night_fraction_easing()
 	if (previous_fraction == null or
 		not sign(previous_fraction) == sign(fraction)):
 		if fraction < 0.0:
+			# Sounds
 			AudioManager.play_sound("owl")
+			# Lamps
 			for lamp in $Map/LampLights.get_children():
 				lamp.turn_on()
+			# Werewolf strength
+			$Map/Werewolf.set_strength(player_strength_night)
 		else:
+			# Sounds
 			AudioManager.play_sound("cockerel")
+			# Lamps
 			for lamp in $Map/LampLights.get_children():
 				lamp.turn_off()
+			# Werewolf strength
+			$Map/Werewolf.set_strength(player_strength_day)
 	previous_fraction = fraction
 
 func update_health():
