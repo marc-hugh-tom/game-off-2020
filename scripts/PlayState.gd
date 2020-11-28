@@ -39,7 +39,7 @@ func _process(delta):
 		update_player_speed()
 		update_camera_margin()
 		update_global_lighting()
-		update_lamp_lights()
+		update_lamp_lights_and_play_birds()
 		update_days()
 		update_health()
 
@@ -75,14 +75,16 @@ func update_global_lighting():
 	fraction = ((fraction * -1) + 1) / 2
 	$Map.get_material().set_shader_param("t", fraction)
 
-func update_lamp_lights():
+func update_lamp_lights_and_play_birds():
 	var fraction = get_day_night_fraction_easing()
 	if (previous_fraction == null or
 		not sign(previous_fraction) == sign(fraction)):
 		if fraction < 0.0:
+			AudioManager.play_sound("owl")
 			for lamp in $Map/LampLights.get_children():
 				lamp.turn_on()
 		else:
+			AudioManager.play_sound("cockerel")
 			for lamp in $Map/LampLights.get_children():
 				lamp.turn_off()
 	previous_fraction = fraction
