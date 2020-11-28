@@ -15,6 +15,7 @@ var current_health = 3
 var current_flash_number = 0
 
 onready var woof_sound = preload("res://assets/sounds/woof.wav")
+onready var wimper_sound = preload("res://assets/sounds/wimper.wav")
 
 func _ready():
 	pass # Replace with function body.
@@ -70,6 +71,11 @@ func bark():
 	$AudioStreamPlayer2D.stream = woof_sound
 	$AudioStreamPlayer2D.play()
 
+func wimper():
+	AudioManager.on_sound(self)
+	$AudioStreamPlayer2D.stream = wimper_sound
+	$AudioStreamPlayer2D.play()
+
 func set_speed(new_speed):
 	speed = new_speed
 
@@ -86,6 +92,7 @@ func disable():
 
 func hurt():
 	flash_white()
+	wimper()
 	current_health = max(0, current_health-1)
 	if current_health == 0:
 		emit_signal("died")
