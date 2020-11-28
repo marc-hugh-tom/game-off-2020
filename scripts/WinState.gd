@@ -7,4 +7,5 @@ func _ready():
 		"button_up", self, "return_to_menu")
 
 func return_to_menu():
+	AudioManager.play_sound("ring")
 	emit_signal("quit")
