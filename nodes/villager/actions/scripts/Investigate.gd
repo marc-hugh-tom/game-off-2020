@@ -26,7 +26,10 @@ class Alert:
 
 	func _init(in_route: PoolVector2Array, villager: Villager):
 		self.route = in_route
-		villager.get_animation_player().play("idle")
+		if TimeManager.is_day():
+			villager.get_animation_player().play("idle")
+		else:
+			villager.get_animation_player().play("idle_night")
 
 	func physics_process(delta, villager):
 		villager.set_rotation_with_delta(self.route[1], delta)
@@ -47,7 +50,10 @@ class MoveToNoise:
 	
 	func _init(in_route: PoolVector2Array, villager: Villager):
 		self.route = in_route
-		villager.get_animation_player().play("walk")
+		if TimeManager.is_day():
+			villager.get_animation_player().play("walk")
+		else:
+			villager.get_animation_player().play("walk_night")
 
 	func physics_process(delta: float, villager: Villager):
 		time_looking += delta
@@ -83,7 +89,10 @@ class DoInvestigation:
 		self.target = in_target
 		self.initial_rotation = in_villager.rotation
 		self.villager = villager
-		in_villager.get_animation_player().play("idle")
+		if TimeManager.is_day():
+			in_villager.get_animation_player().play("idle")
+		else:
+			in_villager.get_animation_player().play("idle_night")
 
 	func physics_process(delta, villager):
 		var route = villager.emotion_metadata.get(Villager.Emotion.CURIOSITY)

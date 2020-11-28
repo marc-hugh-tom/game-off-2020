@@ -57,7 +57,10 @@ class RunTowardsWerewolf:
 	
 	func _init(in_attack: Attack):
 		self.attack = in_attack
-		in_attack.villager.get_animation_player().play("walk")
+		if TimeManager.is_day():
+			in_attack.villager.get_animation_player().play("walk")
+		else:
+			in_attack.villager.get_animation_player().play("walk_night")
 
 	func physics_process(delta):
 		var villager = attack.villager

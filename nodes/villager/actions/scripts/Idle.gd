@@ -7,7 +7,10 @@ func process(delta):
 	if villager == null:
 		return
 	villager.amend_emotion(Villager.Emotion.FATIGUE, 3 * -max(delta, 0))
-	get_animation_player().play("idle")
+	if TimeManager.is_day():
+		get_animation_player().play("idle")
+	else:
+		get_animation_player().play("idle_night")
 
 func get_priority():
 	return 1
