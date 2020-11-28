@@ -25,6 +25,11 @@ _global_script_classes=[ {
 "path": "res://scripts/Moon.gd"
 }, {
 "base": "KinematicBody2D",
+"class": "Shooter",
+"language": "GDScript",
+"path": "res://nodes/villager/Shooter.gd"
+}, {
+"base": "KinematicBody2D",
 "class": "Villager",
 "language": "GDScript",
 "path": "res://nodes/villager/Villager.gd"
@@ -33,6 +38,7 @@ _global_script_class_icons={
 "Attack": "",
 "Flee": "",
 "Moon": "",
+"Shooter": "",
 "Villager": ""
 }
 

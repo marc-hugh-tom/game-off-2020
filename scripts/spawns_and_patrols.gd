@@ -1,6 +1,7 @@
 extends Node
 
 const VILLAGER = preload("res://nodes/villager/Villager.tscn")
+const SHOOTER = preload("res://nodes/villager/Shooter.tscn")
 const PATROL = preload("res://nodes/villager/actions/Patrol.tscn")
 
 onready var patrols = $Patrols.get_children()
@@ -29,6 +30,8 @@ func _ready():
 	timer.start()
 
 func spawn_villager_timeout():
+	# DEBUG
+	spawn_shooter()
 	var num_villagers = len(get_tree().get_nodes_in_group(self.name))
 	if num_villagers < min_num_villagers:
 		spawn_villager()
@@ -39,6 +42,24 @@ func spawn_villager():
 	villager.werewolf_path = @"../Werewolf"
 	villager.moon_path = @"../../HUD/Moon"
 	villager.position = random_spawn_position()
+
+	var patrol = PATROL.instance()
+	patrol.add_child(random_patrol().duplicate())
+	villager.add_child(patrol)
+	villager.add_to_group(self.name)
+
+	get_node("../../../Map").add_child(villager)
+
+	# Move child above OverheadTileMap position in scene tree so they spawn
+	# inside the buildings
+	get_node("../../../Map").move_child(villager, overhead_tile_map_position - 1)
+
+func spawn_shooter():
+	var villager = SHOOTER.instance()
+	villager.level_navigation_path = @"../Navigation2D"
+	villager.werewolf_path = @"../Werewolf"
+	villager.moon_path = @"../../HUD/Moon"
+	villager.position = Vector2(460, 140) #random_spawn_position()
 
 	var patrol = PATROL.instance()
 	patrol.add_child(random_patrol().duplicate())
