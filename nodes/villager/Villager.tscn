@@ -1,4 +1,4 @@
-[gd_scene load_steps=46 format=2]
+[gd_scene load_steps=47 format=2]
 
 [ext_resource path="res://nodes/villager/Villager.gd" type="Script" id=1]
 [ext_resource path="res://assets/sprites/villagers/basic_villager/feet_idle.png" type="Texture" id=2]
@@ -34,6 +34,7 @@
 [ext_resource path="res://assets/sprites/villagers/basic_villager/body_walk_night_02.png" type="Texture" id=32]
 [ext_resource path="res://assets/sprites/villagers/basic_villager/body_walk_night_01.png" type="Texture" id=33]
 [ext_resource path="res://assets/sprites/villagers/basic_villager/body_idle_night.png" type="Texture" id=34]
+[ext_resource path="res://assets/sounds/villager_hurt.wav" type="AudioStream" id=35]
 
 [sub_resource type="SpriteFrames" id=1]
 animations = [ {
@@ -55,6 +56,11 @@ animations = [ {
 "name": "idle",
 "speed": 5.0
 }, {
+"frames": [ ExtResource( 9 ), ExtResource( 10 ), ExtResource( 12 ), ExtResource( 11 ), ExtResource( 25 ) ],
+"loop": true,
+"name": "walk",
+"speed": 5.0
+}, {
 "frames": [ ExtResource( 26 ), ExtResource( 27 ), ExtResource( 22 ), ExtResource( 24 ), ExtResource( 23 ) ],
 "loop": true,
 "name": "attack",
@@ -63,11 +69,6 @@ animations = [ {
 "frames": [ ExtResource( 19 ), ExtResource( 18 ), ExtResource( 21 ), ExtResource( 20 ) ],
 "loop": true,
 "name": "dying",
-"speed": 5.0
-}, {
-"frames": [ ExtResource( 9 ), ExtResource( 10 ), ExtResource( 12 ), ExtResource( 11 ), ExtResource( 25 ) ],
-"loop": true,
-"name": "walk",
 "speed": 5.0
 }, {
 "frames": [ ExtResource( 34 ) ],
@@ -191,7 +192,7 @@ tracks/1/keys = {
 "values": [ "idle" ]
 }
 
-[sub_resource type="Animation" id=11]
+[sub_resource type="Animation" id=6]
 resource_name = "idle_night"
 length = 0.1
 tracks/0/type = "value"
@@ -219,7 +220,7 @@ tracks/1/keys = {
 "values": [ "idle" ]
 }
 
-[sub_resource type="Animation" id=6]
+[sub_resource type="Animation" id=7]
 length = 0.8
 loop = true
 step = 0.2
@@ -272,7 +273,7 @@ tracks/3/keys = {
 "values": [ 0, 1, 2, 3 ]
 }
 
-[sub_resource type="Animation" id=10]
+[sub_resource type="Animation" id=8]
 resource_name = "walk_night"
 length = 0.8
 loop = true
@@ -326,13 +327,13 @@ tracks/3/keys = {
 "values": [ 0, 1, 2, 3 ]
 }
 
-[sub_resource type="CircleShape2D" id=7]
+[sub_resource type="CircleShape2D" id=9]
 radius = 14.0334
 
-[sub_resource type="OccluderPolygon2D" id=8]
+[sub_resource type="OccluderPolygon2D" id=10]
 polygon = PoolVector2Array( 10.6913, 6.49119, 0.182838, 8.92056, -8.3482, 7.96011, -11.625, 1.06749, -3.82845, -1.41838, 6.17151, -1.47487, 11.7647, 0.954493 )
 
-[sub_resource type="CapsuleShape2D" id=9]
+[sub_resource type="CapsuleShape2D" id=11]
 radius = 4.58802
 height = 6.36237
 
@@ -369,30 +370,33 @@ animation = "idle"
 [node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource( 28 )
 
+[node name="HurtAudioStream" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource( 35 )
+
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 playback_speed = 1.3
 anims/attack = SubResource( 3 )
 anims/dying = SubResource( 4 )
 anims/idle = SubResource( 5 )
-anims/idle_night = SubResource( 11 )
-anims/walk = SubResource( 6 )
-anims/walk_night = SubResource( 10 )
+anims/idle_night = SubResource( 6 )
+anims/walk = SubResource( 7 )
+anims/walk_night = SubResource( 8 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2( -0.169491, 1.8079 )
 scale = Vector2( 0.6, 0.6 )
-shape = SubResource( 7 )
+shape = SubResource( 9 )
 
 [node name="Attack" parent="." instance=ExtResource( 17 )]
 
 [node name="LightOccluder2D" type="LightOccluder2D" parent="."]
 position = Vector2( 0.0564957, -1.01694 )
-occluder = SubResource( 8 )
+occluder = SubResource( 10 )
 
 [node name="PunchArea" type="Area2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="PunchArea"]
 position = Vector2( 2.11106, -9.30733 )
 rotation = 1.5708
-shape = SubResource( 9 )
+shape = SubResource( 11 )
 disabled = true
