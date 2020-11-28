@@ -3,6 +3,8 @@ extends KinematicBody2D
 signal died
 
 var speed = 250
+var flash_time = 0.2
+var flash_number = 2
 
 var walk_dir = Vector2(0.0, 0.0)
 var velocity = Vector2(0.0, 0.0)
@@ -10,6 +12,9 @@ var attacking = false
 var disabled = false
 
 var current_health = 3
+var current_flash_number = 0
+
+onready var woof_sound = preload("res://assets/sounds/woof.wav")
 
 func _ready():
 	pass # Replace with function body.
@@ -62,7 +67,7 @@ func end_attack():
 
 func bark():
 	AudioManager.on_sound(self)
-	$AudioStreamPlayer2D.stream = load("res://assets/sounds/woof.wav")
+	$AudioStreamPlayer2D.stream = woof_sound
 	$AudioStreamPlayer2D.play()
 
 func set_speed(new_speed):
@@ -80,6 +85,31 @@ func disable():
 	disabled = true
 
 func hurt():
+	flash_white()
 	current_health = max(0, current_health-1)
 	if current_health == 0:
 		emit_signal("died")
+
+func flash_white():
+	current_flash_number = 0
+	if not has_node("FlashTimer"):
+		var flash_timer = Timer.new()
+		flash_timer.name = "FlashTimer"
+		flash_timer.set_autostart(true)
+		flash_timer.set_wait_time(flash_time)
+		flash_timer.connect("timeout", self, "toggle_white")
+		add_child(flash_timer)
+
+func toggle_white():
+	if use_parent_material:
+		var mat = load("res://shaders/HitMaterial.tres")
+		use_parent_material = false
+		set_material(mat)
+	else:
+		use_parent_material = true
+		set_material(null)
+		current_flash_number += 1
+		if current_flash_number == flash_number:
+			var timer = $FlashTimer
+			remove_child(timer)
+			timer.queue_free()
