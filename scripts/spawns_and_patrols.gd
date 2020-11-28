@@ -1,15 +1,17 @@
-extends Node
+extends Node2D
+
+class_name SpawnsAndPatrols
 
 const VILLAGER = preload("res://nodes/villager/Villager.tscn")
 const PATROL = preload("res://nodes/villager/actions/Patrol.tscn")
 
-onready var patrols = $Patrols.get_children()
+onready var patrols = get_all_patrols()
 
-onready var spawn_points = $Spawns.get_children()
+onready var spawn_points = get_all_spawns()
 
 # OverheadTileMap needs to be below the villagers in the scene tree so it looks
 # like the villagers are coming out of the houses
-onready var overhead_tile_map_position = get_node("../../OverheadTileMap").get_position_in_parent()
+onready var overhead_tile_map_position = get_overhead_tile_map().get_position_in_parent()
 
 # Timeout in seconds for spawning villagers
 export(float) var spawn_timeout = 1.0
@@ -45,14 +47,26 @@ func spawn_villager():
 	villager.add_child(patrol)
 	villager.add_to_group(self.name)
 
-	get_node("../../../Map").add_child(villager)
+	get_map().add_child(villager)
 
 	# Move child above OverheadTileMap position in scene tree so they spawn
 	# inside the buildings
-	get_node("../../../Map").move_child(villager, overhead_tile_map_position - 1)
+	get_map().move_child(villager, overhead_tile_map_position - 1)
 
 func random_spawn_position():
 	return spawn_points[randi() % len(spawn_points)].position
 
 func random_patrol():
 	return patrols[randi() % len(patrols)]
+
+func get_all_patrols():
+	return $Patrols.get_children()
+
+func get_all_spawns():
+	return $Spawns.get_children()
+
+func get_overhead_tile_map():
+	return get_node("../../OverheadTileMap")
+
+func get_map():
+	return get_node("../../../Map")
