@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/aargh.ogg-ebb1cd5667dabd74cee6d21e1f6f9452.oggstr"
+
+[deps]
+
+source_file="res://assets/sounds/aargh.ogg"
+dest_files=[ "res://.import/aargh.ogg-ebb1cd5667dabd74cee6d21e1f6f9452.oggstr" ]
+
+[params]
+
+loop=false
+loop_offset=0
