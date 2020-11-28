@@ -11,7 +11,7 @@ var music_paths = {
 	"ping_3": ["res://assets/sounds/ping_3.ogg", -3],
 	"intro_chord": ["res://assets/sounds/intro_chord.ogg", -3],
 	"cockerel": ["res://assets/sounds/cockerel.wav", -3],
-	"owl": ["res://assets/sounds/owl.wav", -3]
+	"owl": ["res://assets/sounds/owl.wav", 3]
 }
 
 var stream_library = {}
