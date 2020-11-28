@@ -42,6 +42,8 @@ func start_exposition(endless_bool):
 func deferred_exposition():
 	clear_scene()
 	var exposition = exposition_scene.instance()
+	if endless:
+		exposition.enable_endless_mode()
 	exposition.connect("continue_to_game", self, "start_new_game")
 	add_child(exposition)
 	initiate_fade_to_transparent("remove_transition_overlay")
