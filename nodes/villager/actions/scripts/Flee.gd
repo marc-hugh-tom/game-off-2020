@@ -3,7 +3,7 @@ extends "res://nodes/villager/actions/scripts/Action.gd"
 class_name Flee
 
 const FLEE_SOUNDS = [
-	"res://assets/sounds/argh.wav",
+	"res://assets/sounds/argh.ogg",
 	"res://assets/sounds/scream.ogg",
 	"res://assets/sounds/aargh.ogg",
 	"res://assets/sounds/gasp.ogg",
