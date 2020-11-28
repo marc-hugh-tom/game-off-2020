@@ -15,7 +15,7 @@ var current_health = 3
 var current_flash_number = 0
 var current_strength = 0
 
-onready var woof_sound = preload("res://assets/sounds/woof.wav")
+onready var howl_sound = preload("res://assets/sounds/howl.ogg")
 onready var wimper_sound = preload("res://assets/sounds/wimper.wav")
 
 func _ready():
@@ -69,7 +69,7 @@ func end_attack():
 
 func bark():
 	AudioManager.on_sound(self)
-	$AudioStreamPlayer2D.stream = woof_sound
+	$AudioStreamPlayer2D.stream = howl_sound
 	$AudioStreamPlayer2D.play()
 
 func wimper():
