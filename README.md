@@ -47,6 +47,14 @@ The script will output the modified sprites in `assets`, as well as a file `asse
 
 "male_hurt12.ogg" by micahlg of Freesound.org
 
+"Oh Shit.wav" by pyro13djt of Freesound.org
+
+"crit - Shout - scream" by albertgrinyo of Freesound.org
+
+"oh my lord!.wav" by Reitanna of Freesound.org
+
+"Oh no Oh crap" by AmeAngelofSin of Freesound.org
+
 ## Images
 
 Moon image modified from https://commons.wikimedia.org/wiki/File:Supermoon_Nov-14-2016-minneapolis.jpg
