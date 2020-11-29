@@ -160,7 +160,13 @@ func on_enter():
 	current_state = AimTowardsWerewolf.new(self)
 
 func on_exit():
+	if not current_state.get("laser") == null:
+		current_state.laser.queue_free()
 	current_state = Null.new()
+
+func on_die():
+	if not current_state.get("laser") == null:
+		current_state.laser.queue_free()
 
 func physics_process(delta):
 	current_state = current_state.physics_process(delta)
