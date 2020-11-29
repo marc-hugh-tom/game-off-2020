@@ -28,7 +28,7 @@ class MoveAlongPath:
 	var curve: Curve2D
 	var offset: float
 	
-	func _init(in_curve: Curve2D, villager: Villager):
+	func _init(in_curve: Curve2D, villager):
 		self.curve = in_curve
 		self.offset = in_curve.get_closest_offset(villager.position)
 
@@ -54,12 +54,12 @@ class MoveToPath:
 	var route: PoolVector2Array
 	var curve: Curve2D
 	
-	func _init(path: Path2D, villager: Villager, navigation: Navigation2D):
+	func _init(path: Path2D, villager, navigation: Navigation2D):
 		var closest_point = path.get_curve().get_closest_point(villager.position)
 		self.route = navigation.get_simple_path(villager.position, closest_point)
 		self.curve = path.get_curve()
 
-	func physics_process(delta: float, villager: Villager):
+	func physics_process(delta: float, villager):
 		if route.size() <= 0:
 			# we have reached the end of our path, we should now switch
 			# to following the curve instead of moving towards it
@@ -67,8 +67,8 @@ class MoveToPath:
 
 		var target = route[0]
 		var direction = (target - villager.position).normalized()
-		villager.set_rotation_with_delta(target, delta)
 		villager.move_and_slide(direction * villager.get_run_speed())
+		villager.set_rotation_with_delta(target, delta)
 		if villager.position.distance_squared_to(target) < 10.0:
 			route.remove(0)
 		return self

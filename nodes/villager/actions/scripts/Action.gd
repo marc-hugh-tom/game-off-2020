@@ -2,9 +2,9 @@ extends "res://nodes/villager/actions/scripts/ActionBase.gd"
 
 var is_active = false
 
-var villager: Villager
+var villager
 
-func init(in_villager: Villager):
+func init(in_villager):
 	villager = in_villager
 
 func get_animation_player() -> AnimationPlayer:

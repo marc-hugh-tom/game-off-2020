@@ -1,8 +1,8 @@
 extends "res://nodes/villager/senses/scripts/SenseBase.gd"
 
-var villager: Villager
+var villager
 
-func init(in_villager: Villager):
+func init(in_villager):
 	villager = in_villager
 
 func on_die():

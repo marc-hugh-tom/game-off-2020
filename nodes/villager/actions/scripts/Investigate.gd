@@ -24,7 +24,7 @@ class Alert:
 	var pause_time = 1.0
 	var route: PoolVector2Array
 
-	func _init(in_route: PoolVector2Array, villager: Villager):
+	func _init(in_route: PoolVector2Array, villager):
 		self.route = in_route
 		if TimeManager.is_day():
 			villager.get_animation_player().play("idle")
@@ -48,14 +48,14 @@ class MoveToNoise:
 	var target: Vector2
 	var time_looking = 0
 	
-	func _init(in_route: PoolVector2Array, villager: Villager):
+	func _init(in_route: PoolVector2Array, villager):
 		self.route = in_route
 		if TimeManager.is_day():
 			villager.get_animation_player().play("walk")
 		else:
 			villager.get_animation_player().play("walk_night")
 
-	func physics_process(delta: float, villager: Villager):
+	func physics_process(delta: float, villager):
 		time_looking += delta
 		
 		if route.size() <= 0 or time_looking > (10 * 1000):
@@ -66,8 +66,8 @@ class MoveToNoise:
 
 		target = route[0]
 		var direction = (target - villager.position).normalized()
-		villager.set_rotation_with_delta(target, delta)
 		villager.move_and_slide(direction * villager.get_run_speed())
+		villager.set_rotation_with_delta(target, delta)
 		var distance_to = villager.position.distance_squared_to(target)
 		if distance_to < 20.0:
 			route.remove(0)
