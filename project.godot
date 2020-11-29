@@ -24,11 +24,6 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://scripts/Moon.gd"
 }, {
-"base": "Node2D",
-"class": "SpawnsAndPatrols",
-"language": "GDScript",
-"path": "res://scripts/spawns_and_patrols.gd"
-}, {
 "base": "KinematicBody2D",
 "class": "Villager",
 "language": "GDScript",
@@ -38,7 +33,6 @@ _global_script_class_icons={
 "Attack": "",
 "Flee": "",
 "Moon": "",
-"SpawnsAndPatrols": "",
 "Villager": ""
 }
 
