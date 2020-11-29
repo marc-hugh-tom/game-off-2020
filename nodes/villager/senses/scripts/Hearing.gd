@@ -15,11 +15,9 @@ func on_sound(node):
 		villager.set_emotion(Villager.Emotion.ANGER, 0.0)
 
 func within_hearing_distance(path: PoolVector2Array):
-	return path_length_squared(path) < hearing_distance_squared
+	return len(path) >= 2 and path_length_squared(path) < hearing_distance_squared
 
-func path_length_squared(path: PoolVector2Array):
-	assert(len(path) >= 2)
-	
+func path_length_squared(path: PoolVector2Array):	
 	var length = 0
 	for i in len(path) - 1:
 		var a = path[i]
