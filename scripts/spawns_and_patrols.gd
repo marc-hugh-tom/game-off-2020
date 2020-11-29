@@ -59,7 +59,7 @@ func spawn_shooter():
 	villager.level_navigation_path = @"../Navigation2D"
 	villager.werewolf_path = @"../Werewolf"
 	villager.moon_path = @"../../HUD/Moon"
-	villager.position = Vector2(460, 140) #random_spawn_position()
+	villager.position = random_spawn_position()
 
 	var patrol = PATROL.instance()
 	patrol.add_child(random_patrol().duplicate())

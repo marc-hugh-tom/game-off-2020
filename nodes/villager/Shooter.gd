@@ -331,11 +331,18 @@ func do_attack():
 	_is_attacking = true
 	$AnimationPlayer.play("attack")
 
+func spawn_bullet():
+	var bullet_scene = load("res://nodes/Bullet.tscn")
+	var bullet = bullet_scene.instance()
+	bullet.rotation = rotation + PI/2
+	bullet.position = position
+	bullet.werewolf = werewolf
+	get_parent().add_child(bullet)
+
 func _on_animation_finished(animation):
 	if animation == "attack":
 		_can_attack = true
 		_is_attacking = false
-		$PunchArea/CollisionShape2D.disabled = true
 
 func flash_white():
 	current_flash_number = 0

@@ -348,14 +348,14 @@ script = ExtResource( 1 )
 use_parent_material = true
 rotation = -1.5708
 frames = SubResource( 1 )
-animation = "idle"
+animation = "walk"
 
 [node name="Body" type="AnimatedSprite" parent="."]
 light_mask = 2
 use_parent_material = true
 rotation = -1.5708
 frames = SubResource( 2 )
-animation = "idle"
+animation = "attack"
 
 [node name="Idle" parent="." instance=ExtResource( 3 )]
 
