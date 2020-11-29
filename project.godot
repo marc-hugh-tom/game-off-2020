@@ -15,6 +15,11 @@ _global_script_classes=[ {
 "path": "res://nodes/villager/actions/scripts/Attack.gd"
 }, {
 "base": "Node2D",
+"class": "AttackShoot",
+"language": "GDScript",
+"path": "res://nodes/villager/actions/scripts/AttackShoot.gd"
+}, {
+"base": "Node2D",
 "class": "Flee",
 "language": "GDScript",
 "path": "res://nodes/villager/actions/scripts/Flee.gd"
@@ -25,14 +30,22 @@ _global_script_classes=[ {
 "path": "res://scripts/Moon.gd"
 }, {
 "base": "KinematicBody2D",
+"class": "Shooter",
+"language": "GDScript",
+"path": "res://nodes/villager/Shooter.gd"
+}, {
+"base": "KinematicBody2D",
 "class": "Villager",
 "language": "GDScript",
 "path": "res://nodes/villager/Villager.gd"
 } ]
 _global_script_class_icons={
 "Attack": "",
+"AttackShoot": "",
 "Flee": "",
 "Moon": "",
+<<<<<<< HEAD
+"Shooter": "",
 "Villager": ""
 }
 

@@ -56,11 +56,6 @@ animations = [ {
 "name": "idle",
 "speed": 5.0
 }, {
-"frames": [ ExtResource( 9 ), ExtResource( 10 ), ExtResource( 12 ), ExtResource( 11 ), ExtResource( 25 ) ],
-"loop": true,
-"name": "walk",
-"speed": 5.0
-}, {
 "frames": [ ExtResource( 26 ), ExtResource( 27 ), ExtResource( 22 ), ExtResource( 24 ), ExtResource( 23 ) ],
 "loop": true,
 "name": "attack",
@@ -69,6 +64,11 @@ animations = [ {
 "frames": [ ExtResource( 19 ), ExtResource( 18 ), ExtResource( 21 ), ExtResource( 20 ) ],
 "loop": true,
 "name": "dying",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 9 ), ExtResource( 10 ), ExtResource( 12 ), ExtResource( 11 ), ExtResource( 25 ) ],
+"loop": true,
+"name": "walk",
 "speed": 5.0
 }, {
 "frames": [ ExtResource( 34 ) ],
@@ -348,14 +348,14 @@ script = ExtResource( 1 )
 use_parent_material = true
 rotation = -1.5708
 frames = SubResource( 1 )
-animation = "idle"
+animation = "walk"
 
 [node name="Body" type="AnimatedSprite" parent="."]
 light_mask = 2
 use_parent_material = true
 rotation = -1.5708
 frames = SubResource( 2 )
-animation = "idle"
+animation = "attack"
 
 [node name="Idle" parent="." instance=ExtResource( 3 )]
 
