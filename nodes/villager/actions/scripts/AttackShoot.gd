@@ -116,6 +116,7 @@ class SearchForWerewolf:
 		var direction = (target - villager.position).normalized()
 		villager.set_rotation_with_delta(target, delta)
 		villager.move_and_slide(direction * villager.get_run_speed())
+		villager.get_animation_player().play("walk")
 		var distance_to = villager.position.distance_squared_to(target)
 		if distance_to < 20.0:
 			route.remove(0)
@@ -137,7 +138,7 @@ class LookAround:
 	func physics_process(delta):		
 		if attack.can_see_werewolf():
 			return AimTowardsWerewolf.new(attack)
-
+		attack.villager.get_animation_player().play("idle")
 		self.pause_time -= delta
 		if pause_time <= 0:
 			attack.villager.set_emotion(Villager.Emotion.ANGER, 0.0)
