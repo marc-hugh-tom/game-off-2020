@@ -335,7 +335,7 @@ func spawn_bullet():
 	var bullet_scene = load("res://nodes/Bullet.tscn")
 	var bullet = bullet_scene.instance()
 	bullet.rotation = rotation + PI/2
-	bullet.position = position
+	bullet.position = get_gun_position()
 	bullet.werewolf = werewolf
 	get_parent().add_child(bullet)
 
@@ -367,3 +367,6 @@ func toggle_white():
 			var timer = $FlashTimer
 			remove_child(timer)
 			timer.queue_free()
+
+func get_gun_position():
+	return(position + Vector2(5, -15).rotated(rotation))

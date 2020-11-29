@@ -54,10 +54,15 @@ class DoAttack:
 class AimTowardsWerewolf:
 	var attack: AttackShoot
 	var countdown = 2.0
+	var laser: Line2D
 	
 	func _init(in_attack: AttackShoot):
 		self.attack = in_attack
 		in_attack.villager.get_animation_player().play("idle")
+		self.laser = Line2D.new()
+		self.laser.set_width(1.0)
+		self.laser.set_default_color(Color(1.0, 0.2, 0.2, 0.5))
+		in_attack.villager.get_parent().add_child(self.laser)
 
 	func physics_process(delta):
 		var villager = attack.villager
@@ -65,12 +70,18 @@ class AimTowardsWerewolf:
 		if attack.can_see_werewolf():
 			countdown -= max(0.0, delta)
 			if countdown <= 0.0:
+				self.laser.queue_free()
 				return DoAttack.new(attack)
 			var werewolf = villager.werewolf
 			var towards_werewolf = (werewolf.position - villager.position).normalized()
 			villager.set_rotation_with_delta(villager.position + towards_werewolf, delta)
+			self.laser.set_points(PoolVector2Array([
+				villager.get_gun_position(),
+				villager.werewolf.position
+			]))
 			return self
 		else:
+			self.laser.queue_free()
 			return SearchForWerewolf.new(attack)
 
 	func get_label():
