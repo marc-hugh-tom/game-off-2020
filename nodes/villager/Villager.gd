@@ -275,6 +275,7 @@ func set_rotation_with_delta(target, delta):
 	# issues when rotation from an angle counter-clockwise from Vector2(0, 1)
 	# and an angle clockwise from Vector2(0, 1). The villager will rotate the
 	# long way round instead of the short way round
+	delta = max(delta, 0)
 	var target_rotation = PI + Vector2(0, 1).angle_to(target - position)
 	var rotation_diff = rotation - target_rotation
 	if rotation_diff > PI:

@@ -43,8 +43,8 @@ class DoAttack:
 			var villager = attack.villager
 			var werewolf = villager.werewolf
 			var towards_werewolf = (werewolf.position - villager.position).normalized()
-			villager.set_rotation_with_delta(villager.position + towards_werewolf, delta)
 			villager.move_and_slide(towards_werewolf * villager.get_walk_speed())
+			villager.set_rotation_with_delta(villager.position + towards_werewolf, delta)
 			return self
 		else:
 			return RunTowardsWerewolf.new(attack)
@@ -71,8 +71,8 @@ class RunTowardsWerewolf:
 
 			var werewolf = villager.werewolf
 			var towards_werewolf = (werewolf.position - villager.position).normalized()
-			villager.set_rotation_with_delta(villager.position + towards_werewolf, delta)
 			villager.move_and_slide(towards_werewolf * villager.get_run_speed())
+			villager.set_rotation_with_delta(villager.position + towards_werewolf, delta)
 			return self
 		else:
 			return SearchForWerewolf.new(attack)
@@ -107,8 +107,8 @@ class SearchForWerewolf:
 		var villager = attack.villager
 		target = route[0]
 		var direction = (target - villager.position).normalized()
-		villager.set_rotation_with_delta(target, delta)
 		villager.move_and_slide(direction * villager.get_run_speed())
+		villager.set_rotation_with_delta(target, delta)
 		var distance_to = villager.position.distance_squared_to(target)
 		if distance_to < 20.0:
 			route.remove(0)

@@ -67,8 +67,8 @@ class MoveToPath:
 
 		var target = route[0]
 		var direction = (target - villager.position).normalized()
-		villager.set_rotation_with_delta(target, delta)
 		villager.move_and_slide(direction * villager.get_run_speed())
+		villager.set_rotation_with_delta(target, delta)
 		if villager.position.distance_squared_to(target) < 10.0:
 			route.remove(0)
 		return self
