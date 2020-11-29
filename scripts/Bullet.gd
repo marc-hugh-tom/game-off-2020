@@ -1,6 +1,6 @@
 extends KinematicBody2D
 
-var bullet_speed = 300.0
+var bullet_speed = 800.0
 var direction = Vector2(-1, 0)
 var werewolf
 
