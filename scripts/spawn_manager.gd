@@ -12,4 +12,4 @@ func can_spawn(spawn_node):
 		return true
 	
 	var previous_spawn_time = spawn_times[spawn_node]
-	return previous_spawn_time + min_time_between_spawns >= OS.get_unix_time()
+	return OS.get_unix_time() > (previous_spawn_time + min_time_between_spawns)
