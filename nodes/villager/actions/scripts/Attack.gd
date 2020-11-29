@@ -95,9 +95,9 @@ class SearchForWerewolf:
 	func physics_process(delta):
 		time_looking += delta
 		
-		if route.size() <= 0 or time_looking > (10 * 1000):
+		if route.size() <= 0 or time_looking > (2 * 1000):
 			# we have reached the end of our path, or we have
-			# searched for longer than 10 seconds 
+			# searched for longer than 2 seconds
 			# we should now switch to investigating whatever we found
 			return LookAround.new(attack)
 			
