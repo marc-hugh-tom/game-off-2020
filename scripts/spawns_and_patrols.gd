@@ -33,14 +33,17 @@ func _ready():
 func spawn_villager_timeout():
 	var num_villagers = len(get_tree().get_nodes_in_group(self.name))
 	if num_villagers < min_num_villagers:
-		spawn_villager()
+		var spawn = random_spawn()
+		
+		if SpawnManager.can_spawn(spawn):
+			spawn_villager(spawn)
 
-func spawn_villager():
+func spawn_villager(spawn):
 	var villager = VILLAGER.instance()
 	villager.level_navigation_path = @"../Navigation2D"
 	villager.werewolf_path = @"../Werewolf"
 	villager.moon_path = @"../../HUD/Moon"
-	villager.position = random_spawn_position()
+	villager.position = spawn.position
 
 	var patrol = PATROL.instance()
 	patrol.add_child(random_patrol().duplicate())
@@ -53,8 +56,10 @@ func spawn_villager():
 	# inside the buildings
 	get_map().move_child(villager, overhead_tile_map_position - 1)
 
-func random_spawn_position():
-	return spawn_points[randi() % len(spawn_points)].position
+	SpawnManager.on_spawn(spawn)
+
+func random_spawn():
+	return spawn_points[randi() % len(spawn_points)]
 
 func random_patrol():
 	return patrols[randi() % len(patrols)]

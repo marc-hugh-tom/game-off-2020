@@ -52,6 +52,7 @@ config/icon="res://icon.png"
 
 AudioManager="*res://scripts/audio_manager.gd"
 TimeManager="*res://scripts/time_manager.gd"
+SpawnManager="*res://scripts/spawn_manager.gd"
 
 [debug]
 
