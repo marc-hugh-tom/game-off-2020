@@ -57,6 +57,8 @@ The script will output the modified sprites in `assets`, as well as a file `asse
 
 "Weapon_Revolver_Shots_Stereo.wav" by Nox_Sound of Freesound.org
 
+"howling" by PhonosUPF of Freesound.org
+
 ## Images
 
 Moon image modified from https://commons.wikimedia.org/wiki/File:Supermoon_Nov-14-2016-minneapolis.jpg
