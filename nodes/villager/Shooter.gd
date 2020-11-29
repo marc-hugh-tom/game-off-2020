@@ -31,7 +31,7 @@ onready var werewolf = get_node(werewolf_path)
 export(NodePath) var moon_path
 onready var moon: Moon = get_node(moon_path)
 
-onready var DeadVillager = load("res://nodes/villager/DeadVillager.tscn")
+onready var DeadShooter = load("res://nodes/villager/DeadShooter.tscn")
 
 export(float) var blood = 0.25
 
@@ -310,7 +310,7 @@ func die():
 	
 	moon.amend_crescent(blood)
 	
-	var dead = DeadVillager.instance()
+	var dead = DeadShooter.instance()
 	dead.position = position
 	dead.rotation = rotation
 	get_parent().add_child(dead)
