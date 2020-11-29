@@ -15,6 +15,9 @@ onready var overhead_tile_map_position = get_node("../../OverheadTileMap").get_p
 # Timeout in seconds for spawning villagers
 export(float) var spawn_timeout = 1.0
 
+# Probability of spawning a shooter
+export(float) var shooter_prob = 0.3
+
 # Every spawn_timeout seconds the map will check how many villagers are in the
 # scene and spawn a new one at a random spawn point
 export(int) var min_num_villagers = 5
@@ -30,11 +33,12 @@ func _ready():
 	timer.start()
 
 func spawn_villager_timeout():
-	# DEBUG
-	spawn_shooter()
 	var num_villagers = len(get_tree().get_nodes_in_group(self.name))
 	if num_villagers < min_num_villagers:
-		spawn_villager()
+		if randf() < shooter_prob:
+			spawn_shooter()
+		else:
+			spawn_villager()
 
 func spawn_villager():
 	var villager = VILLAGER.instance()
