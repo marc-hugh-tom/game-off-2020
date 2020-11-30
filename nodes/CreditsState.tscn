@@ -14,6 +14,7 @@ font_data = SubResource( 1 )
 font_path = "res://raw_assets/font/Aquifer.ttf"
 
 [sub_resource type="DynamicFont" id=4]
+size = 24
 font_data = SubResource( 3 )
 
 [node name="CreditsState" type="Node2D"]
@@ -50,9 +51,9 @@ __meta__ = {
 [node name="Column" type="VBoxContainer" parent="."]
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_top = 136.0
+margin_top = 160.0
 margin_right = 1024.0
-margin_bottom = 576.0
+margin_bottom = 600.0
 custom_constants/separation = 20
 __meta__ = {
 "_edit_use_anchors_": false
@@ -60,39 +61,35 @@ __meta__ = {
 
 [node name="Text" type="Label" parent="Column"]
 margin_right = 1024.0
-margin_bottom = 282.0
+margin_bottom = 294.0
 custom_fonts/font = SubResource( 4 )
 text = "Design, programming, and art
-Tom Craven
 Hugh Grigg
 Marc Jones
+Tom Craven
 
 Music
 Tom Craven
 
-Moon image modified from https://commons.wikimedia.org/wiki/File:Supermoon_Nov-14-2016-minneapolis.jpg
-
-Fonts used are:
-Scratch by KohanTheBarbarian
-http://fontstruct.com/fontstructions/show/959231
-Aquifer Regular Font by JLH Fonts
-http://www.publicdomainfiles.com/show_file.php?id=13949887208668"
+A wide range of images, sounds, and fonts were used in this project.
+For a full list of attributions, please see the game's GitHub repository:
+https://github.com/marc-hugh-tom/game-off-2020"
 align = 1
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="MarginContainer" type="CenterContainer" parent="Column"]
-margin_top = 302.0
+margin_top = 314.0
 margin_right = 1024.0
 margin_bottom = 440.0
 size_flags_vertical = 3
 
 [node name="MenuButton" type="Button" parent="Column/MarginContainer"]
 margin_left = 384.0
-margin_top = 44.0
+margin_top = 38.0
 margin_right = 640.0
-margin_bottom = 94.0
+margin_bottom = 88.0
 rect_min_size = Vector2( 256, 50 )
 size_flags_horizontal = 0
 size_flags_vertical = 0
