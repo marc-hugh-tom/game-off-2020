@@ -18,6 +18,8 @@ var stream_library = {}
 
 var current_music
 
+var music_enabled = true
+
 var music = AudioStreamPlayer.new()
 
 func init():
@@ -55,10 +57,22 @@ func play_music(track):
 				stream_library[current_music].stop()
 			current_music = track
 			music.set_stream(stream_library[track])
-			stream_library[track].play()
+
+			if music_enabled:
+				stream_library[track].play()
 
 func stop_music():
 	if current_music != null:
 		stream_library[current_music].stop()
 	current_music = null
 
+func get_music_enabled():
+	return music_enabled
+
+func set_music_enabled(value):
+	music_enabled = value
+	if current_music:
+		if music_enabled:
+			stream_library[current_music].play()
+		else:
+			stream_library[current_music].stop()

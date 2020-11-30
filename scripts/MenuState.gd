@@ -55,6 +55,7 @@ func start_game():
 	werewolf_speed *= 8.0
 	$Werewolf.set_speed_scale(2.0)
 	$Menu/VBox.hide()
+	$Menu/MusicToggleButton.hide()
 
 func start_endless():
 	endless_bool = true

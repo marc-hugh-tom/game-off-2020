@@ -1,9 +1,10 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://nodes/Map.tscn" type="PackedScene" id=1]
 [ext_resource path="res://nodes/Health.tscn" type="PackedScene" id=2]
 [ext_resource path="res://scripts/PlayState.gd" type="Script" id=3]
 [ext_resource path="res://nodes/Clock.tscn" type="PackedScene" id=4]
+[ext_resource path="res://nodes/MusicToggleButton.tscn" type="PackedScene" id=5]
 [ext_resource path="res://nodes/ui/MenuTitleFont.tres" type="DynamicFont" id=7]
 [ext_resource path="res://nodes/Moon.tscn" type="PackedScene" id=10]
 [ext_resource path="res://nodes/ui/ButtonTheme.tres" type="Theme" id=11]
@@ -103,6 +104,8 @@ margin_bottom = 246.0
 rect_min_size = Vector2( 256, 50 )
 theme = ExtResource( 11 )
 text = "Quit To Menu"
+
+[node name="MusicToggleButton" parent="HUD/PauseMenu" instance=ExtResource( 5 )]
 
 [node name="StarveMenu" type="Control" parent="HUD"]
 visible = false

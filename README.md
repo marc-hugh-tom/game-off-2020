@@ -63,6 +63,10 @@ The script will output the modified sprites in `assets`, as well as a file `asse
 
 Moon image modified from https://commons.wikimedia.org/wiki/File:Supermoon_Nov-14-2016-minneapolis.jpg
 
+Sound on icon by Yaroslav Samoylov of thenounproject.com
+
+Sound off icon by Yaroslav Samoylov of thenounproject.com
+
 ## Fonts
 
 Fonts used are:
