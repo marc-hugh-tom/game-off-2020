@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=2]
+[gd_scene load_steps=22 format=2]
 
 [ext_resource path="res://scripts/MenuState.gd" type="Script" id=1]
 [ext_resource path="res://shaders/Moon.shader" type="Shader" id=2]
@@ -16,6 +16,7 @@
 [ext_resource path="res://assets/sprites/menu/werewolf/side_walk_09.png" type="Texture" id=14]
 [ext_resource path="res://assets/sprites/menu/werewolf/side_walk_10.png" type="Texture" id=15]
 [ext_resource path="res://assets/sprites/menu/werewolf/side_walk_01.png" type="Texture" id=16]
+[ext_resource path="res://nodes/MusicToggleButton.tscn" type="PackedScene" id=17]
 
 [sub_resource type="ShaderMaterial" id=1]
 shader = ExtResource( 2 )
@@ -121,6 +122,8 @@ margin_bottom = 210.0
 rect_min_size = Vector2( 0, 50 )
 theme = ExtResource( 5 )
 text = "Credits"
+
+[node name="MusicToggleButton" parent="Menu" instance=ExtResource( 17 )]
 
 [node name="Werewolf" type="AnimatedSprite" parent="."]
 position = Vector2( -64, 540 )

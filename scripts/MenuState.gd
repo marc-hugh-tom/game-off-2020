@@ -34,7 +34,7 @@ func _ready():
 	spawn_initial_clouds()
 	setup_cloud_timer()
 	setup_werewolf()
-
+	
 func setup_werewolf():
 	$Werewolf.play("default")
 	werewolf_bounds.append(-$Werewolf.get_scale().x * 
@@ -55,6 +55,7 @@ func start_game():
 	werewolf_speed *= 8.0
 	$Werewolf.set_speed_scale(2.0)
 	$Menu/VBox.hide()
+	$Menu/MusicToggleButton.hide()
 
 func start_endless():
 	endless_bool = true
