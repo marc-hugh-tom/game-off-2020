@@ -67,6 +67,8 @@ Sound on icon by Yaroslav Samoylov of thenounproject.com
 
 Sound off icon by Yaroslav Samoylov of thenounproject.com
 
+Colours from the CC-29 palette by Alpha6 were used for some sprites (https://lospec.com/palette-list/cc-29)
+
 ## Fonts
 
 Fonts used are:
