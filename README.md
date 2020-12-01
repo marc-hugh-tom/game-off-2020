@@ -1,7 +1,12 @@
-# game-off-2020
-Our entry for the GitHub Game Off 2020 game jam
+# Blood Moon - GitHub Game Off 2020
 
-Godot version v3.2.2.stable.official
+Made for the GitHub Game Off 2020, which had the theme "moonshot".
+
+In Blood Moon you're a werewolf, whose senses and strength increase at night when the moon is high! Try and survive for 5 nights to be turned back into a human. There's also an endless mode to test your abilities. Best played fullscreen.
+
+Here we are interpreting moonshot as using the time when the moon is highest as your "shot" to kill as many enemies as possible.
+
+Godot version v3.2.3.stable.official
 
 ## Creating sprites with different day / night colours
 
