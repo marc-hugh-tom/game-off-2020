@@ -1,16 +1,10 @@
 extends Button
 
-var sound_on_texture = ImageTexture.new()
-var sound_off_texture = ImageTexture.new()
+var sound_on_texture = preload("res://assets/sprites/menu/music_on.svg")
+var sound_off_texture = preload("res://assets/sprites/menu/music_off.svg")
 
 func _ready():
 	connect("button_up", self, "toggle_music")
-
-	sound_on_texture.load(
-		"res://assets/sprites/menu/music_on.svg")
-	sound_off_texture.load(
-		"res://assets/sprites/menu/music_off.svg")
-		
 	if AudioManager.get_music_enabled():
 		self.set_button_icon(sound_on_texture)
 	else:
